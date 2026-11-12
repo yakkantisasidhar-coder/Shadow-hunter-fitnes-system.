@@ -38,7 +38,7 @@ import { useAuth } from '../../context/AuthContext';
 
 interface DesktopSidebarProps {
   currentScreen: string;
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
   collapsed: boolean;
   onToggleCollapse: () => void;
 }

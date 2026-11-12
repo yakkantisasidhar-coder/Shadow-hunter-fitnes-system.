@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Lock, Shield, Smartphone, Key, Download, Trash2, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { api } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 
 interface PrivacySecurityScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
 }
 
 export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ onNavigate }) => {
