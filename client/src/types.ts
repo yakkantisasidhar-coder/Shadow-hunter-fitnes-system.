@@ -39,6 +39,20 @@ export interface UserProfile {
   subscriptionTier: 'free' | 'monthly' | 'quarterly' | 'annual' | 'gym_collab';
   isSuspended?: boolean;
   avatarUrl?: string;
+  // Public Profile & Privacy Preferences
+  publicProfileEnabled?: boolean;
+  publicDisplayName?: string;
+  publicBio?: string;
+  privacySettings?: {
+    showBio: boolean;
+    showBadges: boolean;
+    showChallenges: boolean;
+    showConsistency: boolean;
+    showRankings: boolean;
+  };
+  districtRank?: number;
+  stateRank?: number;
+  nationalRank?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -227,6 +241,34 @@ export interface Gym {
   }>;
   branding?: GymBranding;
   gallery?: GymGalleryItem[];
+  // Public Profile & Website Integration
+  websiteUrl?: string;
+  websiteStatus?: 'unverified' | 'pending' | 'verified' | 'flagged';
+  websiteVerifiedAt?: string;
+  websiteVerifiedBy?: string;
+  whatsappBusinessNumber?: string;
+  businessEmail?: string;
+  country?: string;
+  state?: string;
+  district?: string;
+  locality?: string;
+  googleMapsUrl?: string;
+  equipmentList?: string[];
+  trainingServices?: string[];
+  districtRank?: number;
+  stateRank?: number;
+  nationalRank?: number;
+  verifiedRating?: number;
+  reviewCount?: number;
+  publicReviews?: Array<{
+    id: string;
+    userId: string;
+    userName: string;
+    rating: number;
+    comment: string;
+    date: string;
+    verified: boolean;
+  }>;
   createdAt: string;
 }
 
@@ -408,6 +450,47 @@ export interface GymTrainer {
   experienceYears: number;
   bio: string;
   assignedClientsCount: number;
+  // Public Trainer Profile additions
+  profilePhotoUrl?: string;
+  qualifications?: string[];
+  certifications?: Array<{
+    name: string;
+    issuingOrg: string;
+    year: number;
+    verified: boolean;
+  }>;
+  specializations?: string[];
+  associatedGyms?: Array<{
+    gymId: string;
+    gymName: string;
+  }>;
+  districtRank?: number;
+  stateRank?: number;
+  nationalRank?: number;
+  reviewCount?: number;
+  averageRating?: number;
+  ratingBreakdown?: {
+    5: number;
+    4: number;
+    3: number;
+    2: number;
+    1: number;
+  };
+  approvedReviews?: Array<{
+    id: string;
+    studentId: string;
+    studentName: string;
+    rating: number;
+    text: string;
+    date: string;
+    verifiedStudent: boolean;
+  }>;
+  achievements?: string[];
+  publicContact?: {
+    email?: string;
+    phone?: string;
+    showContact: boolean;
+  };
 }
 
 export interface GymAnnouncement {
@@ -645,11 +728,16 @@ export interface TeamInvite {
 // GYM & MEMBER RANKINGS
 // ==========================================
 
+export type RankingScope = 'district' | 'state' | 'national';
+
 export interface GymRankingItem {
   rank: number;
   gymId: string;
   gymName: string;
+  logoUrl?: string;
   city: string;
+  district?: string;
+  state?: string;
   activeAthletes: number;
   avgWorkoutMinutes: number;
   totalVolumeKg: number;
@@ -657,6 +745,11 @@ export interface GymRankingItem {
   complianceRate: string;
   score: number;
   period: 'monthly' | 'quarterly' | 'yearly';
+  movement?: 'up' | 'down' | 'same';
+  verifiedRating?: number;
+  reviewCount?: number;
+  websiteUrl?: string;
+  websiteStatus?: 'unverified' | 'pending' | 'verified' | 'flagged';
 }
 
 export interface MemberRankingItem {
@@ -667,12 +760,34 @@ export interface MemberRankingItem {
   avatarUrl?: string;
   gymId: string;
   gymName: string;
+  district?: string;
+  state?: string;
   fitnessLevel: string;
   workoutsCount: number;
   volumeKg: number;
   trainingMinutes: number;
   verifiedAchievementsCount: number;
   progressScore: number;
+  movement?: 'up' | 'down' | 'same';
+}
+
+export interface TrainerRankingItem {
+  rank: number;
+  trainerId: string;
+  name: string;
+  avatarUrl?: string;
+  gymId: string;
+  gymName: string;
+  district?: string;
+  state?: string;
+  specialty: string;
+  experienceYears: number;
+  averageRating: number;
+  reviewCount: number;
+  assignedClientsCount: number;
+  score: number;
+  movement?: 'up' | 'down' | 'same';
+  verifiedCertificationsCount: number;
 }
 
 // ==========================================

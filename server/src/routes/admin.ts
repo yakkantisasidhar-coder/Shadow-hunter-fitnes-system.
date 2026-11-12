@@ -921,4 +921,84 @@ adminRouter.get('/whatsapp-health', (_req, res) => {
   res.json({ integrations: overview, totals });
 });
 
+// ==========================================
+// SUPER ADMIN – PUBLIC PROFILE & WEBSITE VERIFICATION
+// ==========================================
+
+// Verify or Flag Gym Official Website
+adminRouter.post('/verify-gym-website', (req: AuthenticatedRequest, res: Response) => {
+  const { gymId, action, reviewNotes } = req.body; // action: 'verify' | 'flag' | 'unverify'
+  if (!gymId || !action) {
+    return res.status(400).json({ error: 'gymId and action are required.' });
+  }
+
+  const gym = dbStore.getData().gyms.find(g => g.id === gymId);
+  if (!gym) return res.status(404).json({ error: 'Gym not found.' });
+
+  const prevStatus = gym.websiteStatus;
+  if (action === 'verify') {
+    gym.websiteStatus = 'verified';
+    gym.websiteVerifiedAt = new Date().toISOString();
+    gym.websiteVerifiedBy = req.user?.id || 'admin';
+  } else if (action === 'flag') {
+    gym.websiteStatus = 'flagged';
+  } else {
+    gym.websiteStatus = 'unverified';
+  }
+
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'admin',
+    actorEmail: req.user?.email || 'admin@shadowhunter.com',
+    actorRole: 'super_admin',
+    action: `WEBSITE_${action.toUpperCase()}`,
+    targetType: 'gym',
+    targetId: gymId,
+    details: `Official website ${gym.websiteUrl} status updated from '${prevStatus}' to '${gym.websiteStatus}'. Notes: ${reviewNotes || 'Verified by compliance'}`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+  res.json({ success: true, gymId, websiteStatus: gym.websiteStatus, websiteUrl: gym.websiteUrl });
+});
+
+// Verify Trainer Certifications
+adminRouter.post('/verify-trainer-certification', (req: AuthenticatedRequest, res: Response) => {
+  const { trainerId, certName, verified } = req.body;
+  if (!trainerId || !certName) {
+    return res.status(400).json({ error: 'trainerId and certName are required.' });
+  }
+
+  const trainer = dbStore.getData().gymTrainers.find(t => t.id === trainerId);
+  if (!trainer) return res.status(404).json({ error: 'Trainer not found.' });
+
+  if (!trainer.certifications) trainer.certifications = [];
+  const cert = trainer.certifications.find(c => c.name.toLowerCase() === certName.toLowerCase());
+
+  if (cert) {
+    cert.verified = Boolean(verified);
+  } else {
+    trainer.certifications.push({
+      name: certName,
+      issuingOrg: 'Accredited Sports Institution',
+      year: new Date().getFullYear(),
+      verified: Boolean(verified)
+    });
+  }
+
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'admin',
+    actorEmail: req.user?.email || 'admin@shadowhunter.com',
+    actorRole: 'super_admin',
+    action: 'TRAINER_CERT_VERIFICATION',
+    targetType: 'user',
+    targetId: trainerId,
+    details: `Certification '${certName}' set to verified=${Boolean(verified)} for coach ${trainer.name}`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+  res.json({ success: true, trainerId, certifications: trainer.certifications });
+});
+
+
 

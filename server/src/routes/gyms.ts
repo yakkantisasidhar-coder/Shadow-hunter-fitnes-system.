@@ -1683,3 +1683,76 @@ gymsRouter.put('/:id/gallery/reorder', requireAuth, requireGymPermission('edit_g
   res.json({ success: true, gallery: currentItems });
 });
 
+// Update Gym Public Profile (Website, Contact, Facilities, Description)
+gymsRouter.put('/:id/public-profile', requireAuth, requireGymPermission('edit_gym_info'), (req: AuthenticatedRequest, res: Response) => {
+  const gymId = req.params.id as string;
+  const gym = dbStore.getData().gyms.find(g => g.id === gymId);
+  if (!gym) return res.status(404).json({ error: 'Gym facility not found' });
+
+  const {
+    name,
+    description,
+    websiteUrl,
+    whatsappBusinessNumber,
+    businessEmail,
+    address,
+    city,
+    district,
+    state,
+    country,
+    locality,
+    googleMapsUrl,
+    openingHours,
+    facilities,
+    equipmentList,
+    trainingServices,
+    logoUrl,
+    coverImageUrl
+  } = req.body;
+
+  // Validate Website URL if provided
+  if (websiteUrl !== undefined) {
+    if (websiteUrl && !websiteUrl.startsWith('https://')) {
+      return res.status(400).json({ error: 'Official website URL must be a valid, secure HTTPS address (https://...)' });
+    }
+    // If website was modified, mark as pending verification unless previously verified with same URL
+    if (gym.websiteUrl !== websiteUrl) {
+      gym.websiteUrl = websiteUrl;
+      gym.websiteStatus = websiteUrl ? 'pending' : 'unverified';
+    }
+  }
+
+  if (name) gym.name = name;
+  if (description !== undefined) gym.description = description;
+  if (whatsappBusinessNumber !== undefined) gym.whatsappBusinessNumber = whatsappBusinessNumber;
+  if (businessEmail !== undefined) gym.businessEmail = businessEmail;
+  if (address !== undefined) gym.address = address;
+  if (city !== undefined) gym.city = city;
+  if (district !== undefined) gym.district = district;
+  if (state !== undefined) gym.state = state;
+  if (country !== undefined) gym.country = country;
+  if (locality !== undefined) gym.locality = locality;
+  if (googleMapsUrl !== undefined) gym.googleMapsUrl = googleMapsUrl;
+  if (openingHours !== undefined) gym.openingHours = openingHours;
+  if (facilities && Array.isArray(facilities)) gym.facilities = facilities;
+  if (equipmentList && Array.isArray(equipmentList)) gym.equipmentList = equipmentList;
+  if (trainingServices && Array.isArray(trainingServices)) gym.trainingServices = trainingServices;
+  if (logoUrl) gym.logoUrl = logoUrl;
+  if (coverImageUrl) gym.coverImageUrl = coverImageUrl;
+
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'unknown',
+    actorEmail: req.user?.email || 'unknown',
+    actorRole: req.user?.role || 'gym_owner',
+    action: 'UPDATE_GYM_PUBLIC_PROFILE',
+    targetType: 'gym',
+    targetId: gymId,
+    details: `Updated public profile & website details for ${gym.name}`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+  res.json({ success: true, gym });
+});
+
+

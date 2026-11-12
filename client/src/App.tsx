@@ -74,6 +74,11 @@ import { GymAccessControlScreen } from './screens/admin/GymAccessControlScreen';
 import { AdminGymNetworkScreen } from './screens/admin/AdminGymNetworkScreen';
 import { AdminMyTeamScreen } from './screens/admin/AdminMyTeamScreen';
 
+// Public Profiles
+import { PublicGymProfileScreen } from './screens/public/PublicGymProfileScreen';
+import { PublicTrainerProfileScreen } from './screens/public/PublicTrainerProfileScreen';
+import { PublicMemberProfileScreen } from './screens/public/PublicMemberProfileScreen';
+
 function AppContent() {
   const { user, isLoading } = useAuth();
   const [currentScreen, setCurrentScreen] = useState<string>('home');
@@ -190,6 +195,14 @@ function AppContent() {
         return <GymCommunityScreen onNavigate={navigate} />;
       case 'leaderboards':
         return <LeaderboardsScreen onNavigate={navigate} />;
+
+      // Public Profiles
+      case 'public-gym':
+        return <PublicGymProfileScreen gymId={screenParam || 'gym-apex-1'} onNavigate={navigate} />;
+      case 'public-trainer':
+        return <PublicTrainerProfileScreen trainerId={screenParam || 'trainer-1'} onNavigate={navigate} />;
+      case 'public-member':
+        return <PublicMemberProfileScreen memberId={screenParam || 'user-athlete-1'} onNavigate={navigate} />;
 
       // Trainer Dashboard
       case 'trainer-dashboard':

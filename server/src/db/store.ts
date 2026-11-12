@@ -264,6 +264,110 @@ class DatabaseStore {
           }
         }
 
+        // Hydrate Gym Trainers with Public Profile & Review records
+        if (parsed.gymTrainers) {
+          parsed.gymTrainers.forEach((t, idx) => {
+            if (!t.profilePhotoUrl) {
+              t.profilePhotoUrl = idx === 0 
+                ? 'https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=300&q=80'
+                : 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=300&q=80';
+            }
+            if (!t.qualifications || t.qualifications.length === 0) {
+              t.qualifications = [
+                'B.Sc. Sports Science & Biomechanics',
+                'NSCA Certified Strength & Conditioning Specialist (CSCS)',
+                'Precision Nutrition Level 2 Master Coach'
+              ];
+            }
+            if (!t.certifications || t.certifications.length === 0) {
+              t.certifications = [
+                { name: 'CSCS - Strength Coach', issuingOrg: 'NSCA Global', year: 2021, verified: true },
+                { name: 'Olympic Weightlifting Coach Level 2', issuingOrg: 'USAW / IWF', year: 2022, verified: true },
+                { name: 'Clinical Sports Rehabilitation', issuingOrg: 'NASM', year: 2023, verified: true }
+              ];
+            }
+            if (!t.specializations || t.specializations.length === 0) {
+              t.specializations = ['Powerlifting', 'Hypertrophy Periodization', 'Athletic Conditioning', 'Rehabilitation'];
+            }
+            if (!t.associatedGyms || t.associatedGyms.length === 0) {
+              t.associatedGyms = [
+                { gymId: t.gymId || 'gym-apex-1', gymName: 'Apex Performance Athletic Club' }
+              ];
+            }
+            if (!t.districtRank) t.districtRank = idx + 1;
+            if (!t.stateRank) t.stateRank = idx + 2;
+            if (!t.nationalRank) t.nationalRank = idx + 4;
+            if (!t.averageRating) t.averageRating = idx === 0 ? 4.95 : 4.88;
+            if (!t.reviewCount) t.reviewCount = idx === 0 ? 46 : 32;
+            if (!t.ratingBreakdown) {
+              t.ratingBreakdown = { 5: 42, 4: 4, 3: 0, 2: 0, 1: 0 };
+            }
+            if (!t.achievements || t.achievements.length === 0) {
+              t.achievements = [
+                'State Powerlifting Championship Coach 2024',
+                'Mentored 100+ Athletes to Competition Podium',
+                'Shadow Hunter Verified Master Elite Coach'
+              ];
+            }
+            if (!t.publicContact) {
+              t.publicContact = {
+                email: t.email,
+                phone: '+91 91234 56789',
+                showContact: true
+              };
+            }
+            if (!t.approvedReviews || t.approvedReviews.length === 0) {
+              t.approvedReviews = [
+                {
+                  id: `trev-1-${t.id}`,
+                  studentId: 'user-athlete-1',
+                  studentName: 'Alex Reynolds',
+                  rating: 5,
+                  text: 'David transformed my squat mechanics and periodized programming. Added 35kg to my total in 16 weeks without any joint discomfort.',
+                  date: '2026-10-18T11:00:00Z',
+                  verifiedStudent: true
+                },
+                {
+                  id: `trev-2-${t.id}`,
+                  studentId: 'user-member-1',
+                  studentName: 'Sarah Jenkins',
+                  rating: 5,
+                  text: 'Patient, highly scientific, and holds you strictly accountable to technique before adding load. The best coach I have worked with.',
+                  date: '2026-10-05T09:30:00Z',
+                  verifiedStudent: true
+                }
+              ];
+            }
+          });
+        }
+
+        // Hydrate User Profiles with Privacy and Ranking defaults
+        if (parsed.userProfiles) {
+          Object.values(parsed.userProfiles).forEach((p: any, pIdx) => {
+            if (p.publicProfileEnabled === undefined) {
+              p.publicProfileEnabled = p.role !== 'super_admin';
+            }
+            if (!p.publicDisplayName) p.publicDisplayName = p.fullName;
+            if (!p.publicBio) {
+              p.publicBio = p.role === 'individual' || p.role === 'gym_member'
+                ? 'Competitive strength athlete focusing on powerlifting and hypertrophy. Training with consistency on the Shadow Hunter system.'
+                : 'Fitness enthusiast & facility leader.';
+            }
+            if (!p.privacySettings) {
+              p.privacySettings = {
+                showBio: true,
+                showBadges: true,
+                showChallenges: true,
+                showConsistency: true,
+                showRankings: true
+              };
+            }
+            if (!p.districtRank) p.districtRank = pIdx + 1;
+            if (!p.stateRank) p.stateRank = pIdx + 3;
+            if (!p.nationalRank) p.nationalRank = pIdx + 8;
+          });
+        }
+
         return parsed;
       } catch (err) {
         console.error('Error reading db.json, initializing fresh store:', err);

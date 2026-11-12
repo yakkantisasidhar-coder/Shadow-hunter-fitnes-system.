@@ -15,6 +15,7 @@ import { adminRouter } from './routes/admin.js';
 import { notificationsRouter } from './routes/notifications.js';
 import { leaderboardsRouter } from './routes/leaderboards.js';
 import { whatsappRouter } from './routes/whatsapp.js';
+import { publicProfilesRouter } from './routes/publicProfiles.js';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use('/api/notifications', notificationsRouter);
 app.use('/api/leaderboards', leaderboardsRouter);
 app.use('/api/gyms/whatsapp', whatsappRouter);
 app.use('/api/whatsapp', whatsappRouter);
+app.use('/api/public', publicProfilesRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {

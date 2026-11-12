@@ -3,7 +3,7 @@ import { User, Mail, Calendar, Scale, Ruler, MapPin, Award, Shield, LogOut, Edit
 import { useAuth } from '../../context/AuthContext';
 
 interface ProfileScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
 }
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
@@ -66,6 +66,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
         </div>
 
         <div className="flex items-center space-x-2">
+          <button
+            onClick={() => onNavigate('public-member', user?.id || 'user-athlete-1')}
+            className="px-4 py-2 rounded-xl bg-primary/10 text-primary border border-primary/20 text-xs font-bold hover:bg-primary hover:text-white transition-colors"
+          >
+            Preview Public Card
+          </button>
           <button
             onClick={() => setIsEditing(!isEditing)}
             className="px-4 py-2 rounded-xl border border-surface-borderLight dark:border-surface-borderDark text-xs font-bold flex items-center space-x-1.5 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"

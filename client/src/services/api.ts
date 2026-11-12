@@ -847,6 +847,82 @@ class ApiService {
   public getSuperAdminWhatsAppHealth() {
     return this.request('/admin/whatsapp-health');
   }
+
+  // ==========================================
+  // PUBLIC PROFILES & EXPANDED LEADERBOARDS
+  // ==========================================
+
+  public getPublicGym(id: string) {
+    return this.request(`/public/gyms/${id}`);
+  }
+
+  public getPublicTrainer(id: string) {
+    return this.request(`/public/trainers/${id}`);
+  }
+
+  public getPublicMember(id: string) {
+    return this.request(`/public/members/${id}`);
+  }
+
+  public getGymLeaderboard(params?: { period?: string; scope?: string; state?: string; district?: string }) {
+    const q = new URLSearchParams();
+    if (params?.period) q.append('period', params.period);
+    if (params?.scope) q.append('scope', params.scope);
+    if (params?.state) q.append('state', params.state);
+    if (params?.district) q.append('district', params.district);
+    const qs = q.toString() ? `?${q.toString()}` : '';
+    return this.request(`/leaderboards/gyms${qs}`);
+  }
+
+  public getMemberLeaderboard(params?: { gymId?: string; search?: string; scope?: string; state?: string; district?: string }) {
+    const q = new URLSearchParams();
+    if (params?.gymId) q.append('gymId', params.gymId);
+    if (params?.search) q.append('search', params.search);
+    if (params?.scope) q.append('scope', params.scope);
+    if (params?.state) q.append('state', params.state);
+    if (params?.district) q.append('district', params.district);
+    const qs = q.toString() ? `?${q.toString()}` : '';
+    return this.request(`/leaderboards/members${qs}`);
+  }
+
+  public getTrainerLeaderboard(params?: { gymId?: string; search?: string; scope?: string; state?: string; district?: string }) {
+    const q = new URLSearchParams();
+    if (params?.gymId) q.append('gymId', params.gymId);
+    if (params?.search) q.append('search', params.search);
+    if (params?.scope) q.append('scope', params.scope);
+    if (params?.state) q.append('state', params.state);
+    if (params?.district) q.append('district', params.district);
+    const qs = q.toString() ? `?${q.toString()}` : '';
+    return this.request(`/leaderboards/trainers${qs}`);
+  }
+
+  public updateGymPublicProfile(gymId: string, payload: any) {
+    return this.request(`/gyms/${gymId}/public-profile`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  public updateMemberPrivacySettings(payload: any) {
+    return this.request('/auth/privacy-settings', {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  public verifyGymWebsite(payload: { gymId: string; action: 'verify' | 'flag' | 'unverify'; reviewNotes?: string }) {
+    return this.request('/admin/verify-gym-website', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  public verifyTrainerCertification(payload: { trainerId: string; certName: string; verified: boolean }) {
+    return this.request('/admin/verify-trainer-certification', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
 }
 
 export const api = new ApiService();

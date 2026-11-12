@@ -181,6 +181,52 @@ authRouter.put('/profile', requireAuth, (req: AuthenticatedRequest, res: Respons
   return res.json({ user: updated });
 });
 
+// Update Member Public Profile & Privacy Preferences
+authRouter.put('/privacy-settings', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const currentProfile = dbStore.getUserProfile(req.user.id);
+  if (!currentProfile) return res.status(404).json({ error: 'Profile not found' });
+
+  const {
+    publicProfileEnabled,
+    publicDisplayName,
+    publicBio,
+    privacySettings,
+    avatarUrl
+  } = req.body;
+
+  if (publicProfileEnabled !== undefined) {
+    currentProfile.publicProfileEnabled = Boolean(publicProfileEnabled);
+  }
+  if (publicDisplayName !== undefined) {
+    currentProfile.publicDisplayName = publicDisplayName.trim() || currentProfile.fullName;
+  }
+  if (publicBio !== undefined) {
+    currentProfile.publicBio = publicBio;
+  }
+  if (avatarUrl !== undefined) {
+    currentProfile.avatarUrl = avatarUrl;
+  }
+  if (privacySettings && typeof privacySettings === 'object') {
+    currentProfile.privacySettings = {
+      showBio: Boolean(privacySettings.showBio),
+      showBadges: Boolean(privacySettings.showBadges),
+      showChallenges: Boolean(privacySettings.showChallenges),
+      showConsistency: Boolean(privacySettings.showConsistency),
+      showRankings: Boolean(privacySettings.showRankings)
+    };
+  }
+
+  currentProfile.updatedAt = new Date().toISOString();
+  dbStore.setUserProfile(req.user.id, currentProfile);
+
+  return res.json({
+    success: true,
+    user: currentProfile
+  });
+});
+
 // Switch Account (For convenient testing across all 4 account roles)
 authRouter.post('/switch-account', (req, res) => {
   const { targetRole } = req.body;

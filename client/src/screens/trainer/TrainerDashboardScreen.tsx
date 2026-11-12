@@ -65,7 +65,7 @@ interface AvailabilitySlot {
    ──────────────────────────────────────────── */
 
 interface TrainerDashboardScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
 }
 
 /* ────────────────────────────────────────────
@@ -263,6 +263,13 @@ export const TrainerDashboardScreen: React.FC<TrainerDashboardScreenProps> = ({ 
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={() => onNavigate('public-trainer', 'trainer-1')}
+              className="px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-xs font-bold text-white flex items-center space-x-1.5 transition-all"
+            >
+              <User size={14} className="text-primary-light" />
+              <span>Preview Public Profile</span>
+            </button>
             <div className="px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md text-center">
               <p className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Today</p>
               <p className="text-sm font-black text-white">

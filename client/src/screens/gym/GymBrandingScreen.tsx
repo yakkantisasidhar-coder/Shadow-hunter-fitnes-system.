@@ -22,7 +22,7 @@ import { useAuth } from '../../context/AuthContext';
 import { GymBranding, GymGalleryItem } from '../../types';
 
 interface GymBrandingScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
 }
 
 export const GymBrandingScreen: React.FC<GymBrandingScreenProps> = ({ onNavigate }) => {
@@ -388,8 +388,16 @@ export const GymBrandingScreen: React.FC<GymBrandingScreenProps> = ({ onNavigate
               </button>
             </div>
 
-            {/* Save Button */}
-            <div className="flex justify-end pt-2">
+            {/* Preview Public Profile Button */}
+            <div className="flex items-center justify-between pt-2">
+              <button
+                onClick={() => onNavigate('public-gym', gymId)}
+                className="px-5 py-2.5 rounded-2xl bg-surface-light dark:bg-[#17151F] border border-white/10 text-white font-bold text-xs inline-flex items-center gap-2 hover:border-primary transition-all"
+              >
+                <Eye size={14} className="text-primary-light" />
+                <span>Preview Public Gym Profile</span>
+              </button>
+
               <button
                 onClick={handleSaveBranding}
                 disabled={savingBranding}

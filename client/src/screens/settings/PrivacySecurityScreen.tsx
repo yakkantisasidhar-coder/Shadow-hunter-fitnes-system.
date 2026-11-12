@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, Shield, Smartphone, Key, Download, Trash2, ArrowLeft, CheckCircle2 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { api } from '../../services/api';
+
 
 interface PrivacySecurityScreenProps {
   onNavigate: (screen: string) => void;
@@ -39,8 +40,53 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
           Privacy & Security Safeguards
         </h2>
         <p className="text-xs text-surface-mutedLight dark:text-surface-mutedDark mt-1">
-          Manage identity security, multi-factor verification, and GDPR-compliant data portability.
+          Manage identity security, multi-factor verification, and public profile privacy controls.
         </p>
+      </div>
+
+      {/* Public Profile Privacy Controls */}
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#252330] border border-surface-borderLight dark:border-surface-borderDark shadow-sm space-y-4">
+        <h3 className="text-xs font-black uppercase tracking-wider text-surface-mutedLight dark:text-surface-mutedDark flex items-center space-x-2">
+          <Shield size={14} className="text-primary" />
+          <span>Public Profile & Discovery Preferences</span>
+        </h3>
+        <p className="text-xs text-surface-mutedLight dark:text-surface-mutedDark leading-relaxed">
+          Decide whether other athletes can view your profile on district, state, and national leaderboards. By default, confidential measurements, weight logs, and billing details are strictly protected.
+        </p>
+
+        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-surface-light dark:bg-[#1b1926] border border-surface-borderLight dark:border-surface-borderDark">
+          <div>
+            <h4 className="text-xs font-bold text-textPrimary-light dark:text-textPrimary-dark">
+              Enable Public Athlete Profile
+            </h4>
+            <span className="text-[10px] text-surface-mutedLight dark:text-surface-mutedDark">
+              Allows your display name, public badges, and verified rank to appear on leaderboards.
+            </span>
+          </div>
+          <button
+            onClick={async () => {
+              const nextVal = !(user?.publicProfileEnabled ?? true);
+              await api.updateMemberPrivacySettings({ publicProfileEnabled: nextVal });
+              alert(`Public profile visibility ${nextVal ? 'enabled' : 'disabled'}.`);
+            }}
+            className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              user?.publicProfileEnabled !== false
+                ? 'bg-primary text-white shadow-sm'
+                : 'bg-surface-light dark:bg-[#252330] text-surface-mutedLight dark:text-surface-mutedDark'
+            }`}
+          >
+            {user?.publicProfileEnabled !== false ? 'Enabled' : 'Private'}
+          </button>
+        </div>
+
+        <div className="flex justify-end pt-1">
+          <button
+            onClick={() => onNavigate('public-member', user?.id || 'user-athlete-1')}
+            className="px-4 py-2 rounded-xl bg-primary/10 text-primary border border-primary/20 text-xs font-bold hover:bg-primary hover:text-white transition-colors"
+          >
+            Preview How Others See Your Profile &rarr;
+          </button>
+        </div>
       </div>
 
       {/* Security Credentials */}

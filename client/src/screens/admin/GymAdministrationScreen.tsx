@@ -77,6 +77,7 @@ export const GymAdministrationScreen: React.FC<GymAdministrationScreenProps> = (
                   <th className="py-3 px-4">Join Code</th>
                   <th className="py-3 px-4">Capacity / Members</th>
                   <th className="py-3 px-4">Partnership Tier</th>
+                  <th className="py-3 px-4">Official Website</th>
                   <th className="py-3 px-4 text-center">Licensing Status</th>
                   <th className="py-3 px-4 text-right">Administrative Action</th>
                 </tr>
@@ -103,6 +104,56 @@ export const GymAdministrationScreen: React.FC<GymAdministrationScreenProps> = (
                     </td>
                     <td className="py-3.5 px-4 uppercase font-bold text-xs text-indigo-500">
                       {g.partnershipTier.replace('_', ' ')}
+                    </td>
+                    <td className="py-3.5 px-4">
+                      {g.websiteUrl ? (
+                        <div className="space-y-1">
+                          <a
+                            href={g.websiteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold text-primary hover:underline flex items-center space-x-1"
+                          >
+                            <span>Visit</span>
+                            <span className="text-[10px] text-surface-mutedLight dark:text-surface-mutedDark truncate max-w-[120px]">
+                              ({g.websiteUrl.replace('https://', '')})
+                            </span>
+                          </a>
+                          <div className="flex items-center space-x-1">
+                            <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
+                              g.websiteStatus === 'verified' ? 'bg-emerald-500/10 text-emerald-500' :
+                              g.websiteStatus === 'flagged' ? 'bg-rose-500/10 text-rose-500' :
+                              'bg-amber-500/10 text-amber-500'
+                            }`}>
+                              {g.websiteStatus || 'unverified'}
+                            </span>
+                            {g.websiteStatus !== 'verified' && (
+                              <button
+                                onClick={async () => {
+                                  await api.verifyGymWebsite({ gymId: g.id, action: 'verify' });
+                                  fetchGyms();
+                                }}
+                                className="text-[10px] font-bold text-emerald-500 hover:underline"
+                              >
+                                Verify
+                              </button>
+                            )}
+                            {g.websiteStatus !== 'flagged' && (
+                              <button
+                                onClick={async () => {
+                                  await api.verifyGymWebsite({ gymId: g.id, action: 'flag' });
+                                  fetchGyms();
+                                }}
+                                className="text-[10px] font-bold text-rose-500 hover:underline"
+                              >
+                                Flag
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-[11px] text-surface-mutedLight dark:text-surface-mutedDark">No website submitted</span>
+                      )}
                     </td>
                     <td className="py-3.5 px-4 text-center">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
