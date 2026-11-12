@@ -1,0 +1,21 @@
+{
+  "short_name": "ShadowHunter",
+  "name": "SHADOW HUNTER FITNESS SYSTEM",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#17151F",
+  "theme_color": "#7651D5",
+  "display": "standalone",
+  "orientation": "portrait"
+}

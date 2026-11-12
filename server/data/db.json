@@ -1,0 +1,3074 @@
+{
+  "users": [
+    {
+      "id": "user-admin-1",
+      "email": "admin@shadowhunter.com",
+      "passwordHash": "admin123",
+      "role": "super_admin"
+    },
+    {
+      "id": "user-owner-1",
+      "email": "owner@apexfitness.com",
+      "passwordHash": "owner123",
+      "role": "gym_owner"
+    },
+    {
+      "id": "user-member-1",
+      "email": "member@apexfitness.com",
+      "passwordHash": "member123",
+      "role": "gym_member"
+    },
+    {
+      "id": "user-athlete-1",
+      "email": "alex@shadowhunter.com",
+      "passwordHash": "athlete123",
+      "role": "gym_owner"
+    }
+  ],
+  "userProfiles": {
+    "user-admin-1": {
+      "id": "user-admin-1",
+      "email": "admin@shadowhunter.com",
+      "fullName": "Alexander Vance",
+      "role": "super_admin",
+      "subscriptionTier": "annual",
+      "createdAt": "2026-11-11T06:39:00.135Z",
+      "updatedAt": "2026-11-11T06:39:00.136Z",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+    },
+    "user-owner-1": {
+      "id": "user-owner-1",
+      "email": "owner@apexfitness.com",
+      "fullName": "sasidhar ",
+      "role": "gym_owner",
+      "gymId": "gym-apex-1",
+      "gymName": "Apex Performance Athletic Club",
+      "gymStatus": "approved",
+      "subscriptionTier": "gym_collab",
+      "createdAt": "2026-11-11T06:39:00.136Z",
+      "updatedAt": "2026-11-11T09:24:38.051Z",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+      "gymAccess": {
+        "gym-apex-1": {
+          "gymId": "gym-apex-1",
+          "gymName": "Apex Performance Athletic Club",
+          "role": "gym_owner",
+          "status": "active",
+          "permissions": [
+            "manage_gym_members",
+            "view_member_profiles",
+            "manage_memberships",
+            "manage_monthly_bills",
+            "record_payments",
+            "view_financial_reports",
+            "manage_gym_staff",
+            "manage_attendance",
+            "manage_gym_announcements",
+            "edit_gym_info",
+            "manage_personal_training",
+            "manage_branding",
+            "manage_whatsapp"
+          ],
+          "assignedAt": "2026-08-13T07:10:36.193Z",
+          "assignedBy": "user-admin-1"
+        }
+      },
+      "age": 0,
+      "height": 182,
+      "currentWeight": 84,
+      "targetWeight": 80
+    },
+    "user-member-1": {
+      "id": "user-member-1",
+      "email": "member@apexfitness.com",
+      "fullName": "Sarah Jenkins",
+      "role": "gym_member",
+      "gymId": "gym-apex-1",
+      "gymName": "Apex Performance Athletic Club",
+      "gymStatus": "approved",
+      "age": 27,
+      "gender": "female",
+      "height": 168,
+      "currentWeight": 62.5,
+      "targetWeight": 58,
+      "fitnessGoal": "weight_loss",
+      "fitnessExperience": "intermediate",
+      "workoutLocation": "gym",
+      "activityLevel": "moderately_active",
+      "availableWorkoutTime": 50,
+      "subscriptionTier": "quarterly",
+      "createdAt": "2026-11-11T06:39:00.136Z",
+      "updatedAt": "2026-11-11T06:39:00.136Z",
+      "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80",
+      "isSuspended": false
+    },
+    "user-athlete-1": {
+      "id": "user-athlete-1",
+      "email": "alex@shadowhunter.com",
+      "fullName": "Alex Reynolds",
+      "role": "gym_owner",
+      "age": 29,
+      "gender": "male",
+      "height": 182,
+      "currentWeight": 84,
+      "targetWeight": 80,
+      "fitnessGoal": "muscle_building",
+      "fitnessExperience": "intermediate",
+      "workoutLocation": "hybrid",
+      "activityLevel": "very_active",
+      "dietaryPreferences": [
+        "High-Protein",
+        "Low-Sugar"
+      ],
+      "availableWorkoutTime": 60,
+      "subscriptionTier": "quarterly",
+      "createdAt": "2026-11-11T06:39:00.136Z",
+      "updatedAt": "2026-11-11T06:39:00.136Z",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+      "gymId": "gym-apex-1",
+      "gymName": "Apex Performance Athletic Club",
+      "gymStatus": "approved",
+      "gymAccess": {
+        "gym-apex-1": {
+          "gymId": "gym-apex-1",
+          "gymName": "Apex Performance Athletic Club",
+          "role": "gym_owner",
+          "status": "active",
+          "permissions": [
+            "manage_gym_members",
+            "view_member_profiles",
+            "manage_monthly_bills",
+            "record_payments"
+          ],
+          "assignedAt": "2026-11-11T07:11:15.488Z",
+          "assignedBy": "user-admin-1"
+        }
+      }
+    }
+  },
+  "exercises": [
+    {
+      "id": "ex-barbell-bench-press",
+      "name": "Barbell Flat Bench Press",
+      "muscleGroup": "Chest",
+      "secondaryMuscles": [
+        "Triceps",
+        "Anterior Deltoids"
+      ],
+      "equipment": "Barbell, Flat Bench",
+      "difficulty": "Intermediate",
+      "description": "The cornerstone compound movement for building pectoral mass and upper body pushing power.",
+      "instructions": [
+        "Lie back on the flat bench with eyes directly under the racked bar.",
+        "Grip the bar slightly wider than shoulder-width with a firm, locked thumb grip.",
+        "Retract and depress your scapulae, planting your feet firmly on the floor.",
+        "Unrack the bar and lower it under control to your mid-chest line.",
+        "Drive powerfully through your palms back to lockout, maintaining tension on the chest."
+      ],
+      "safetyTips": [
+        "Never bounce the barbell off your sternum.",
+        "Always utilize safety pins or spotters on heavy sets."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 8,
+      "defaultRestSeconds": 90,
+      "estimatedCaloriesPerMin": 8,
+      "animationSvgKey": "bench-press"
+    },
+    {
+      "id": "ex-incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "muscleGroup": "Chest",
+      "secondaryMuscles": [
+        "Upper Chest",
+        "Anterior Deltoid",
+        "Triceps"
+      ],
+      "equipment": "Dumbbells, Incline Bench (30°)",
+      "difficulty": "Intermediate",
+      "description": "Targets the clavicular head of the pectoralis major for upper chest fullness.",
+      "instructions": [
+        "Set bench angle to approximately 30 degrees.",
+        "Kick dumbbells up to shoulder height using your knees as you lie back.",
+        "Press dumbbells upwards in an arc until arms are extended above your upper chest.",
+        "Lower under strict control until a deep stretch is felt in the upper chest."
+      ],
+      "safetyTips": [
+        "Avoid setting bench angle too high (greater than 45°) to prevent excessive front delt takeover."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultRestSeconds": 75,
+      "estimatedCaloriesPerMin": 7,
+      "animationSvgKey": "incline-press"
+    },
+    {
+      "id": "ex-pushups",
+      "name": "Standard Push-Up",
+      "muscleGroup": "Chest",
+      "secondaryMuscles": [
+        "Core",
+        "Triceps",
+        "Shoulders"
+      ],
+      "equipment": "Bodyweight",
+      "difficulty": "Beginner",
+      "description": "Fundamental bodyweight pressing exercise developing pectoral strength and core stability.",
+      "instructions": [
+        "Assume a high plank position with hands slightly wider than shoulder-width.",
+        "Maintain a rigid straight line from crown of the head through the heels.",
+        "Lower your torso until your chest is approximately 2 inches off the ground.",
+        "Push the ground away to return to top plank position."
+      ],
+      "safetyTips": [
+        "Do not allow hips to sag or hike into the air."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 15,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 6,
+      "animationSvgKey": "pushup"
+    },
+    {
+      "id": "ex-barbell-deadlift",
+      "name": "Conventional Barbell Deadlift",
+      "muscleGroup": "Back",
+      "secondaryMuscles": [
+        "Hamstrings",
+        "Glutes",
+        "Traps",
+        "Forearms"
+      ],
+      "equipment": "Barbell, Olympic Plates",
+      "difficulty": "Advanced",
+      "description": "The supreme test of posterior chain kinetic chain power and spinal erector strength.",
+      "instructions": [
+        "Stand with midfoot under the barbell, feet hip-width apart.",
+        "Hinge hips back, grasp the bar just outside your knees with double overhand or mixed grip.",
+        "Pull chest up, engage lats, take out the barbell slack.",
+        "Drive through your heels, extending hips and knees simultaneously to stand tall."
+      ],
+      "safetyTips": [
+        "Never round your lumbar spine under heavy loads."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 5,
+      "defaultRestSeconds": 120,
+      "estimatedCaloriesPerMin": 10,
+      "animationSvgKey": "deadlift"
+    },
+    {
+      "id": "ex-lat-pulldown",
+      "name": "Wide-Grip Lat Pulldown",
+      "muscleGroup": "Back",
+      "secondaryMuscles": [
+        "Biceps",
+        "Rhomboids",
+        "Rear Delts"
+      ],
+      "equipment": "Cable Pulldown Machine",
+      "difficulty": "Beginner",
+      "description": "Builds latissimus dorsi width and upper back definition.",
+      "instructions": [
+        "Adjust thigh pad snugly over your thighs.",
+        "Grip the wide bar with palms facing away from you.",
+        "Lean back slightly (10-15 degrees) and draw the bar down to your upper chest.",
+        "Squeeze the lats at the bottom, then slowly resist the cable back to full extension."
+      ],
+      "safetyTips": [
+        "Do not yank or lean excessively back to pull the weight."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 12,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 7,
+      "animationSvgKey": "pulldown"
+    },
+    {
+      "id": "ex-bent-over-row",
+      "name": "Bent-Over Barbell Row",
+      "muscleGroup": "Back",
+      "secondaryMuscles": [
+        "Lats",
+        "Rhomboids",
+        "Rear Deltoids",
+        "Biceps"
+      ],
+      "equipment": "Barbell",
+      "difficulty": "Intermediate",
+      "description": "Essential compound movement for developing back thickness and postural strength.",
+      "instructions": [
+        "Hinge forward at the hips with knees slightly bent until torso is roughly 45 degrees.",
+        "Grip bar overhand, pull bar towards the lower ribcage/navel.",
+        "Retract shoulder blades hard at the peak of the contraction."
+      ],
+      "safetyTips": [
+        "Keep core braced throughout each rep to protect lower back."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 8,
+      "defaultRestSeconds": 90,
+      "estimatedCaloriesPerMin": 8,
+      "animationSvgKey": "row"
+    },
+    {
+      "id": "ex-overhead-press",
+      "name": "Standing Barbell Overhead Press",
+      "muscleGroup": "Shoulders",
+      "secondaryMuscles": [
+        "Triceps",
+        "Upper Trapezius",
+        "Core"
+      ],
+      "equipment": "Barbell",
+      "difficulty": "Intermediate",
+      "description": "Strict vertical press for shoulder mass and overhead stability.",
+      "instructions": [
+        "Rest barbell across front delts and clavicles.",
+        "Brace glutes and core, press bar vertically clearing your forehead.",
+        "Lock out overhead with arms aligned over midfoot."
+      ],
+      "safetyTips": [
+        "Do not hyperextend lumbar spine to cheat the bar up."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 6,
+      "defaultRestSeconds": 90,
+      "estimatedCaloriesPerMin": 8,
+      "animationSvgKey": "overhead-press"
+    },
+    {
+      "id": "ex-lateral-raises",
+      "name": "Dumbbell Lateral Raise",
+      "muscleGroup": "Shoulders",
+      "secondaryMuscles": [
+        "Lateral Deltoid"
+      ],
+      "equipment": "Dumbbells",
+      "difficulty": "Beginner",
+      "description": "Isolated lateral deltoid developer for wider shoulder silhouette.",
+      "instructions": [
+        "Stand tall holding dumbbells at sides with slight forward lean.",
+        "Raise dumbbells out to sides until parallel to the ground, leading with elbows.",
+        "Pause for a beat at parallel and lower smoothly under control."
+      ],
+      "safetyTips": [
+        "Do not use body momentum or swing the dumbbells."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 15,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 5,
+      "animationSvgKey": "lateral-raise"
+    },
+    {
+      "id": "ex-barbell-curl",
+      "name": "Standing Barbell Bicep Curl",
+      "muscleGroup": "Biceps",
+      "secondaryMuscles": [
+        "Brachialis",
+        "Forearms"
+      ],
+      "equipment": "Barbell or EZ-Bar",
+      "difficulty": "Beginner",
+      "description": "Classic mass builder for bicep peaks and arm thickness.",
+      "instructions": [
+        "Grip bar shoulder-width with underhand grip.",
+        "Keep elbows pinned to your sides, curl bar upward until biceps are fully contracted.",
+        "Lower bar slowly over a 2-3 second count."
+      ],
+      "safetyTips": [
+        "Keep elbows stationary; avoid swinging hips."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 6,
+      "animationSvgKey": "bicep-curl"
+    },
+    {
+      "id": "ex-tricep-dips",
+      "name": "Parallel Bar Triceps Dips",
+      "muscleGroup": "Triceps",
+      "secondaryMuscles": [
+        "Chest",
+        "Anterior Deltoids"
+      ],
+      "equipment": "Dip Station",
+      "difficulty": "Intermediate",
+      "description": "Bodyweight powerhouse for horseshoe triceps and pushing power.",
+      "instructions": [
+        "Support bodyweight on parallel bars with arms locked.",
+        "Maintain an upright torso to bias triceps, lower until elbows reach 90 degrees.",
+        "Press down through palms to full lockout."
+      ],
+      "safetyTips": [
+        "Do not descend past 90 degrees if you experience shoulder discomfort."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultRestSeconds": 75,
+      "estimatedCaloriesPerMin": 7,
+      "animationSvgKey": "dips"
+    },
+    {
+      "id": "ex-barbell-squat",
+      "name": "Barbell Back Squat",
+      "muscleGroup": "Legs",
+      "secondaryMuscles": [
+        "Quadriceps",
+        "Glutes",
+        "Hamstrings",
+        "Calves",
+        "Core"
+      ],
+      "equipment": "Squat Rack, Barbell",
+      "difficulty": "Advanced",
+      "description": "The premier lower body compound exercise for hypertrophy and athletic performance.",
+      "instructions": [
+        "Place barbell across upper traps, take two steps back from the rack.",
+        "Set stance slightly wider than shoulder-width with toes angled outward 15-30°.",
+        "Descend by pushing hips back and bending knees until hip crease is below parallel.",
+        "Explode upward driving through the entire foot back to starting position."
+      ],
+      "safetyTips": [
+        "Ensure knees track over toes, do not allow knees to cave inward."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 8,
+      "defaultRestSeconds": 120,
+      "estimatedCaloriesPerMin": 11,
+      "animationSvgKey": "squat"
+    },
+    {
+      "id": "ex-bulgarian-split-squat",
+      "name": "Bulgarian Split Squat",
+      "muscleGroup": "Legs",
+      "secondaryMuscles": [
+        "Glutes",
+        "Quadriceps",
+        "Core"
+      ],
+      "equipment": "Dumbbells, Flat Bench",
+      "difficulty": "Intermediate",
+      "description": "Unilateral leg exercise addressing muscle imbalances and building quad/glute density.",
+      "instructions": [
+        "Rest top of rear foot on bench behind you.",
+        "Lower hips straight down until front thigh is parallel to the floor.",
+        "Drive through front heel to return to top."
+      ],
+      "safetyTips": [
+        "Keep front knee stable and chest upright."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 10,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 8,
+      "animationSvgKey": "split-squat"
+    },
+    {
+      "id": "ex-barbell-hip-thrust",
+      "name": "Barbell Hip Thrust",
+      "muscleGroup": "Glutes",
+      "secondaryMuscles": [
+        "Hamstrings",
+        "Lower Back"
+      ],
+      "equipment": "Barbell, Bench, Pad",
+      "difficulty": "Intermediate",
+      "description": "Maximum gluteal activation and posterior chain hip extension developer.",
+      "instructions": [
+        "Sit on floor with upper back against bench and padded bar across hips.",
+        "Plant feet flat, drive hips up to full extension squeezing glutes at the top.",
+        "Pause for 1 second in bridge position before lowering."
+      ],
+      "safetyTips": [
+        "Tuck chin and avoid excessive arching in lower back."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 10,
+      "defaultRestSeconds": 90,
+      "estimatedCaloriesPerMin": 8,
+      "animationSvgKey": "hip-thrust"
+    },
+    {
+      "id": "ex-hanging-leg-raise",
+      "name": "Hanging Leg Raise",
+      "muscleGroup": "Abs",
+      "secondaryMuscles": [
+        "Hip Flexors",
+        "Forearm Grip"
+      ],
+      "equipment": "Pull-Up Bar",
+      "difficulty": "Intermediate",
+      "description": "High-intensity core exercise targeting lower rectus abdominis.",
+      "instructions": [
+        "Hang from pull-up bar with overhand grip and legs straight.",
+        "Raise legs by flexing the spine until toes reach parallel or bar level.",
+        "Lower legs smoothly without swinging back."
+      ],
+      "safetyTips": [
+        "Do not use momentum or kip."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 12,
+      "defaultRestSeconds": 60,
+      "estimatedCaloriesPerMin": 6,
+      "animationSvgKey": "leg-raise"
+    },
+    {
+      "id": "ex-plank-hold",
+      "name": "Standard Forearm Plank",
+      "muscleGroup": "Abs",
+      "secondaryMuscles": [
+        "Transverse Abdominis",
+        "Shoulders",
+        "Glutes"
+      ],
+      "equipment": "Yoga Mat",
+      "difficulty": "Beginner",
+      "description": "Isometric core stabilization exercise for spinal integrity and endurance.",
+      "instructions": [
+        "Place forearms on mat with elbows under shoulders.",
+        "Extend legs behind you, tuck pelvis slightly and brace abdominal wall.",
+        "Hold position rigidly for target duration without dropping hips."
+      ],
+      "safetyTips": [
+        "Breathe evenly; do not hold breath during isometric hold."
+      ],
+      "defaultSets": 3,
+      "defaultReps": 60,
+      "defaultRestSeconds": 45,
+      "estimatedCaloriesPerMin": 5,
+      "animationSvgKey": "plank"
+    },
+    {
+      "id": "ex-hiit-burpees",
+      "name": "High Intensity Burpee",
+      "muscleGroup": "Cardio",
+      "secondaryMuscles": [
+        "Chest",
+        "Legs",
+        "Core"
+      ],
+      "equipment": "Bodyweight",
+      "difficulty": "Intermediate",
+      "description": "Metabolic conditioning exercise elevating heart rate and burning maximum calories.",
+      "instructions": [
+        "From standing, drop into squat, place hands on floor and kick feet back to plank.",
+        "Perform a rapid pushup, jump feet forward and explode vertically with hands overhead."
+      ],
+      "safetyTips": [
+        "Land softly on balls of feet to protect joints."
+      ],
+      "defaultSets": 4,
+      "defaultReps": 15,
+      "defaultRestSeconds": 45,
+      "estimatedCaloriesPerMin": 14,
+      "animationSvgKey": "burpee"
+    },
+    {
+      "id": "ex-full-body-mobility",
+      "name": "World’s Greatest Stretch",
+      "muscleGroup": "Stretching",
+      "secondaryMuscles": [
+        "Hip Flexors",
+        "Hamstrings",
+        "Thoracic Spine"
+      ],
+      "equipment": "Mat",
+      "difficulty": "Beginner",
+      "description": "Comprehensive mobility sequence unlocking hips, thoracic spine and ankles.",
+      "instructions": [
+        "Step forward into a deep lunge with back leg extended.",
+        "Place inside hand on the ground and rotate the opposite arm towards the ceiling.",
+        "Hold rotation for 3 seconds, return to center and shift back to stretch front hamstring."
+      ],
+      "safetyTips": [
+        "Move smoothly within pain-free active range of motion."
+      ],
+      "defaultSets": 2,
+      "defaultReps": 8,
+      "defaultRestSeconds": 30,
+      "estimatedCaloriesPerMin": 4,
+      "animationSvgKey": "stretch"
+    }
+  ],
+  "workoutPrograms": [
+    {
+      "id": "prog-full-body-ignition",
+      "title": "Full Body Functional Ignition",
+      "description": "A 4-week foundational routine designed to increase metabolic rate, build lean muscle, and master essential movement patterns.",
+      "category": "Beginner",
+      "durationWeeks": 4,
+      "daysPerWeek": 3,
+      "difficulty": "Beginner",
+      "coverGradient": "from-purple-600 to-indigo-700",
+      "exercises": [
+        {
+          "exerciseId": "ex-pushups",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-lat-pulldown",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-barbell-squat",
+          "sets": 3,
+          "reps": 10,
+          "restSeconds": 90
+        },
+        {
+          "exerciseId": "ex-plank-hold",
+          "sets": 3,
+          "reps": 45,
+          "restSeconds": 45
+        }
+      ]
+    },
+    {
+      "id": "prog-hypertrophy-split",
+      "title": "Upper / Lower Hypertrophy Split",
+      "description": "Targeted muscular hypertrophy program balancing mechanical tension, volume, and progressive overload for intermediate lifters.",
+      "category": "Muscle Building",
+      "durationWeeks": 8,
+      "daysPerWeek": 4,
+      "difficulty": "Intermediate",
+      "coverGradient": "from-violet-700 to-purple-900",
+      "exercises": [
+        {
+          "exerciseId": "ex-barbell-bench-press",
+          "sets": 4,
+          "reps": 8,
+          "restSeconds": 90
+        },
+        {
+          "exerciseId": "ex-bent-over-row",
+          "sets": 4,
+          "reps": 8,
+          "restSeconds": 90
+        },
+        {
+          "exerciseId": "ex-incline-dumbbell-press",
+          "sets": 3,
+          "reps": 10,
+          "restSeconds": 75
+        },
+        {
+          "exerciseId": "ex-barbell-curl",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-tricep-dips",
+          "sets": 3,
+          "reps": 10,
+          "restSeconds": 75
+        }
+      ]
+    },
+    {
+      "id": "prog-strength-mastery",
+      "title": "Commercial Gym Strength Mastery",
+      "description": "Advanced compound training system focused on deadlifts, squats, bench press, and structural upper body development.",
+      "category": "Advanced",
+      "durationWeeks": 12,
+      "daysPerWeek": 5,
+      "difficulty": "Advanced",
+      "coverGradient": "from-indigo-800 to-slate-900",
+      "exercises": [
+        {
+          "exerciseId": "ex-barbell-deadlift",
+          "sets": 4,
+          "reps": 5,
+          "restSeconds": 120
+        },
+        {
+          "exerciseId": "ex-barbell-squat",
+          "sets": 4,
+          "reps": 6,
+          "restSeconds": 120
+        },
+        {
+          "exerciseId": "ex-overhead-press",
+          "sets": 4,
+          "reps": 6,
+          "restSeconds": 90
+        },
+        {
+          "exerciseId": "ex-barbell-hip-thrust",
+          "sets": 4,
+          "reps": 8,
+          "restSeconds": 90
+        }
+      ]
+    },
+    {
+      "id": "prog-fat-loss-conditioning",
+      "title": "Metabolic Fat Loss & Conditioning",
+      "description": "High-energy conditioning circuit pairing resistance exercises with cardiovascular intervals to optimize caloric expenditure.",
+      "category": "Weight Loss",
+      "durationWeeks": 6,
+      "daysPerWeek": 4,
+      "difficulty": "Intermediate",
+      "coverGradient": "from-violet-600 to-fuchsia-700",
+      "exercises": [
+        {
+          "exerciseId": "ex-hiit-burpees",
+          "sets": 4,
+          "reps": 15,
+          "restSeconds": 45
+        },
+        {
+          "exerciseId": "ex-bulgarian-split-squat",
+          "sets": 3,
+          "reps": 10,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-hanging-leg-raise",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-lateral-raises",
+          "sets": 4,
+          "reps": 15,
+          "restSeconds": 45
+        }
+      ]
+    },
+    {
+      "id": "prog-home-calisthenics",
+      "title": "Minimal Equipment Home Athlete",
+      "description": "Zero excuse home conditioning program requiring only bodyweight and a mat, perfect for travel or busy schedules.",
+      "category": "Home",
+      "durationWeeks": 4,
+      "daysPerWeek": 3,
+      "difficulty": "Beginner",
+      "coverGradient": "from-purple-800 to-violet-950",
+      "exercises": [
+        {
+          "exerciseId": "ex-pushups",
+          "sets": 4,
+          "reps": 15,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-plank-hold",
+          "sets": 3,
+          "reps": 60,
+          "restSeconds": 45
+        },
+        {
+          "exerciseId": "ex-hiit-burpees",
+          "sets": 3,
+          "reps": 12,
+          "restSeconds": 60
+        },
+        {
+          "exerciseId": "ex-full-body-mobility",
+          "sets": 2,
+          "reps": 8,
+          "restSeconds": 30
+        }
+      ]
+    }
+  ],
+  "workoutHistory": [
+    {
+      "id": "hist-1",
+      "userId": "user-athlete-1",
+      "programTitle": "Upper / Lower Hypertrophy Split",
+      "completedAt": "2026-11-10T06:39:00.136Z",
+      "durationMinutes": 52,
+      "caloriesBurned": 420,
+      "exercisesCount": 5,
+      "totalSets": 17,
+      "totalVolumeKg": 4620
+    },
+    {
+      "id": "hist-2",
+      "userId": "user-athlete-1",
+      "programTitle": "Commercial Gym Strength Mastery",
+      "completedAt": "2026-11-08T06:39:00.136Z",
+      "durationMinutes": 60,
+      "caloriesBurned": 510,
+      "exercisesCount": 4,
+      "totalSets": 16,
+      "totalVolumeKg": 5800
+    },
+    {
+      "id": "hist-3",
+      "userId": "user-member-1",
+      "programTitle": "Metabolic Fat Loss & Conditioning",
+      "completedAt": "2026-11-09T06:39:00.136Z",
+      "durationMinutes": 44,
+      "caloriesBurned": 380,
+      "exercisesCount": 4,
+      "totalSets": 14,
+      "totalVolumeKg": 2100
+    }
+  ],
+  "nutritionLogs": [
+    {
+      "id": "nutr-today-alex",
+      "userId": "user-athlete-1",
+      "date": "2026-11-11",
+      "calorieTarget": 2600,
+      "waterTargetMl": 3500,
+      "waterCurrentMl": 2250,
+      "meals": {
+        "breakfast": [
+          {
+            "id": "m-1",
+            "name": "Rolled Oats with Whey Protein & Berries",
+            "calories": 480,
+            "proteinGrams": 36,
+            "carbsGrams": 64,
+            "fatGrams": 9,
+            "servingSize": "1 bowl (300g)"
+          },
+          {
+            "id": "m-2",
+            "name": "Black Americano Coffee",
+            "calories": 5,
+            "proteinGrams": 0,
+            "carbsGrams": 1,
+            "fatGrams": 0,
+            "servingSize": "250ml"
+          }
+        ],
+        "lunch": [
+          {
+            "id": "m-3",
+            "name": "Grilled Herb Chicken Breast & Quinoa Bowl",
+            "calories": 650,
+            "proteinGrams": 52,
+            "carbsGrams": 62,
+            "fatGrams": 14,
+            "servingSize": "380g"
+          },
+          {
+            "id": "m-4",
+            "name": "Steamed Broccoli & Extra Virgin Olive Oil",
+            "calories": 120,
+            "proteinGrams": 4,
+            "carbsGrams": 8,
+            "fatGrams": 8,
+            "servingSize": "150g"
+          }
+        ],
+        "dinner": [
+          {
+            "id": "m-5",
+            "name": "Baked Atlantic Salmon with Sweet Potato",
+            "calories": 590,
+            "proteinGrams": 44,
+            "carbsGrams": 48,
+            "fatGrams": 22,
+            "servingSize": "350g"
+          }
+        ],
+        "snacks": [
+          {
+            "id": "m-6",
+            "name": "Greek Yogurt 0% with Crushed Almonds",
+            "calories": 230,
+            "proteinGrams": 22,
+            "carbsGrams": 12,
+            "fatGrams": 9,
+            "servingSize": "200g"
+          }
+        ]
+      }
+    },
+    {
+      "id": "nutr-1794379832594",
+      "userId": "user-member-1",
+      "date": "2026-11-11",
+      "calorieTarget": 2000,
+      "waterTargetMl": 3000,
+      "waterCurrentMl": 0,
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snacks": []
+      }
+    },
+    {
+      "id": "nutr-1794379840415",
+      "userId": "user-owner-1",
+      "date": "2026-11-11",
+      "calorieTarget": 2400,
+      "waterTargetMl": 3000,
+      "waterCurrentMl": 0,
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snacks": []
+      }
+    },
+    {
+      "id": "nutr-1794379842565",
+      "userId": "user-admin-1",
+      "date": "2026-11-11",
+      "calorieTarget": 2400,
+      "waterTargetMl": 3000,
+      "waterCurrentMl": 0,
+      "meals": {
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [],
+        "snacks": []
+      }
+    }
+  ],
+  "bodyMeasurements": [
+    {
+      "id": "meas-1",
+      "userId": "user-athlete-1",
+      "date": "2026-10-14",
+      "weightKg": 86.2,
+      "chestCm": 106,
+      "waistCm": 86,
+      "armsCm": 38.5,
+      "thighsCm": 61,
+      "hipsCm": 99,
+      "calvesCm": 39,
+      "notes": "Baseline measurement before high-intensity hyper split cycle."
+    },
+    {
+      "id": "meas-2",
+      "userId": "user-athlete-1",
+      "date": "2026-10-28",
+      "weightKg": 85.1,
+      "chestCm": 107,
+      "waistCm": 84.5,
+      "armsCm": 39,
+      "thighsCm": 61.5,
+      "hipsCm": 98,
+      "calvesCm": 39,
+      "notes": "Mid-month check. Waist down 1.5cm, arm perimeter expanding."
+    },
+    {
+      "id": "meas-3",
+      "userId": "user-athlete-1",
+      "date": "2026-11-11",
+      "weightKg": 84,
+      "chestCm": 108,
+      "waistCm": 83,
+      "armsCm": 39.5,
+      "thighsCm": 62,
+      "hipsCm": 97,
+      "calvesCm": 39.2,
+      "notes": "Consistent nutrition compliance. Feeling strong and lean."
+    }
+  ],
+  "progressPhotos": [
+    {
+      "id": "photo-1",
+      "userId": "user-athlete-1",
+      "date": "2026-10-14",
+      "tag": "front",
+      "imageUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80",
+      "weightKg": 86.2,
+      "notes": "Week 1 Front Baseline"
+    },
+    {
+      "id": "photo-2",
+      "userId": "user-athlete-1",
+      "date": "2026-11-11",
+      "tag": "front",
+      "imageUrl": "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80",
+      "weightKg": 84,
+      "notes": "Week 4 Front Follow-up: Noticeable core definition"
+    }
+  ],
+  "fitnessChallenges": [
+    {
+      "id": "chal-30-day-consistency",
+      "title": "30-Day Training Streak",
+      "description": "Log at least 20 verified workout sessions within 30 days to establish ironclad workout consistency.",
+      "category": "monthly",
+      "targetGoal": "20 Workouts",
+      "durationDays": 30,
+      "xpPoints": 500,
+      "badgeName": "Iron Consistency",
+      "participantsCount": 342,
+      "joined": true,
+      "progressPercent": 65
+    },
+    {
+      "id": "chal-weekly-volume",
+      "title": "15,000 kg Weekly Volume",
+      "description": "Accumulate a combined 15,000 kg of resistance load in compound movements over 7 days.",
+      "category": "weekly",
+      "targetGoal": "15,000 kg Volume",
+      "durationDays": 7,
+      "xpPoints": 200,
+      "badgeName": "Volume Pioneer",
+      "participantsCount": 189,
+      "joined": true,
+      "progressPercent": 82
+    },
+    {
+      "id": "chal-hydration-master",
+      "title": "3-Liter Daily Hydration",
+      "description": "Reach your 3000ml water intake goal 5 consecutive days to optimize cellular hydration and recovery.",
+      "category": "daily",
+      "targetGoal": "5 Days Hydration",
+      "durationDays": 5,
+      "xpPoints": 100,
+      "badgeName": "Optimal Hydration",
+      "participantsCount": 512,
+      "joined": false,
+      "progressPercent": 0
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach-first-workout",
+      "title": "First Step to Greatness",
+      "description": "Logged your initial verified workout session.",
+      "icon": "Flame",
+      "category": "workout_count",
+      "unlockedAt": "2026-10-22T06:39:00.136Z",
+      "isUnlocked": true
+    },
+    {
+      "id": "ach-volume-master",
+      "title": "Ton of Steel",
+      "description": "Moved over 10,000 kg in total cumulative workout volume.",
+      "icon": "Dumbbell",
+      "category": "workout_count",
+      "unlockedAt": "2026-11-06T06:39:00.136Z",
+      "isUnlocked": true
+    },
+    {
+      "id": "ach-streak-7",
+      "title": "7-Day Unbroken Streak",
+      "description": "Trained or logged nutrition for 7 consecutive days.",
+      "icon": "Zap",
+      "category": "streak",
+      "unlockedAt": "2026-11-09T06:39:00.136Z",
+      "isUnlocked": true
+    },
+    {
+      "id": "ach-weight-goal",
+      "title": "Body Recomposition Champ",
+      "description": "Achieved first major milestone towards target bodyweight.",
+      "icon": "Trophy",
+      "category": "weight_goal",
+      "isUnlocked": false
+    }
+  ],
+  "gyms": [
+    {
+      "id": "gym-apex-1",
+      "name": "Apex Performance Athletic Club",
+      "ownerId": "user-owner-1",
+      "ownerEmail": "owner@apexfitness.com",
+      "ownerName": "Marcus Sterling",
+      "address": "448 Metro Boulevard, Highline District",
+      "city": "Metropolis",
+      "phone": "+1 (555) 234-8990",
+      "joinCode": "APEX50",
+      "capacity": 250,
+      "memberCount": 90,
+      "facilities": [
+        "Olympic Weightlifting Platforms",
+        "Sauna & Ice Bath Recovery",
+        "Functional Turf Track",
+        "DEXA Body Composition Scanner"
+      ],
+      "status": "approved",
+      "partnershipTier": "premium_collaboration",
+      "announcementsCount": 3,
+      "createdAt": "2026-08-13T06:39:00.136Z",
+      "claimStatus": "verified",
+      "verificationStatus": "verified",
+      "logoUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=150&q=80",
+      "coverImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "id": "gym-titan-2",
+      "name": "Titan Commercial Health Club",
+      "ownerId": "user-owner-2",
+      "ownerEmail": "manager@titangym.com",
+      "ownerName": "Elena Rostova",
+      "address": "12 Westway Corporate Park",
+      "city": "Metropolis",
+      "phone": "+1 (555) 887-2114",
+      "joinCode": "TITAN2025",
+      "capacity": 400,
+      "memberCount": 164,
+      "facilities": [
+        "24/7 Access",
+        "Cardio Cinema",
+        "Spinning Theater",
+        "Powerlifting Zone"
+      ],
+      "status": "approved",
+      "partnershipTier": "standard",
+      "announcementsCount": 1,
+      "createdAt": "2026-09-12T06:39:00.136Z",
+      "claimStatus": "verified",
+      "verificationStatus": "verified",
+      "logoUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=150&q=80",
+      "coverImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80"
+    }
+  ],
+  "gymMembers": [
+    {
+      "id": "gm-1794381275864-ihj9",
+      "gymId": "gym-apex-1",
+      "userId": "user-guest-1794381275864",
+      "userName": "David Miller",
+      "userEmail": "david.m.test@example.com",
+      "phone": "+1-555-0199",
+      "status": "active",
+      "planId": "plan-gold-1",
+      "planName": "Apex Gold Full Access",
+      "monthlyFee": 79,
+      "startDate": "2026-11-11",
+      "expiryDate": "2026-12-11",
+      "fitnessGoal": "Muscle building",
+      "workoutsCompleted": 0,
+      "lastActive": "2026-11-11T07:14:35.864Z",
+      "outstandingBalance": 0,
+      "appliedAt": "2026-11-11T07:14:35.864Z",
+      "approvedAt": "2026-11-11T07:14:35.864Z",
+      "memberCategory": "general",
+      "activeServices": [
+        "general_membership"
+      ],
+      "serviceDetails": {
+        "general": {
+          "planName": "Apex Gold Full Access",
+          "expiryDate": "2026-12-11",
+          "monthlyFee": 79
+        }
+      }
+    },
+    {
+      "id": "gm-1",
+      "gymId": "gym-apex-1",
+      "userId": "user-member-1",
+      "userName": "Sarah Jenkins",
+      "userEmail": "member@apexfitness.com",
+      "status": "active",
+      "assignedTrainerId": "trainer-1",
+      "assignedTrainerName": "David Miller",
+      "appliedAt": "2026-10-12T06:39:00.136Z",
+      "approvedAt": "2026-10-13T06:39:00.136Z",
+      "outstandingBalance": 0,
+      "lastActive": "2026-11-11T07:14:35.846Z",
+      "workoutsCompleted": 1,
+      "memberCategory": "general",
+      "activeServices": [
+        "general_membership",
+        "personal_training"
+      ],
+      "serviceDetails": {
+        "general": {
+          "planName": "Apex Gold Full Access",
+          "expiryDate": "2026-12-15",
+          "monthlyFee": 2500
+        },
+        "personalTraining": {
+          "packageId": "pt-pkg-apex-1",
+          "packageName": "1-on-1 Elite Hypertrophy (12 Sessions)",
+          "trainerId": "trainer-1",
+          "trainerName": "David Miller",
+          "totalSessions": 12,
+          "remainingSessions": 9
+        }
+      }
+    },
+    {
+      "id": "gm-1794379928518",
+      "gymId": "gym-apex-1",
+      "userId": "user-athlete-1",
+      "userName": "Alex Reynolds",
+      "userEmail": "alex@shadowhunter.com",
+      "status": "active",
+      "appliedAt": "2026-11-11T06:52:08.518Z",
+      "memberCategory": "general",
+      "activeServices": [
+        "general_membership"
+      ],
+      "serviceDetails": {
+        "general": {
+          "planName": "Apex Gold Full Access",
+          "expiryDate": "2026-12-15",
+          "monthlyFee": 2500
+        }
+      },
+      "approvedAt": "2026-11-11T09:22:15.793Z",
+      "startDate": "2026-11-11",
+      "expiryDate": "2026-12-11",
+      "assignedTrainerId": "trainer-1",
+      "assignedTrainerName": "David Miller"
+    }
+  ],
+  "gymTrainers": [
+    {
+      "id": "trainer-1",
+      "gymId": "gym-apex-1",
+      "name": "David Miller",
+      "email": "david.miller@apexfitness.com",
+      "specialty": "Biomechanics & Hypertrophy",
+      "experienceYears": 8,
+      "bio": "Certified CSCS and performance coach specializing in compound lift mechanics and injury reduction.",
+      "assignedClientsCount": 15
+    },
+    {
+      "id": "trainer-2",
+      "gymId": "gym-apex-1",
+      "name": "Clara Hughes",
+      "email": "clara.hughes@apexfitness.com",
+      "specialty": "Metabolic Conditioning & Functional Mobility",
+      "experienceYears": 6,
+      "bio": "Former collegiate track athlete guiding individuals through high-efficiency fat loss and mobility programming.",
+      "assignedClientsCount": 19
+    }
+  ],
+  "gymAnnouncements": [
+    {
+      "id": "ann-1",
+      "gymId": "gym-apex-1",
+      "title": "New Rogue Olympic Calibrated Plates Arrived",
+      "content": "We have fully upgraded lifting platforms 3 and 4 with calibrated steel plates and competition barbells. Please remember to re-rack your weights.",
+      "priority": "normal",
+      "author": "Marcus Sterling (Gym Director)",
+      "createdAt": "2026-11-09T06:39:00.136Z"
+    },
+    {
+      "id": "ann-2",
+      "gymId": "gym-apex-1",
+      "title": "Special 50% Partner Member Subscription Discount",
+      "content": "All verified Apex members can use code APEX50 on checkout to enjoy an exclusive 50% discount on Shadow Hunter Pro plans!",
+      "priority": "high",
+      "author": "Apex Administration",
+      "createdAt": "2026-11-06T06:39:00.136Z"
+    }
+  ],
+  "gymCompetitions": [
+    {
+      "id": "comp-apex-nov",
+      "gymId": "gym-apex-1",
+      "title": "Autumn Apex Consistency Championship",
+      "description": "Who can log the most verified training hours and strict compound sets this month?",
+      "startDate": "2026-11-01",
+      "endDate": "2026-11-30",
+      "metric": "total_minutes",
+      "participants": [
+        {
+          "userId": "user-member-1",
+          "userName": "Sarah Jenkins",
+          "score": 620,
+          "rank": 1
+        },
+        {
+          "userId": "user-athlete-1",
+          "userName": "Alex Reynolds",
+          "score": 580,
+          "rank": 2
+        },
+        {
+          "userId": "user-guest-3",
+          "userName": "Michael Chang",
+          "score": 490,
+          "rank": 3
+        }
+      ]
+    }
+  ],
+  "subscriptionPlans": [
+    {
+      "id": "plan-free",
+      "name": "Free Starter",
+      "type": "individual",
+      "billingCycle": "monthly",
+      "priceInr": 0,
+      "features": [
+        "Access to 20+ core exercises",
+        "Basic workout logging",
+        "Daily calorie tracker",
+        "Community leaderboard view"
+      ]
+    },
+    {
+      "id": "plan-monthly",
+      "name": "Monthly Premium Athlete",
+      "type": "individual",
+      "billingCycle": "monthly",
+      "priceInr": 999,
+      "originalPriceInr": 1299,
+      "discountPercentage": 23,
+      "features": [
+        "Full 50+ exercise library with HD demos",
+        "All beginner to advanced workout programs",
+        "Interactive Workout Player with chime & timers",
+        "Unlimited Gemini AI fitness coach queries",
+        "Full body measurement & photo comparison",
+        "Macro & micronutrient breakdown"
+      ]
+    },
+    {
+      "id": "plan-quarterly",
+      "name": "Quarterly Peak Performer",
+      "type": "individual",
+      "billingCycle": "quarterly",
+      "priceInr": 2499,
+      "originalPriceInr": 3897,
+      "discountPercentage": 35,
+      "popular": true,
+      "features": [
+        "Everything in Monthly Premium",
+        "Priority Gemini AI response pipeline",
+        "Personalized body visualization tracker",
+        "Quarterly performance progress reports",
+        "Eligible for verified leaderboard prizes"
+      ]
+    },
+    {
+      "id": "plan-annual",
+      "name": "Annual Elite Champion",
+      "type": "individual",
+      "billingCycle": "annual",
+      "priceInr": 7999,
+      "originalPriceInr": 15588,
+      "discountPercentage": 48,
+      "features": [
+        "Everything in Quarterly Performer",
+        "Best value (under ₹670/month)",
+        "VIP badge across community and leaderboards",
+        "Personalized goal adjustment analysis",
+        "Direct trainer consultation portal"
+      ]
+    },
+    {
+      "id": "plan-gym-standard",
+      "name": "Gym Partnership Standard",
+      "type": "gym_collaboration",
+      "billingCycle": "monthly",
+      "priceInr": 4999,
+      "features": [
+        "Up to 150 active gym members",
+        "Gym member management & approvals",
+        "Unique gym collaboration joining code",
+        "Gym announcements & trainer rosters",
+        "Standard member progress analytics"
+      ]
+    },
+    {
+      "id": "plan-gym-premium",
+      "name": "Gym Partnership Enterprise Pro",
+      "type": "gym_collaboration",
+      "billingCycle": "annual",
+      "priceInr": 39999,
+      "originalPriceInr": 59988,
+      "features": [
+        "Unlimited gym members",
+        "Multi-trainer assignment matrix",
+        "Inter-gym challenge tournaments",
+        "Custom branded member experience",
+        "Dedicated facility account manager",
+        "Enables 50% member collaboration discount"
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1794381553985",
+      "userId": "user-member-1",
+      "userEmail": "member@apexfitness.com",
+      "razorpayOrderId": "order_1794381553209_mwy7a",
+      "razorpayPaymentId": "pay_gateway_1794381553981",
+      "amountInr": 2499,
+      "currency": "INR",
+      "planName": "Quarterly Peak Performer",
+      "status": "success",
+      "discountApplied": false,
+      "date": "2026-11-11T07:19:13.985Z"
+    },
+    {
+      "id": "pay-1",
+      "userId": "user-athlete-1",
+      "userEmail": "alex@shadowhunter.com",
+      "razorpayPaymentId": "pay_NmK872Xz991La",
+      "razorpayOrderId": "order_NmK77aL01Baa",
+      "amountInr": 2499,
+      "currency": "INR",
+      "planName": "Quarterly Peak Performer",
+      "status": "success",
+      "discountApplied": false,
+      "date": "2026-10-28T06:39:00.136Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1794406225329",
+      "userId": "user-guest-1794381275864",
+      "title": "Payment Reminder: December 2026",
+      "message": "Your membership fee of ₹79 for Apex Performance Athletic Club is due. Please settle via Cash, UPI, or Online Portal.",
+      "type": "payment",
+      "read": false,
+      "createdAt": "2026-11-11T14:10:25.329Z"
+    },
+    {
+      "id": "notif-1794388935797",
+      "userId": "user-athlete-1",
+      "title": "Gym Membership Approved!",
+      "message": "Congratulations! Your membership at Apex Performance Athletic Club is now approved.",
+      "type": "gym",
+      "read": false,
+      "createdAt": "2026-11-11T09:22:15.797Z"
+    },
+    {
+      "id": "notif-1794381553990",
+      "userId": "user-member-1",
+      "title": "Payment Confirmed",
+      "message": "Your Quarterly Peak Performer subscription is now active. Receipt #pay-1794381553985.",
+      "type": "payment",
+      "read": false,
+      "createdAt": "2026-11-11T07:19:13.990Z"
+    },
+    {
+      "id": "notif-1794379928523",
+      "userId": "user-owner-1",
+      "title": "New Member Application",
+      "message": "Alex Reynolds (alex@shadowhunter.com) applied to join Apex Performance Athletic Club.",
+      "type": "gym",
+      "read": false,
+      "createdAt": "2026-11-11T06:52:08.523Z"
+    },
+    {
+      "id": "notif-1",
+      "userId": "user-athlete-1",
+      "title": "Today’s Workout Ready",
+      "message": "Upper / Lower Hypertrophy Split is queued for today. Hydrate and get ready!",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-11T03:39:00.136Z"
+    },
+    {
+      "id": "notif-2",
+      "userId": "user-athlete-1",
+      "title": "Challenge Milestone Achieved",
+      "message": "You have completed 65% of the 30-Day Training Streak challenge.",
+      "type": "challenge",
+      "read": true,
+      "createdAt": "2026-11-10T06:39:00.136Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794460721826-o4h49",
+      "timestamp": "2026-11-12T05:18:41.826Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794460721684-tqzs7",
+      "timestamp": "2026-11-12T05:18:41.684Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::ffff:192.168.0.120",
+      "id": "audit-1794411307420-dvnk1",
+      "timestamp": "2026-11-11T15:35:07.420Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "COMPLETE_PT_SESSION",
+      "targetType": "user",
+      "targetId": "pt-sess-2",
+      "details": "Completed PT session for Sarah Jenkins with David Miller",
+      "ipAddress": "::1",
+      "id": "audit-1794410784634-dxcmt",
+      "timestamp": "2026-11-11T15:26:24.634Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794410632472-jesp6",
+      "timestamp": "2026-11-11T15:23:52.472Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "UPDATE_MEMBER_DETAILS",
+      "targetType": "user",
+      "targetId": "gm-1",
+      "details": "Updated membership profile for \"Sarah Jenkins\" (Status: active)",
+      "ipAddress": "::1",
+      "id": "audit-1794406347520-ojusq",
+      "timestamp": "2026-11-11T14:12:27.520Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "RECORD_MEMBER_PAYMENT",
+      "targetType": "subscription",
+      "targetId": "pay-rec-1794406257497-een9",
+      "details": "Recorded UPI payment of ₹2000 for David Vance (Receipt: REC-GYM-AP-202611-9742)",
+      "ipAddress": "::1",
+      "id": "audit-1794406257504-ozz26",
+      "timestamp": "2026-11-11T14:10:57.504Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "RECORD_MEMBER_PAYMENT",
+      "targetType": "subscription",
+      "targetId": "pay-rec-1794406250649-1525",
+      "details": "Recorded UPI payment of ₹2500 for Emma Watson (Receipt: REC-GYM-AP-202611-6883)",
+      "ipAddress": "::1",
+      "id": "audit-1794406250658-z2u7t",
+      "timestamp": "2026-11-11T14:10:50.659Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "RECORD_MEMBER_PAYMENT",
+      "targetType": "subscription",
+      "targetId": "pay-rec-1794406241477-0i1f",
+      "details": "Recorded UPI payment of ₹79 for David Miller (Receipt: REC-GYM-AP-202611-7466)",
+      "ipAddress": "::1",
+      "id": "audit-1794406241486-obpji",
+      "timestamp": "2026-11-11T14:10:41.486Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "RESTORE_USER",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "Restored user account member@apexfitness.com",
+      "ipAddress": "::1",
+      "id": "audit-1794389120925-9jkyd",
+      "timestamp": "2026-11-11T09:25:20.925Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "SUSPEND_USER",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "Suspended user account member@apexfitness.com",
+      "ipAddress": "::1",
+      "id": "audit-1794389119179-m7641",
+      "timestamp": "2026-11-11T09:25:19.179Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "RECORD_MEMBER_PAYMENT",
+      "targetType": "subscription",
+      "targetId": "pay-rec-1794388953633-9gu8",
+      "details": "Recorded UPI payment of ₹2000 for Sarah Jenkins (Receipt: REC-GYM-AP-202611-6888)",
+      "ipAddress": "::1",
+      "id": "audit-1794388953646-b1dk7",
+      "timestamp": "2026-11-11T09:22:33.646Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794388691660-qswov",
+      "timestamp": "2026-11-11T09:18:11.661Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794388691557-kdtnu",
+      "timestamp": "2026-11-11T09:18:11.557Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "SUBSCRIPTION_PURCHASE",
+      "targetType": "subscription",
+      "targetId": "plan-quarterly",
+      "details": "Purchased Quarterly Peak Performer for ₹2499. Ref: pay_gateway_1794381553981",
+      "ipAddress": "::1",
+      "id": "audit-1794381553990-dwn67",
+      "timestamp": "2026-11-11T07:19:13.990Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "GENERATE_MONTHLY_BILLS",
+      "targetType": "subscription",
+      "targetId": "gym-apex-1",
+      "details": "Generated 2 monthly invoices for December 2026 at Apex Performance Athletic Club",
+      "ipAddress": "::1",
+      "id": "audit-1794381337016-a3rfi",
+      "timestamp": "2026-11-11T07:15:37.016Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794381336914-1pi86",
+      "timestamp": "2026-11-11T07:15:36.914Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "ADD_GYM_MEMBER",
+      "targetType": "user",
+      "targetId": "gm-1794381275864-ihj9",
+      "details": "Added new gym member \"David Miller\" (david.m.test@example.com) to Apex Performance Athletic Club",
+      "ipAddress": "::1",
+      "id": "audit-1794381275866-zetor",
+      "timestamp": "2026-11-11T07:14:35.866Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "RECORD_MEMBER_PAYMENT",
+      "targetType": "subscription",
+      "targetId": "pay-rec-1794381275807-2zlw",
+      "details": "Recorded CASH payment of ₹50 for Sarah Jenkins (Receipt: REC-GYM-AP-202611-1965)",
+      "ipAddress": "::1",
+      "id": "audit-1794381275809-vqevx",
+      "timestamp": "2026-11-11T07:14:35.809Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794381275603-2137l",
+      "timestamp": "2026-11-11T07:14:35.603Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794381223024-clmdk",
+      "timestamp": "2026-11-11T07:13:43.024Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "GYM_ACCESS_GRANT",
+      "targetType": "permission",
+      "targetId": "user-athlete-1",
+      "details": "Super Host granted Gym Owner access for alex@shadowhunter.com to: Apex Performance Athletic Club with 4 permissions.",
+      "ipAddress": "::1",
+      "id": "audit-1794381075490-qba7v",
+      "timestamp": "2026-11-11T07:11:15.490Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794381075409-txda7",
+      "timestamp": "2026-11-11T07:11:15.409Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794381054003-4ot32",
+      "timestamp": "2026-11-11T07:10:54.004Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794379183056-x3jlz",
+      "timestamp": "2026-11-11T06:39:43.056Z"
+    },
+    {
+      "id": "audit-1",
+      "timestamp": "2026-10-22T06:39:00.136Z",
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "APPROVE_GYM",
+      "targetType": "gym",
+      "targetId": "gym-apex-1",
+      "details": "Approved gym registration for Apex Performance Athletic Club.",
+      "ipAddress": "192.168.1.1"
+    },
+    {
+      "id": "audit-2",
+      "timestamp": "2026-11-01T06:39:00.136Z",
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "GRANT_ROLE",
+      "targetType": "permission",
+      "targetId": "user-owner-1",
+      "details": "Assigned Gym Leader role scoped to gym-apex-1.",
+      "ipAddress": "192.168.1.1"
+    }
+  ],
+  "chatMessages": {
+    "user-athlete-1": [
+      {
+        "id": "chat-init-1",
+        "role": "assistant",
+        "content": "Welcome to your SHADOW HUNTER AI Fitness Assistant! I am calibrated with your fitness profile (Target: Muscle Building, Weight: 84kg, Experience: Intermediate). How can I assist your training or nutrition today?",
+        "timestamp": "2026-11-10T18:39:00.136Z"
+      }
+    ]
+  },
+  "gymMessages": [
+    {
+      "id": "msg-1",
+      "gymId": "gym-apex-1",
+      "senderId": "user-owner-1",
+      "senderName": "Marcus Sterling (Gym Director)",
+      "senderRole": "gym_owner",
+      "channel": "community",
+      "content": "Welcome to the Apex Performance Community Board! Let’s crush this week’s training targets.",
+      "createdAt": "2026-11-09T06:39:00.136Z"
+    },
+    {
+      "id": "msg-2",
+      "gymId": "gym-apex-1",
+      "senderId": "user-member-1",
+      "senderName": "Sarah Jenkins",
+      "senderRole": "gym_member",
+      "channel": "trainer_qa",
+      "targetTrainerId": "trainer-1",
+      "targetTrainerName": "David Miller",
+      "content": "Hi Coach David, on the barbell Romanian deadlifts, should I keep my shins perpendicular throughout the entire eccentric descent?",
+      "createdAt": "2026-11-11T00:39:00.136Z"
+    },
+    {
+      "id": "msg-3",
+      "gymId": "gym-apex-1",
+      "senderId": "trainer-1",
+      "senderName": "Coach David Miller",
+      "senderRole": "gym_owner",
+      "channel": "trainer_qa",
+      "targetTrainerId": "trainer-1",
+      "targetTrainerName": "David Miller",
+      "content": "Exactly Sarah! Keep a soft knee bend and hinge purely at the hips. The bar should remain in close contact with your thighs and shins.",
+      "createdAt": "2026-11-11T02:39:00.136Z"
+    },
+    {
+      "id": "msg-1794379216619-rd9u",
+      "gymId": "gym-apex-1",
+      "senderId": "user-member-1",
+      "senderName": "Sarah Jenkins",
+      "senderRole": "gym_member",
+      "channel": "community",
+      "content": "Great session today on Platform 3! Plates were clean and ready.",
+      "createdAt": "2026-11-11T06:40:16.620Z"
+    }
+  ],
+  "gymInvoices": [
+    {
+      "id": "inv-gym-apex-1-1794381337014-vbbv",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "memberEmail": "member@apexfitness.com",
+      "amount": 2000,
+      "paidAmount": 2000,
+      "billingMonth": "December 2026",
+      "dueDate": "2026-12-05",
+      "status": "paid",
+      "generatedAt": "2026-11-11T07:15:37.014Z",
+      "paidAt": "2026-11-11T09:22:33.632Z",
+      "paymentMethod": "upi",
+      "receiptNumber": "REC-GYM-AP-202611-6888"
+    },
+    {
+      "id": "inv-gym-apex-1-1794381337014-ma3l",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1794381275864-ihj9",
+      "memberName": "David Miller",
+      "memberEmail": "david.m.test@example.com",
+      "amount": 79,
+      "paidAmount": 79,
+      "billingMonth": "December 2026",
+      "dueDate": "2026-12-05",
+      "status": "paid",
+      "generatedAt": "2026-11-11T07:15:37.014Z",
+      "paidAt": "2026-11-11T14:10:41.477Z",
+      "paymentMethod": "upi",
+      "receiptNumber": "REC-GYM-AP-202611-7466"
+    },
+    {
+      "id": "inv-apex-101",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "memberEmail": "member@apexfitness.com",
+      "amount": 2500,
+      "paidAmount": 2550,
+      "billingMonth": "November 2026",
+      "dueDate": "2026-11-05",
+      "status": "paid",
+      "generatedAt": "2026-11-01T00:00:00Z",
+      "paidAt": "2026-11-11T07:14:35.807Z",
+      "paymentMethod": "cash",
+      "receiptNumber": "REC-GYM-AP-202611-1965",
+      "notes": "Paid promptly via Google Pay UPI"
+    },
+    {
+      "id": "inv-apex-102",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-2",
+      "memberName": "Michael Chang",
+      "memberEmail": "m.chang@apexathlete.com",
+      "amount": 2000,
+      "paidAmount": 2000,
+      "billingMonth": "November 2026",
+      "dueDate": "2026-11-05",
+      "status": "paid",
+      "generatedAt": "2026-11-01T00:00:00Z",
+      "paidAt": "2026-11-04T16:30:00Z",
+      "paymentMethod": "cash",
+      "receiptNumber": "REC-APX-202611-002",
+      "notes": "Paid cash at front reception desk"
+    },
+    {
+      "id": "inv-apex-103",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-3",
+      "memberName": "Emma Watson",
+      "memberEmail": "emma.w@apexathlete.com",
+      "amount": 2500,
+      "paidAmount": 2500,
+      "billingMonth": "November 2026",
+      "dueDate": "2026-11-05",
+      "status": "paid",
+      "generatedAt": "2026-11-01T00:00:00Z",
+      "notes": "Automated reminder dispatched on 2026-11-06",
+      "paidAt": "2026-11-11T14:10:50.649Z",
+      "paymentMethod": "upi",
+      "receiptNumber": "REC-GYM-AP-202611-6883"
+    },
+    {
+      "id": "inv-apex-104",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-4",
+      "memberName": "David Vance",
+      "memberEmail": "david.vance@techcorp.io",
+      "amount": 2000,
+      "paidAmount": 2000,
+      "billingMonth": "November 2026",
+      "dueDate": "2026-11-05",
+      "status": "paid",
+      "generatedAt": "2026-11-01T00:00:00Z",
+      "notes": "Membership access placed on hold due to non-payment",
+      "paidAt": "2026-11-11T14:10:57.497Z",
+      "paymentMethod": "upi",
+      "receiptNumber": "REC-GYM-AP-202611-9742"
+    },
+    {
+      "id": "inv-apex-105",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "memberEmail": "member@apexfitness.com",
+      "amount": 2500,
+      "paidAmount": 2500,
+      "billingMonth": "October 2026",
+      "dueDate": "2026-10-05",
+      "status": "paid",
+      "generatedAt": "2026-10-01T00:00:00Z",
+      "paidAt": "2026-10-03T11:00:00Z",
+      "paymentMethod": "online",
+      "receiptNumber": "REC-APX-202610-088"
+    }
+  ],
+  "gymPayments": [
+    {
+      "id": "pay-rec-1794406257497-een9",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-4",
+      "memberName": "David Vance",
+      "invoiceId": "inv-apex-104",
+      "amount": 2000,
+      "paymentMethod": "upi",
+      "transactionRef": "TXN-1794406257497",
+      "notes": "Settlement for November 2026",
+      "recordedBy": "Alexander Vance",
+      "recordedAt": "2026-11-11T14:10:57.498Z",
+      "receiptNumber": "REC-GYM-AP-202611-9742"
+    },
+    {
+      "id": "pay-rec-1794406250649-1525",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-3",
+      "memberName": "Emma Watson",
+      "invoiceId": "inv-apex-103",
+      "amount": 2500,
+      "paymentMethod": "upi",
+      "transactionRef": "TXN-1794406250649",
+      "notes": "Settlement for November 2026",
+      "recordedBy": "Alexander Vance",
+      "recordedAt": "2026-11-11T14:10:50.649Z",
+      "receiptNumber": "REC-GYM-AP-202611-6883"
+    },
+    {
+      "id": "pay-rec-1794406241477-0i1f",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1794381275864-ihj9",
+      "memberName": "David Miller",
+      "invoiceId": "inv-gym-apex-1-1794381337014-ma3l",
+      "amount": 79,
+      "paymentMethod": "upi",
+      "transactionRef": "TXN-1794406241477",
+      "notes": "Settlement for December 2026",
+      "recordedBy": "Alexander Vance",
+      "recordedAt": "2026-11-11T14:10:41.477Z",
+      "receiptNumber": "REC-GYM-AP-202611-7466"
+    },
+    {
+      "id": "pay-rec-1794388953633-9gu8",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "invoiceId": "inv-gym-apex-1-1794381337014-vbbv",
+      "amount": 2000,
+      "paymentMethod": "upi",
+      "transactionRef": "TXN-1794388953633",
+      "notes": "Settlement for December 2026",
+      "recordedBy": "Marcus Sterling",
+      "recordedAt": "2026-11-11T09:22:33.633Z",
+      "receiptNumber": "REC-GYM-AP-202611-6888"
+    },
+    {
+      "id": "pay-rec-1794381275807-2zlw",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "invoiceId": "inv-apex-101",
+      "amount": 50,
+      "paymentMethod": "cash",
+      "transactionRef": "CASH-RECEIPT",
+      "notes": "Front desk cash payment",
+      "recordedBy": "Marcus Sterling",
+      "recordedAt": "2026-11-11T07:14:35.807Z",
+      "receiptNumber": "REC-GYM-AP-202611-1965"
+    },
+    {
+      "id": "pay-apex-201",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "invoiceId": "inv-apex-101",
+      "amount": 2500,
+      "paymentMethod": "upi",
+      "transactionRef": "UPI-774928190-ICICI",
+      "notes": "Monthly Gold Membership Dues - November 2026",
+      "recordedBy": "Marcus Sterling (Gym Director)",
+      "recordedAt": "2026-11-03T10:15:00Z",
+      "receiptNumber": "REC-APX-202611-001"
+    },
+    {
+      "id": "pay-apex-202",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-2",
+      "memberName": "Michael Chang",
+      "invoiceId": "inv-apex-102",
+      "amount": 2000,
+      "paymentMethod": "cash",
+      "transactionRef": "CASH-RCP-9912",
+      "notes": "Front Desk Cash Payment",
+      "recordedBy": "Marcus Sterling (Gym Director)",
+      "recordedAt": "2026-11-04T16:30:00Z",
+      "receiptNumber": "REC-APX-202611-002"
+    },
+    {
+      "id": "pay-apex-203",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "invoiceId": "inv-apex-105",
+      "amount": 2500,
+      "paymentMethod": "online",
+      "transactionRef": "pay_online_live_881",
+      "notes": "October Membership Dues via Razorpay Gateway",
+      "recordedBy": "Automated Gateway Verification",
+      "recordedAt": "2026-10-03T11:00:00Z",
+      "receiptNumber": "REC-APX-202610-088"
+    }
+  ],
+  "gymAttendance": [
+    {
+      "id": "att-1794381275846",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "checkInTime": "2026-11-11T07:14:35.846Z",
+      "date": "2026-11-11",
+      "checkOutTime": "2026-11-11T07:14:35.854Z"
+    },
+    {
+      "id": "att-1",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "checkInTime": "2026-11-11T07:15:00Z",
+      "checkOutTime": "2026-11-11T08:35:00Z",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "att-2",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-2",
+      "memberName": "Michael Chang",
+      "checkInTime": "2026-11-11T09:00:00Z",
+      "checkOutTime": "2026-11-11T10:15:00Z",
+      "date": "2026-11-11"
+    },
+    {
+      "id": "att-3",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "checkInTime": "2026-11-10T17:30:00Z",
+      "checkOutTime": "2026-11-10T18:45:00Z",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "att-4",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-2",
+      "memberName": "Michael Chang",
+      "checkInTime": "2026-11-10T08:15:00Z",
+      "checkOutTime": "2026-11-10T09:30:00Z",
+      "date": "2026-11-10"
+    },
+    {
+      "id": "att-5",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-3",
+      "memberName": "Emma Watson",
+      "checkInTime": "2026-10-28T16:00:00Z",
+      "checkOutTime": "2026-10-28T17:15:00Z",
+      "date": "2026-10-28"
+    }
+  ],
+  "gymExpenses": [
+    {
+      "id": "exp-1",
+      "gymId": "gym-apex-1",
+      "category": "rent",
+      "title": "Highline Commercial Facility Lease",
+      "amount": 65000,
+      "date": "2026-11-01",
+      "recordedBy": "Marcus Sterling"
+    },
+    {
+      "id": "exp-2",
+      "gymId": "gym-apex-1",
+      "category": "salaries",
+      "title": "Certified Trainer & Support Staff Payroll",
+      "amount": 52000,
+      "date": "2026-11-02",
+      "recordedBy": "Marcus Sterling"
+    },
+    {
+      "id": "exp-3",
+      "gymId": "gym-apex-1",
+      "category": "utilities",
+      "title": "HVAC Air Purification & 3-Phase Commercial Electricity",
+      "amount": 14200,
+      "date": "2026-11-05",
+      "recordedBy": "Marcus Sterling"
+    },
+    {
+      "id": "exp-4",
+      "gymId": "gym-apex-1",
+      "category": "maintenance",
+      "title": "Olympic Barbell Bearing Overhaul & Sauna Filter Replacements",
+      "amount": 7800,
+      "date": "2026-11-08",
+      "recordedBy": "Marcus Sterling"
+    }
+  ],
+  "gymPlans": [
+    {
+      "id": "plan-apex-1",
+      "gymId": "gym-apex-1",
+      "name": "Apex Gold All-Access",
+      "monthlyFee": 2500,
+      "billingCycle": "monthly",
+      "durationMonths": 1,
+      "features": [
+        "Unlimited Facility & Platform Access",
+        "Sauna & Cold Plunge Recovery Suite",
+        "Quarterly DEXA Body Composition Scan",
+        "Monthly Certified Coach Consultation"
+      ],
+      "isActive": true
+    },
+    {
+      "id": "plan-apex-2",
+      "gymId": "gym-apex-1",
+      "name": "Strength & Conditioning Mastery",
+      "monthlyFee": 2000,
+      "billingCycle": "monthly",
+      "durationMonths": 1,
+      "features": [
+        "Olympic Weightlifting Platforms Access",
+        "Turf Conditioning & Sled Track",
+        "Locker Room & High-Pressure Showers"
+      ],
+      "isActive": true
+    },
+    {
+      "id": "plan-apex-3",
+      "gymId": "gym-apex-1",
+      "name": "Annual Apex High Performer",
+      "monthlyFee": 1800,
+      "billingCycle": "annual",
+      "durationMonths": 12,
+      "features": [
+        "24/7 Keycard Facility Access",
+        "Free Guest Passes (2/month)",
+        "All Recovery & Wet Facilities",
+        "Complimentary Custom Sports Nutrition Guide"
+      ],
+      "isActive": true
+    }
+  ],
+  "ptPackages": [
+    {
+      "id": "pt-pkg-apex-1",
+      "gymId": "gym-apex-1",
+      "name": "1-on-1 Elite Hypertrophy (12 Sessions)",
+      "type": "one_on_one",
+      "totalSessions": 12,
+      "priceInr": 14400,
+      "validityDays": 60,
+      "description": "Direct 1-on-1 progressive overload training, form biomechanics, and personalized workout logs with CSCS certified coach.",
+      "trainerSpecialtyRequired": "Biomechanics & Hypertrophy",
+      "isActive": true,
+      "createdAt": "2026-09-27T09:17:00.241Z"
+    },
+    {
+      "id": "pt-pkg-apex-2",
+      "gymId": "gym-apex-1",
+      "name": "1-on-1 Metabolic Conditioning (8 Sessions)",
+      "type": "one_on_one",
+      "totalSessions": 8,
+      "priceInr": 9600,
+      "validityDays": 45,
+      "description": "High-intensity conditioning, mobility work, and fat-loss optimization with heart-rate zone tracking.",
+      "trainerSpecialtyRequired": "Metabolic Conditioning",
+      "isActive": true,
+      "createdAt": "2026-10-12T09:17:00.241Z"
+    },
+    {
+      "id": "pt-pkg-apex-3",
+      "gymId": "gym-apex-1",
+      "name": "Small Group Strength Camp (10 Sessions)",
+      "type": "group",
+      "totalSessions": 10,
+      "priceInr": 6500,
+      "validityDays": 30,
+      "description": "Semi-private barbell mastery group (max 4 athletes per coach) focusing on Squat, Bench, and Deadlift mechanics.",
+      "isActive": true,
+      "createdAt": "2026-10-22T09:17:00.241Z"
+    }
+  ],
+  "ptSessions": [
+    {
+      "id": "pt-sess-1",
+      "gymId": "gym-apex-1",
+      "trainerId": "trainer-1",
+      "trainerName": "David Miller",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "packageId": "pt-pkg-apex-1",
+      "packageName": "1-on-1 Elite Hypertrophy (12 Sessions)",
+      "scheduledAt": "2026-11-09T09:17:00.241Z",
+      "durationMinutes": 60,
+      "status": "completed",
+      "sessionNotes": "Barbell RDL form check passed. Shins perpendicular. Increased working sets to 70kg.",
+      "completedAt": "2026-11-09T10:17:00.241Z",
+      "loggedBy": "David Miller"
+    },
+    {
+      "id": "pt-sess-2",
+      "gymId": "gym-apex-1",
+      "trainerId": "trainer-1",
+      "trainerName": "David Miller",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "packageId": "pt-pkg-apex-1",
+      "packageName": "1-on-1 Elite Hypertrophy (12 Sessions)",
+      "scheduledAt": "2026-11-12T09:17:00.241Z",
+      "durationMinutes": 60,
+      "status": "completed",
+      "sessionNotes": "Upper body horizontal push/pull focus. Heavy dumbbell bench press warmup.",
+      "completedAt": "2026-11-11T15:26:24.222Z",
+      "loggedBy": "owner@apexfitness.com"
+    },
+    {
+      "id": "pt-sess-3",
+      "gymId": "gym-apex-1",
+      "trainerId": "trainer-2",
+      "trainerName": "Clara Hughes",
+      "memberId": "gm-4",
+      "memberName": "Priya Sharma",
+      "packageId": "pt-pkg-apex-2",
+      "packageName": "1-on-1 Metabolic Conditioning (8 Sessions)",
+      "scheduledAt": "2026-11-06T09:17:00.241Z",
+      "durationMinutes": 45,
+      "status": "completed",
+      "sessionNotes": "Kettlebell snatch cadence test. Excellent cardiovascular recovery rates.",
+      "completedAt": "2026-11-06T10:02:00.241Z",
+      "loggedBy": "Clara Hughes"
+    }
+  ],
+  "trainerAvailabilities": [
+    {
+      "trainerId": "trainer-1",
+      "workingDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "timeSlots": [
+        "06:00 - 07:00",
+        "07:30 - 08:30",
+        "16:00 - 17:00",
+        "17:30 - 18:30",
+        "19:00 - 20:00"
+      ],
+      "maxClients": 15,
+      "activeClients": 14,
+      "rating": 4.9,
+      "completedSessions": 143
+    },
+    {
+      "trainerId": "trainer-2",
+      "workingDays": [
+        "Monday",
+        "Wednesday",
+        "Friday",
+        "Saturday"
+      ],
+      "timeSlots": [
+        "08:00 - 09:00",
+        "09:30 - 10:30",
+        "17:00 - 18:00",
+        "18:30 - 19:30"
+      ],
+      "maxClients": 20,
+      "activeClients": 19,
+      "rating": 4.8,
+      "completedSessions": 118
+    }
+  ],
+  "gymClaims": [
+    {
+      "id": "claim-titan-1",
+      "gymId": "gym-titan-2",
+      "gymName": "Titan Commercial Health Club",
+      "claimantUserId": "user-owner-2",
+      "claimantName": "Elena Rostova",
+      "claimantEmail": "manager@titangym.com",
+      "claimantPhone": "+1 (555) 887-2114",
+      "businessRegistrationNumber": "BRN-TITAN-882914",
+      "proofDocumentUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=400&q=80",
+      "physicalAddressProof": "Commercial Lease Agreement #CLA-9921, 12 Westway Corporate Park",
+      "status": "approved",
+      "reviewNotes": "Verified official corporate license document and commercial address lease.",
+      "submittedAt": "2026-10-17T09:17:00.241Z",
+      "reviewedAt": "2026-10-18T09:17:00.241Z",
+      "reviewedBy": "Alexander Vance (Super Admin)"
+    },
+    {
+      "id": "claim-metro-pending",
+      "gymId": "gym-metro-3",
+      "gymName": "Metro Athletics & Iron",
+      "claimantUserId": "user-athlete-1",
+      "claimantName": "Alex Reynolds",
+      "claimantEmail": "alex@shadowhunter.com",
+      "claimantPhone": "+1 (555) 902-3341",
+      "businessRegistrationNumber": "BRN-METRO-44102",
+      "proofDocumentUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80",
+      "physicalAddressProof": "Utility Bill & Business Registration Certificate",
+      "status": "pending_review",
+      "reviewNotes": "Ownership documentation awaiting platform admin verification.",
+      "submittedAt": "2026-11-09T09:17:00.241Z"
+    }
+  ],
+  "gymBrandings": {
+    "gym-apex-1": {
+      "gymId": "gym-apex-1",
+      "gymName": "Apex Performance Athletic Club",
+      "primaryColor": "#7651D5",
+      "secondaryColor": "#A58AF5",
+      "logoUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=150&q=80",
+      "coverImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80",
+      "tagline": "High Performance Strength, Conditioning & Scientific Recovery",
+      "customDomain": "apex.shadowhunter.fitness",
+      "whiteLabelEnabled": true,
+      "brandingTier": "white_label_pro"
+    },
+    "gym-titan-2": {
+      "gymId": "gym-titan-2",
+      "gymName": "Titan Commercial Health Club",
+      "primaryColor": "#2563EB",
+      "secondaryColor": "#60A5FA",
+      "logoUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=150&q=80",
+      "coverImageUrl": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=1200&q=80",
+      "tagline": "24/7 Elite Commercial Training Equipment & Spin Studios",
+      "customDomain": "titan.shadowhunter.fitness",
+      "whiteLabelEnabled": true,
+      "brandingTier": "standard"
+    }
+  },
+  "gymGalleries": {
+    "gym-apex-1": [
+      {
+        "id": "gal-1",
+        "gymId": "gym-apex-1",
+        "imageUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80",
+        "caption": "Olympic lifting platforms with competition calibrated discs",
+        "displayOrder": 1,
+        "uploadedAt": "2026-10-12T09:17:00.241Z"
+      },
+      {
+        "id": "gal-2",
+        "gymId": "gym-apex-1",
+        "imageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=600&q=80",
+        "caption": "Dumbbell training zone up to 60 kg pairs",
+        "displayOrder": 2,
+        "uploadedAt": "2026-10-17T09:17:00.241Z"
+      },
+      {
+        "id": "gal-3",
+        "gymId": "gym-apex-1",
+        "imageUrl": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=600&q=80",
+        "caption": "Finnish sauna and contrast ice bath recovery suites",
+        "displayOrder": 3,
+        "uploadedAt": "2026-10-22T09:17:00.241Z"
+      }
+    ]
+  },
+  "teamMembers": [
+    {
+      "id": "team-1",
+      "userId": "user-admin-1",
+      "email": "admin@shadowhunter.com",
+      "fullName": "Alexander Vance",
+      "role": "super_admin",
+      "status": "active",
+      "allowedGyms": "all",
+      "permissions": [
+        "all_platform_permissions"
+      ],
+      "invitedAt": "2026-05-15T09:17:00.241Z",
+      "invitedBy": "SYSTEM_CREATOR",
+      "acceptedAt": "2026-05-15T09:17:00.241Z"
+    },
+    {
+      "id": "team-2",
+      "userId": "user-finance-1",
+      "email": "finance@shadowhunter.com",
+      "fullName": "Sophia Martinez",
+      "role": "finance_manager",
+      "status": "active",
+      "allowedGyms": "all",
+      "permissions": [
+        "view_financial_reports",
+        "manage_monthly_bills",
+        "view_platform_analytics",
+        "export_financial_csv"
+      ],
+      "invitedAt": "2026-09-12T09:17:00.241Z",
+      "invitedBy": "admin@shadowhunter.com",
+      "acceptedAt": "2026-09-13T09:17:00.241Z"
+    },
+    {
+      "id": "team-3",
+      "email": "support.lead@shadowhunter.com",
+      "fullName": "Liam O’Connor",
+      "role": "support_team",
+      "status": "active",
+      "allowedGyms": "all",
+      "permissions": [
+        "view_member_profiles",
+        "view_gym_directory",
+        "manage_support_tickets"
+      ],
+      "invitedAt": "2026-10-12T09:17:00.241Z",
+      "invitedBy": "admin@shadowhunter.com",
+      "acceptedAt": "2026-10-13T09:17:00.241Z"
+    }
+  ],
+  "teamInvites": [
+    {
+      "id": "inv-1",
+      "email": "moderator.ops@shadowhunter.com",
+      "role": "moderator",
+      "allowedGyms": "all",
+      "permissions": [
+        "moderate_gym_community",
+        "review_reported_content"
+      ],
+      "inviteToken": "INV-MOD-99104A",
+      "status": "pending",
+      "expiresAt": "2026-11-25T09:17:00.241Z",
+      "createdAt": "2026-11-10T09:17:00.241Z",
+      "createdBy": "admin@shadowhunter.com"
+    }
+  ],
+  "whatsappIntegrations": {
+    "gym-apex-1": {
+      "gymId": "gym-apex-1",
+      "status": "connected",
+      "phoneNumberId": "108492048593021",
+      "wabaId": "294029485029485",
+      "displayPhoneNumber": "+91 98765 43210",
+      "verifiedName": "Apex Performance Athletic Club",
+      "qualityRating": "GREEN",
+      "messagingLimitTier": "TIER_10K",
+      "webhookVerified": true,
+      "lastHealthCheck": "2026-11-12T05:18:06.029Z",
+      "monthlyMessageAllowance": 5000,
+      "monthlyMessagesSent": 420,
+      "providerChargesInr": 630,
+      "connectedAt": "2026-01-15T09:00:00.000Z"
+    },
+    "gym-titan-2": {
+      "gymId": "gym-titan-2",
+      "status": "pending_verification",
+      "displayPhoneNumber": "+91 91234 56789",
+      "verifiedName": "Titan Commercial Fitness Hub",
+      "qualityRating": "UNKNOWN",
+      "messagingLimitTier": "TIER_250",
+      "webhookVerified": false,
+      "monthlyMessageAllowance": 1000,
+      "monthlyMessagesSent": 0,
+      "providerChargesInr": 0,
+      "connectedAt": "2026-03-01T10:00:00.000Z"
+    }
+  },
+  "whatsappConsentRecords": [
+    {
+      "id": "consent-1",
+      "gymId": "gym-apex-1",
+      "memberId": "mem-apex-1",
+      "memberName": "Alex Reynolds",
+      "phoneNumber": "+91 98450 11223",
+      "whatsappNumber": "+91 98450 11223",
+      "countryCode": "+91",
+      "hasConsent": true,
+      "consentDate": "2026-01-10T11:00:00.000Z",
+      "consentSource": "digital_form",
+      "preferences": {
+        "promotional": true,
+        "serviceUpdates": true,
+        "workoutReminders": true
+      },
+      "optedOut": false,
+      "updatedAt": "2026-01-10T11:00:00.000Z"
+    },
+    {
+      "id": "consent-2",
+      "gymId": "gym-apex-1",
+      "memberId": "mem-apex-2",
+      "memberName": "Priya Sharma",
+      "phoneNumber": "+91 97410 33445",
+      "whatsappNumber": "+91 97410 33445",
+      "countryCode": "+91",
+      "hasConsent": true,
+      "consentDate": "2026-01-12T14:30:00.000Z",
+      "consentSource": "in_person",
+      "preferences": {
+        "promotional": true,
+        "serviceUpdates": true,
+        "workoutReminders": true
+      },
+      "optedOut": false,
+      "updatedAt": "2026-01-12T14:30:00.000Z"
+    },
+    {
+      "id": "consent-3",
+      "gymId": "gym-apex-1",
+      "memberId": "mem-apex-3",
+      "memberName": "Vikram Malhotra",
+      "phoneNumber": "+91 99800 55667",
+      "whatsappNumber": "+91 99800 55667",
+      "countryCode": "+91",
+      "hasConsent": false,
+      "consentDate": "2026-02-01T10:00:00.000Z",
+      "consentSource": "digital_form",
+      "preferences": {
+        "promotional": false,
+        "serviceUpdates": true,
+        "workoutReminders": false
+      },
+      "optedOut": true,
+      "optedOutAt": "2026-02-15T09:00:00.000Z",
+      "updatedAt": "2026-02-15T09:00:00.000Z"
+    }
+  ],
+  "whatsappTemplates": [
+    {
+      "id": "tpl-welcome",
+      "gymId": "gym-apex-1",
+      "name": "member_welcome_v1",
+      "category": "UTILITY",
+      "language": "en",
+      "metaStatus": "APPROVED",
+      "headerType": "IMAGE",
+      "headerTextOrMediaUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80",
+      "bodyText": "Hi {{member_name}}! 👋 Welcome to {{gym_name}}! We are thrilled to partner with you on your high-performance fitness journey. Your membership plan {{membership_plan}} is active through {{membership_expiry_date}}. See you on the gym floor!",
+      "footerText": "Team {{gym_name}}",
+      "buttons": [
+        {
+          "type": "QUICK_REPLY",
+          "text": "View Workout Plan"
+        }
+      ],
+      "exampleVariables": {
+        "member_name": "Rahul",
+        "gym_name": "Apex Performance",
+        "membership_plan": "Pro Annual Membership",
+        "membership_expiry_date": "31 Dec 2026"
+      },
+      "createdAt": "2026-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "tpl-renewal-reminder",
+      "gymId": "gym-apex-1",
+      "name": "membership_renewal_alert",
+      "category": "UTILITY",
+      "language": "en",
+      "metaStatus": "APPROVED",
+      "headerType": "IMAGE",
+      "bodyText": "Hi {{member_name}}! 👋 Hope your workouts are progressing powerfully. Your membership at {{gym_name}} is scheduled to expire on {{membership_expiry_date}}. Renew today to retain your uninterrupted tier benefits and personal locker.",
+      "footerText": "Contact desk: {{gym_contact}}",
+      "buttons": [
+        {
+          "type": "QUICK_REPLY",
+          "text": "Renew Membership"
+        }
+      ],
+      "exampleVariables": {
+        "member_name": "Priya",
+        "gym_name": "Apex Performance",
+        "membership_expiry_date": "25 Nov 2026",
+        "gym_contact": "+91 98765 43210"
+      },
+      "createdAt": "2026-01-20T12:00:00.000Z"
+    },
+    {
+      "id": "tpl-diwali-greeting",
+      "gymId": "gym-apex-1",
+      "name": "diwali_festive_wishes",
+      "category": "MARKETING",
+      "language": "en",
+      "metaStatus": "APPROVED",
+      "headerType": "IMAGE",
+      "bodyText": "Happy Diwali to you and your family from everyone at {{gym_name}}! 🪔✨ May this festive season bring boundless energy, health, strength, and victory to your fitness journey. We remain open with festive morning hours for your training continuity!",
+      "footerText": "Celebrations at {{gym_name}}",
+      "exampleVariables": {
+        "gym_name": "Apex Performance Athletic Club"
+      },
+      "createdAt": "2026-02-01T09:00:00.000Z"
+    },
+    {
+      "id": "tpl-pt-reminder",
+      "gymId": "gym-apex-1",
+      "name": "pt_session_scheduled_alert",
+      "category": "UTILITY",
+      "language": "en",
+      "metaStatus": "APPROVED",
+      "headerType": "NONE",
+      "bodyText": "Hi {{member_name}}! 🏋️ Reminder: Your 1-on-1 Personal Training session with Coach {{trainer_name}} is confirmed for {{booking_date}} at {{booking_time}}. You have {{pt_sessions_remaining}} sessions remaining in your package. Stay hydrated and see you soon!",
+      "footerText": "{{gym_name}} Strength Team",
+      "exampleVariables": {
+        "member_name": "Alex",
+        "trainer_name": "Marcus Vance",
+        "booking_date": "Tomorrow, Nov 13",
+        "booking_time": "07:00 AM",
+        "pt_sessions_remaining": "8",
+        "gym_name": "Apex Performance"
+      },
+      "createdAt": "2026-02-10T11:00:00.000Z"
+    }
+  ],
+  "whatsappCampaigns": [
+    {
+      "id": "camp-1",
+      "gymId": "gym-apex-1",
+      "name": "Diwali Festive Strength Greetings 2026",
+      "type": "festival",
+      "occasionKey": "diwali",
+      "templateId": "tpl-diwali-greeting",
+      "messageBody": "Happy Diwali to you and your family from everyone at Apex Performance! 🪔✨ May this festive season bring boundless energy, health, and victory to your fitness goals.",
+      "posterImageUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=800&q=80",
+      "posterTitle": "Apex Gold Diwali Festive Edition",
+      "targetAudience": "all_consented",
+      "status": "completed",
+      "stats": {
+        "eligible": 85,
+        "submitted": 84,
+        "delivered": 82,
+        "read": 78,
+        "failed": 1,
+        "skippedNoConsent": 3
+      },
+      "createdAt": "2026-03-01T10:00:00.000Z",
+      "completedAt": "2026-03-01T10:05:00.000Z"
+    },
+    {
+      "id": "camp-2",
+      "gymId": "gym-apex-1",
+      "name": "November Membership Expiry Follow-up",
+      "type": "renewal_reminder",
+      "templateId": "tpl-renewal-reminder",
+      "messageBody": "Hi {{member_name}}! Your membership at Apex Performance is expiring soon. Renew today for uninterrupted access.",
+      "posterImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80",
+      "targetAudience": "expiring",
+      "status": "scheduled",
+      "scheduledAt": "2026-11-20T10:00:00.000Z",
+      "stats": {
+        "eligible": 12,
+        "submitted": 0,
+        "delivered": 0,
+        "read": 0,
+        "failed": 0,
+        "skippedNoConsent": 1
+      },
+      "createdAt": "2026-11-10T14:00:00.000Z"
+    }
+  ],
+  "whatsappMessageLogs": [
+    {
+      "id": "log-1",
+      "gymId": "gym-apex-1",
+      "campaignId": "camp-1",
+      "campaignName": "Diwali Festive Strength Greetings 2026",
+      "memberId": "mem-apex-1",
+      "memberName": "Alex Reynolds",
+      "recipientNumberMasked": "+91 98450 ****3",
+      "category": "MARKETING",
+      "providerMessageId": "wamid.HBgLMjUxOTg0NTAxMTIyMxUCABIYFDNBODQ5OTAwREVBMTExMDU4Njc3AA==",
+      "messageContentSnippet": "Happy Diwali to you and your family from everyone at Apex Performance! 🪔✨ May this festive season...",
+      "hasMedia": true,
+      "mediaUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=800&q=80",
+      "status": "read",
+      "submittedAt": "2026-03-01T10:00:02.000Z",
+      "deliveredAt": "2026-03-01T10:00:15.000Z",
+      "readAt": "2026-03-01T10:14:22.000Z"
+    },
+    {
+      "id": "log-2",
+      "gymId": "gym-apex-1",
+      "campaignId": "camp-1",
+      "campaignName": "Diwali Festive Strength Greetings 2026",
+      "memberId": "mem-apex-2",
+      "memberName": "Priya Sharma",
+      "recipientNumberMasked": "+91 97410 ****5",
+      "category": "MARKETING",
+      "providerMessageId": "wamid.HBgLMjUxOTc0MTAzMzQ0NQUCABIYFDNBODQ5OTAwREVBMTExMDU4Njc4AA==",
+      "messageContentSnippet": "Happy Diwali to you and your family from everyone at Apex Performance! 🪔✨ May this festive season...",
+      "hasMedia": true,
+      "mediaUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=800&q=80",
+      "status": "delivered",
+      "submittedAt": "2026-03-01T10:00:03.000Z",
+      "deliveredAt": "2026-03-01T10:00:20.000Z"
+    }
+  ],
+  "whatsappAutomationSettings": {
+    "gym-apex-1": {
+      "gymId": "gym-apex-1",
+      "quietHours": {
+        "enabled": true,
+        "start": "21:00",
+        "end": "08:00"
+      },
+      "timezone": "Asia/Kolkata",
+      "duplicateSuppressionHours": 24,
+      "isPaused": false,
+      "updatedAt": "2026-11-12T05:18:06.029Z",
+      "triggers": {
+        "new_member_welcome": {
+          "id": "new_member_welcome",
+          "name": "New Member Onboarding",
+          "description": "Send personalized welcome message & credentials when member is added or approved.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "templateId": "tpl-welcome",
+          "requireApproval": false,
+          "category": "onboarding"
+        },
+        "member_birthday": {
+          "id": "member_birthday",
+          "name": "Member Birthday Greeting & Free Shake",
+          "description": "Send custom festive birthday wishes with poster attachment on member birth date.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 9,
+          "requireApproval": false,
+          "category": "lifecycle"
+        },
+        "festival_occasions": {
+          "id": "festival_occasions",
+          "name": "Scheduled Festival Celebrations",
+          "description": "Deliver scheduled festive greetings (Diwali, Sankranti, Ugadi, Eid, New Year).",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 9,
+          "requireApproval": true,
+          "category": "lifecycle"
+        },
+        "expiry_approaching_7d": {
+          "id": "expiry_approaching_7d",
+          "name": "Renewal Notice (7 Days Prior)",
+          "description": "Remind members 7 days before membership expiry.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 168,
+          "templateId": "tpl-renewal-reminder",
+          "requireApproval": false,
+          "category": "billing"
+        },
+        "expiry_approaching_1d": {
+          "id": "expiry_approaching_1d",
+          "name": "Final Expiry Warning (24 Hours Prior)",
+          "description": "Send immediate alert 1 day before access card deactivation.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 24,
+          "requireApproval": false,
+          "category": "billing"
+        },
+        "membership_expired_followup": {
+          "id": "membership_expired_followup",
+          "name": "Post-Expiry Re-engagement",
+          "description": "Warm check-in 3 days after expiry for eligible non-renewed athletes.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 72,
+          "requireApproval": true,
+          "category": "lifecycle"
+        },
+        "pending_payment_reminder": {
+          "id": "pending_payment_reminder",
+          "name": "Unpaid Dues / Invoice Notice",
+          "description": "Notify member with pending balance and invoice payment link.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 48,
+          "requireApproval": false,
+          "category": "billing"
+        },
+        "missed_workouts_checkin": {
+          "id": "missed_workouts_checkin",
+          "name": "Consistency Motivational Check-in",
+          "description": "Friendly message when no check-in recorded for 7 consecutive days.",
+          "enabled": false,
+          "timingHoursBeforeOrAfter": 168,
+          "requireApproval": true,
+          "category": "attendance"
+        },
+        "pt_session_reminder": {
+          "id": "pt_session_reminder",
+          "name": "Personal Training Session Reminder",
+          "description": "Alert member 2 hours before scheduled 1-on-1 PT booking.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 2,
+          "templateId": "tpl-pt-reminder",
+          "requireApproval": false,
+          "category": "training"
+        },
+        "pt_session_completed": {
+          "id": "pt_session_completed",
+          "name": "PT Session Completion & Balance",
+          "description": "Congratulatory session log and remaining package sessions summary.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "requireApproval": false,
+          "category": "training"
+        },
+        "group_class_booking": {
+          "id": "group_class_booking",
+          "name": "Group Class Booking Confirmation",
+          "description": "Immediate confirmation for HIIT, Yoga, or Spin class reserve.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "requireApproval": false,
+          "category": "training"
+        },
+        "group_class_reminder": {
+          "id": "group_class_reminder",
+          "name": "Group Class Upcoming Alert",
+          "description": "Notification 1 hour prior to scheduled group class.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 1,
+          "requireApproval": false,
+          "category": "training"
+        },
+        "group_class_cancelled": {
+          "id": "group_class_cancelled",
+          "name": "Class Cancellation / Slot Release",
+          "description": "Confirmation when member or trainer cancels a scheduled class.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "requireApproval": false,
+          "category": "training"
+        },
+        "gym_facility_closure": {
+          "id": "gym_facility_closure",
+          "name": "Holiday / Emergency Closure Notice",
+          "description": "Urgent broadcast regarding facility maintenance or unexpected closures.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "requireApproval": true,
+          "category": "facility"
+        },
+        "fitness_milestone_badge": {
+          "id": "fitness_milestone_badge",
+          "name": "Personal Record & Milestone Greeting",
+          "description": "Celebrate when member hits 100 workouts or verified weight-class PR.",
+          "enabled": true,
+          "timingHoursBeforeOrAfter": 0,
+          "requireApproval": false,
+          "category": "lifecycle"
+        }
+      }
+    }
+  },
+  "gymDesignTemplates": [
+    {
+      "id": "des-diwali-1",
+      "gymId": "system",
+      "title": "Diwali Gold Elite Fitness",
+      "category": "festival",
+      "subCategory": "diwali",
+      "backgroundUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#17151F",
+      "headline": "HAPPY DIWALI",
+      "subheadline": "IGNITE YOUR POWER • ILLUMINATE YOUR STRENGTH",
+      "badgeText": "FESTIVE POWER",
+      "fontFamily": "Montserrat, sans-serif",
+      "textColor": "#FFDF00",
+      "accentColor": "#7651D5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "des-sankranti-1",
+      "gymId": "system",
+      "title": "Makara Sankranti / Pongal Harvest of Gains",
+      "category": "festival",
+      "subCategory": "sankranti",
+      "backgroundUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#1E182B",
+      "headline": "HAPPY MAKAR SANKRANTI",
+      "subheadline": "SOAR HIGH IN HEALTH, DISCIPLINE & POWER",
+      "badgeText": "FESTIVAL OF HARVEST",
+      "fontFamily": "Inter, sans-serif",
+      "textColor": "#FFA500",
+      "accentColor": "#A58AF5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-05T00:00:00.000Z"
+    },
+    {
+      "id": "des-ugadi-1",
+      "gymId": "system",
+      "title": "Ugadi & Gudi Padwa Fresh Beginnings",
+      "category": "festival",
+      "subCategory": "ugadi",
+      "backgroundUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#13111A",
+      "headline": "HAPPY UGADI",
+      "subheadline": "NEW YEAR • NEW PRs • ELEVATED DISCIPLINE",
+      "badgeText": "NEW CALENDAR",
+      "fontFamily": "Montserrat, sans-serif",
+      "textColor": "#10B981",
+      "accentColor": "#7651D5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-08T00:00:00.000Z"
+    },
+    {
+      "id": "des-newyear-1",
+      "gymId": "system",
+      "title": "New Year Athletic Transformation",
+      "category": "festival",
+      "subCategory": "new_year",
+      "backgroundUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#17151F",
+      "headline": "UNSTOPPABLE 2026",
+      "subheadline": "COMMIT TO THE PROCESS • OWN YOUR RESULTS",
+      "badgeText": "SEASON OF VICTORY",
+      "fontFamily": "Inter, sans-serif",
+      "textColor": "#FFFFFF",
+      "accentColor": "#7651D5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "des-maintenance-1",
+      "gymId": "system",
+      "title": "Facility Upgrade & Maintenance Notice",
+      "category": "announcement",
+      "subCategory": "maintenance",
+      "backgroundUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#1B1726",
+      "headline": "EQUIPMENT UPGRADE IN PROGRESS",
+      "subheadline": "ENHANCING YOUR LIFTING ENVIRONMENT FOR PEAK PERFORMANCE",
+      "badgeText": "FACILITY ADVISORY",
+      "fontFamily": "Inter, sans-serif",
+      "textColor": "#F59E0B",
+      "accentColor": "#7651D5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "des-motivation-1",
+      "gymId": "system",
+      "title": "High-Volume Hypertrophy Motivation",
+      "category": "fitness_content",
+      "subCategory": "motivation",
+      "backgroundUrl": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#14121C",
+      "headline": "PROGRESSION IS EARNED",
+      "subheadline": "CONSISTENCY DEFEATS COMPLACENCY EVERY SINGLE DAY",
+      "badgeText": "MINDSET & RECOVERY",
+      "fontFamily": "Montserrat, sans-serif",
+      "textColor": "#A58AF5",
+      "accentColor": "#7651D5",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": false,
+      "previewUrl": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-12T00:00:00.000Z"
+    },
+    {
+      "id": "des-renewal-1",
+      "gymId": "system",
+      "title": "Membership Tier Renewal Notice",
+      "category": "membership_business",
+      "subCategory": "renewal",
+      "backgroundUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80",
+      "backgroundColor": "#1E1B29",
+      "headline": "RENEW YOUR MEMBERSHIP",
+      "subheadline": "MAINTAIN UNINTERRUPTED CLUB ACCESS & LOCKER PRIVILEGES",
+      "badgeText": "RENEWAL REMINDER",
+      "fontFamily": "Inter, sans-serif",
+      "textColor": "#FFFFFF",
+      "accentColor": "#10B981",
+      "showLogo": true,
+      "showGymName": true,
+      "showContactInfo": true,
+      "previewUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    }
+  ]
+}

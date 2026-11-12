@@ -1,0 +1,257 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==========================================
+    // AUTHENTICATION & ROLE AUTHORIZATION HELPERS
+    // ==========================================
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSuperHost() {
+      return isSignedIn() && (
+        request.auth.token.role == 'super_admin' ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'super_admin'
+      );
+    }
+
+    function getUserGymAccess(gymId) {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)/gymAccess/$(gymId)).data;
+    }
+
+    function isGymOwner(gymId) {
+      return isSignedIn() && (
+        isSuperHost() || (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)/gymAccess/$(gymId)) &&
+          getUserGymAccess(gymId).status == 'active' &&
+          getUserGymAccess(gymId).role == 'gym_owner'
+        )
+      );
+    }
+
+    function hasGymPermission(gymId, permission) {
+      return isSignedIn() && (
+        isSuperHost() || (
+          isGymOwner(gymId) &&
+          permission in getUserGymAccess(gymId).permissions
+        )
+      );
+    }
+
+    function isGymMember(gymId) {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/gyms/$(gymId)/members/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/gyms/$(gymId)/members/$(request.auth.uid)).data.status == 'active'
+      );
+    }
+
+    // ==========================================
+    // USER PROFILES & GYM ACCESS PRIVILEGES
+    // ==========================================
+
+    match /users/{userId} {
+      // Any authenticated user can read their own profile; Super Host can read all
+      allow read: if isSignedIn() && (request.auth.uid == userId || isSuperHost());
+      
+      // Users can update non-privileged fields on their own profile
+      allow update: if isSignedIn() && request.auth.uid == userId &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'isSuspended', 'subRoles']);
+      
+      // Only Super Host can assign roles, clear permissions or suspend accounts
+      allow create, delete: if isSuperHost();
+      allow update: if isSuperHost();
+
+      // Granular Gym Owner Access Subcollection
+      match /gymAccess/{gymId} {
+        // User can inspect their own gym access; Super Host can inspect all
+        allow read: if isSignedIn() && (request.auth.uid == userId || isSuperHost());
+        
+        // STRICT: Only Super Host can grant, revoke, suspend or edit gym access
+        // Gym Owners CANNOT grant themselves or others additional privileges
+        allow create, update, delete: if isSuperHost();
+      }
+    }
+
+    // ==========================================
+    // COMMERCIAL GYMS & SUBCOLLECTIONS
+    // ==========================================
+
+    match /gyms/{gymId} {
+      // Publicly viewable for verified approved gyms
+      allow read: if isSignedIn();
+
+      // Only Super Host can create or delete gym facilities
+      allow create, delete: if isSuperHost();
+
+      // Editing gym info requires 'edit_gym_info' permission
+      allow update: if isSuperHost() || hasGymPermission(gymId, 'edit_gym_info');
+
+      // 1. Members Subcollection
+      match /members/{memberId} {
+        // Members can read their own record; Gym staff with permission can read all
+        allow read: if isSignedIn() && (
+          request.auth.uid == memberId || 
+          hasGymPermission(gymId, 'view_member_profiles') ||
+          hasGymPermission(gymId, 'manage_gym_members')
+        );
+
+        // Applying to gym (create pending record)
+        allow create: if isSignedIn() && (
+          request.auth.uid == memberId ||
+          hasGymPermission(gymId, 'manage_gym_members')
+        );
+
+        // Modifying membership status requires 'manage_memberships' or 'manage_gym_members'
+        allow update: if hasGymPermission(gymId, 'manage_memberships') ||
+                         hasGymPermission(gymId, 'manage_gym_members');
+
+        allow delete: if hasGymPermission(gymId, 'manage_gym_members');
+      }
+
+      // 2. Monthly Invoices Subcollection
+      match /invoices/{invoiceId} {
+        // Member can read their own invoice; Gym billing managers can read all
+        allow read: if isSignedIn() && (
+          resource.data.memberId == request.auth.uid ||
+          hasGymPermission(gymId, 'manage_monthly_bills') ||
+          hasGymPermission(gymId, 'view_financial_reports')
+        );
+
+        // Generating bills and updating invoice status requires 'manage_monthly_bills'
+        allow create, update: if hasGymPermission(gymId, 'manage_monthly_bills');
+        allow delete: if isSuperHost();
+      }
+
+      // 3. Payment Records Subcollection
+      match /payments/{paymentId} {
+        // Member can view their own payment receipts; Billing managers can read all
+        allow read: if isSignedIn() && (
+          resource.data.memberId == request.auth.uid ||
+          hasGymPermission(gymId, 'record_payments') ||
+          hasGymPermission(gymId, 'view_financial_reports')
+        );
+
+        // Recording payments requires 'record_payments'
+        allow create: if hasGymPermission(gymId, 'record_payments');
+        allow update, delete: if isSuperHost();
+      }
+
+      // 4. Attendance Subcollection
+      match /attendance/{attendanceId} {
+        allow read: if isSignedIn() && (
+          resource.data.memberId == request.auth.uid ||
+          hasGymPermission(gymId, 'manage_attendance')
+        );
+
+        allow create, update: if hasGymPermission(gymId, 'manage_attendance');
+        allow delete: if hasGymPermission(gymId, 'manage_attendance');
+      }
+
+      // 5. Staff & Trainers Subcollection
+      match /trainers/{trainerId} {
+        allow read: if isSignedIn();
+        allow create, update, delete: if hasGymPermission(gymId, 'manage_gym_staff');
+      }
+
+      // 6. Membership Plans Subcollection
+      match /plans/{planId} {
+        allow read: if isSignedIn();
+        allow create, update, delete: if hasGymPermission(gymId, 'manage_memberships');
+      }
+
+      // 7. Announcements Subcollection
+      match /announcements/{announcementId} {
+        allow read: if isSignedIn();
+        allow create, update, delete: if hasGymPermission(gymId, 'manage_gym_announcements');
+      }
+
+      // 8. Financial Expenses Subcollection
+      match /expenses/{expenseId} {
+        allow read, write: if hasGymPermission(gymId, 'view_financial_reports');
+      }
+
+      // 9. Personal Training Packages Subcollection
+      match /ptPackages/{pkgId} {
+        allow read: if isSignedIn();
+        allow create, update, delete: if hasGymPermission(gymId, 'manage_personal_training');
+      }
+
+      // 10. Personal Training Sessions Subcollection
+      match /ptSessions/{sessId} {
+        allow read: if isSignedIn() && (
+          resource.data.memberId == request.auth.uid ||
+          resource.data.trainerId == request.auth.uid ||
+          hasGymPermission(gymId, 'manage_personal_training')
+        );
+        allow create, update, delete: if hasGymPermission(gymId, 'manage_personal_training');
+      }
+
+      // 11. White-Label Branding Subcollection
+      match /branding/{brandingId} {
+        allow read: if isSignedIn();
+        allow write: if hasGymPermission(gymId, 'manage_branding') || hasGymPermission(gymId, 'edit_gym_info');
+      }
+
+      // 12. Gym Gallery Subcollection
+      match /gallery/{imageId} {
+        allow read: if isSignedIn();
+        allow write: if hasGymPermission(gymId, 'edit_gym_info');
+      }
+    }
+
+    // ==========================================
+    // GYM CLAIMS (ANTI-COLLISION PROTECTED)
+    // ==========================================
+
+    match /gymClaims/{claimId} {
+      allow read: if isSignedIn() && (
+        resource.data.claimantUserId == request.auth.uid || isSuperHost()
+      );
+      // Any authenticated user can submit a claim for an unclaimed gym
+      allow create: if isSignedIn() && request.resource.data.claimantUserId == request.auth.uid;
+      // Only Super Host can review, approve, reject, or delete claims
+      allow update, delete: if isSuperHost();
+    }
+
+    // ==========================================
+    // SUPER ADMIN – MY TEAM & PRIVILEGES
+    // ==========================================
+
+    match /teamMembers/{memberId} {
+      // Platform-wide staff clearance: Super Host only
+      allow read, write: if isSuperHost();
+    }
+
+    match /teamInvites/{inviteId} {
+      // Secure invitations: Super Host only
+      allow read, write: if isSuperHost();
+    }
+
+    // ==========================================
+    // PERFORMANCE RANKINGS
+    // ==========================================
+
+    match /rankings/{rankingId} {
+      allow read: if isSignedIn();
+      allow write: if isSuperHost();
+    }
+
+    // ==========================================
+    // IMMUTABLE AUDIT LOGS
+    // ==========================================
+
+    match /auditLogs/{logId} {
+      // Super Host can read all audit logs; Gym owners can read logs where target is their gym
+      allow read: if isSuperHost() || (
+        isSignedIn() && resource.data.targetId != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)/gymAccess/$(resource.data.targetId))
+      );
+
+      // Audit logs can ONLY be created, never modified or deleted
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+  }
+}
