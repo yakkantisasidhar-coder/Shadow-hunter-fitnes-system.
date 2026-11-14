@@ -104,6 +104,41 @@ workoutsRouter.post('/history', requireAuth, (req: AuthenticatedRequest, res: Re
   res.status(201).json({ historyItem: newLog });
 });
 
+// Alias for logging workouts
+workoutsRouter.post('/log', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const { programTitle, durationMinutes, caloriesBurned, exercisesCount, totalSets, totalVolumeKg } = req.body;
+
+  const newLog: WorkoutHistoryItem = {
+    id: `hist-${Date.now()}`,
+    userId: req.user.id,
+    programTitle: programTitle || 'Custom Workout Session',
+    completedAt: new Date().toISOString(),
+    durationMinutes: Number(durationMinutes) || 45,
+    caloriesBurned: Number(caloriesBurned) || 350,
+    exercisesCount: Number(exercisesCount) || 4,
+    totalSets: Number(totalSets) || 12,
+    totalVolumeKg: Number(totalVolumeKg) || 1200
+  };
+
+  dbStore.getData().workoutHistory.unshift(newLog);
+  dbStore.save();
+
+  dbStore.getData().notifications.unshift({
+    id: `notif-${Date.now()}`,
+    userId: req.user.id,
+    title: 'Workout Logged!',
+    message: `Great work! You crushed "${newLog.programTitle}" and burned ~${newLog.caloriesBurned} kcal.`,
+    type: 'workout',
+    read: false,
+    createdAt: new Date().toISOString()
+  });
+  dbStore.save();
+
+  res.status(201).json({ historyItem: newLog });
+});
+
 // Get User Workout History
 workoutsRouter.get('/history', requireAuth, (req: AuthenticatedRequest, res: Response) => {
   if (!req.user) return res.status(401).json({ error: 'Unauthorized' });

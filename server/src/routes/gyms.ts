@@ -1108,6 +1108,13 @@ gymsRouter.get('/:id/pt/packages', requireAuth, (req: AuthenticatedRequest, res:
   res.json({ packages });
 });
 
+// Alias: /:id/pt-packages
+gymsRouter.get('/:id/pt-packages', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  const gymId = req.params.id as string;
+  const packages = (dbStore.getData().ptPackages || []).filter(p => p.gymId === gymId);
+  res.json({ packages });
+});
+
 // Create PT Package
 gymsRouter.post('/:id/pt/packages', requireAuth, requireGymPermission('manage_personal_training'), (req: AuthenticatedRequest, res: Response) => {
   const gymId = req.params.id as string;

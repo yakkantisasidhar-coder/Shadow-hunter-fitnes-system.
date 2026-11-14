@@ -400,8 +400,8 @@ adminRouter.post('/gyms/:id/status', (req: AuthenticatedRequest, res: Response) 
 
 // Audit Logs
 adminRouter.get('/audit-logs', (_req, res) => {
-  const logs = dbStore.getData().auditLogs;
-  res.json({ logs });
+  const logs = dbStore.getData().auditLogs || [];
+  res.json({ logs, auditLogs: logs });
 });
 
 // Platform Analytics

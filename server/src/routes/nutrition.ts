@@ -92,7 +92,7 @@ nutritionRouter.get('/today', requireAuth, (req: AuthenticatedRequest, res: Resp
 nutritionRouter.post('/log-food', requireAuth, (req: AuthenticatedRequest, res: Response) => {
   if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
 
-  const { mealType, name, calories, proteinGrams, carbsGrams, fatGrams, servingSize } = req.body;
+  const { mealType, name, calories, proteinGrams, protein, carbsGrams, carbs, fatGrams, fat, servingSize } = req.body;
   if (!mealType || !name || calories === undefined) {
     return res.status(400).json({ error: 'Meal category, food name, and calories are required' });
   }
@@ -117,9 +117,54 @@ nutritionRouter.post('/log-food', requireAuth, (req: AuthenticatedRequest, res: 
     id: `meal-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
     name,
     calories: Number(calories),
-    proteinGrams: Number(proteinGrams) || 0,
-    carbsGrams: Number(carbsGrams) || 0,
-    fatGrams: Number(fatGrams) || 0,
+    proteinGrams: Number(proteinGrams !== undefined ? proteinGrams : (protein !== undefined ? protein : 0)),
+    carbsGrams: Number(carbsGrams !== undefined ? carbsGrams : (carbs !== undefined ? carbs : 0)),
+    fatGrams: Number(fatGrams !== undefined ? fatGrams : (fat !== undefined ? fat : 0)),
+    servingSize: servingSize || '1 serving'
+  };
+
+  const cat = mealType as 'breakfast' | 'lunch' | 'dinner' | 'snacks';
+  if (!log.meals[cat]) {
+    log.meals[cat] = [];
+  }
+  log.meals[cat].push(newMealItem);
+  dbStore.save();
+
+  res.status(201).json({ mealItem: newMealItem, log });
+});
+
+// Alias for log-meal
+nutritionRouter.post('/log-meal', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const { mealType, name, calories, proteinGrams, protein, carbsGrams, carbs, fatGrams, fat, servingSize } = req.body;
+  if (!mealType || !name || calories === undefined) {
+    return res.status(400).json({ error: 'Meal category, food name, and calories are required' });
+  }
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  let log = dbStore.getData().nutritionLogs.find(l => l.userId === req.user?.id && l.date === todayStr);
+
+  if (!log) {
+    log = {
+      id: `nutr-${Date.now()}`,
+      userId: req.user.id,
+      date: todayStr,
+      calorieTarget: 2400,
+      waterTargetMl: 3000,
+      waterCurrentMl: 0,
+      meals: { breakfast: [], lunch: [], dinner: [], snacks: [] }
+    };
+    dbStore.getData().nutritionLogs.push(log);
+  }
+
+  const newMealItem: MealItem = {
+    id: `meal-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+    name,
+    calories: Number(calories),
+    proteinGrams: Number(proteinGrams !== undefined ? proteinGrams : (protein !== undefined ? protein : 0)),
+    carbsGrams: Number(carbsGrams !== undefined ? carbsGrams : (carbs !== undefined ? carbs : 0)),
+    fatGrams: Number(fatGrams !== undefined ? fatGrams : (fat !== undefined ? fat : 0)),
     servingSize: servingSize || '1 serving'
   };
 

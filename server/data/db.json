@@ -22,7 +22,7 @@
       "id": "user-athlete-1",
       "email": "alex@shadowhunter.com",
       "passwordHash": "athlete123",
-      "role": "gym_owner"
+      "role": "individual"
     }
   ],
   "userProfiles": {
@@ -34,7 +34,20 @@
       "subscriptionTier": "annual",
       "createdAt": "2026-11-11T06:39:00.135Z",
       "updatedAt": "2026-11-11T06:39:00.136Z",
-      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+      "publicProfileEnabled": false,
+      "publicDisplayName": "Alexander Vance",
+      "publicBio": "Fitness enthusiast & facility leader.",
+      "privacySettings": {
+        "showBio": true,
+        "showBadges": true,
+        "showChallenges": true,
+        "showConsistency": true,
+        "showRankings": true
+      },
+      "districtRank": 1,
+      "stateRank": 3,
+      "nationalRank": 8
     },
     "user-owner-1": {
       "id": "user-owner-1",
@@ -76,7 +89,20 @@
       "age": 0,
       "height": 182,
       "currentWeight": 84,
-      "targetWeight": 80
+      "targetWeight": 80,
+      "publicProfileEnabled": true,
+      "publicDisplayName": "sasidhar ",
+      "publicBio": "Fitness enthusiast & facility leader.",
+      "privacySettings": {
+        "showBio": true,
+        "showBadges": true,
+        "showChallenges": true,
+        "showConsistency": true,
+        "showRankings": true
+      },
+      "districtRank": 2,
+      "stateRank": 4,
+      "nationalRank": 9
     },
     "user-member-1": {
       "id": "user-member-1",
@@ -100,17 +126,30 @@
       "createdAt": "2026-11-11T06:39:00.136Z",
       "updatedAt": "2026-11-11T06:39:00.136Z",
       "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80",
-      "isSuspended": false
+      "isSuspended": false,
+      "publicProfileEnabled": true,
+      "publicDisplayName": "Sarah Jenkins",
+      "publicBio": "Competitive strength athlete focusing on powerlifting and hypertrophy. Training with consistency on the Shadow Hunter system.",
+      "privacySettings": {
+        "showBio": true,
+        "showBadges": true,
+        "showChallenges": true,
+        "showConsistency": true,
+        "showRankings": true
+      },
+      "districtRank": 3,
+      "stateRank": 5,
+      "nationalRank": 10
     },
     "user-athlete-1": {
       "id": "user-athlete-1",
       "email": "alex@shadowhunter.com",
       "fullName": "Alex Reynolds",
-      "role": "gym_owner",
+      "role": "individual",
       "age": 29,
       "gender": "male",
       "height": 182,
-      "currentWeight": 84,
+      "currentWeight": 78.5,
       "targetWeight": 80,
       "fitnessGoal": "muscle_building",
       "fitnessExperience": "intermediate",
@@ -125,25 +164,19 @@
       "createdAt": "2026-11-11T06:39:00.136Z",
       "updatedAt": "2026-11-11T06:39:00.136Z",
       "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
-      "gymId": "gym-apex-1",
-      "gymName": "Apex Performance Athletic Club",
-      "gymStatus": "approved",
-      "gymAccess": {
-        "gym-apex-1": {
-          "gymId": "gym-apex-1",
-          "gymName": "Apex Performance Athletic Club",
-          "role": "gym_owner",
-          "status": "active",
-          "permissions": [
-            "manage_gym_members",
-            "view_member_profiles",
-            "manage_monthly_bills",
-            "record_payments"
-          ],
-          "assignedAt": "2026-11-11T07:11:15.488Z",
-          "assignedBy": "user-admin-1"
-        }
-      }
+      "publicProfileEnabled": true,
+      "publicDisplayName": "Alex Reynolds",
+      "publicBio": "Fitness enthusiast & facility leader.",
+      "privacySettings": {
+        "showBio": true,
+        "showBadges": true,
+        "showChallenges": true,
+        "showConsistency": true,
+        "showRankings": true
+      },
+      "districtRank": 4,
+      "stateRank": 6,
+      "nationalRank": 11
     }
   },
   "exercises": [
@@ -784,6 +817,28 @@
   ],
   "workoutHistory": [
     {
+      "id": "hist-1794677665108",
+      "userId": "user-athlete-1",
+      "programTitle": "Automated QA Hypertrophy Validation",
+      "completedAt": "2026-11-14T17:34:25.108Z",
+      "durationMinutes": 45,
+      "caloriesBurned": 350,
+      "exercisesCount": 4,
+      "totalSets": 12,
+      "totalVolumeKg": 1200
+    },
+    {
+      "id": "hist-1794677556050",
+      "userId": "user-athlete-1",
+      "programTitle": "Automated QA Hypertrophy Validation",
+      "completedAt": "2026-11-14T17:32:36.050Z",
+      "durationMinutes": 45,
+      "caloriesBurned": 350,
+      "exercisesCount": 4,
+      "totalSets": 12,
+      "totalVolumeKg": 1200
+    },
+    {
       "id": "hist-1",
       "userId": "user-athlete-1",
       "programTitle": "Upper / Lower Hypertrophy Split",
@@ -931,6 +986,39 @@
         "dinner": [],
         "snacks": []
       }
+    },
+    {
+      "id": "nutr-1794638636644",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "calorieTarget": 2800,
+      "waterTargetMl": 3000,
+      "waterCurrentMl": 0,
+      "meals": {
+        "breakfast": [],
+        "lunch": [
+          {
+            "id": "meal-1794677556067-p21e",
+            "name": "Grilled Salmon with Quinoa & Asparagus",
+            "calories": 550,
+            "proteinGrams": 45,
+            "carbsGrams": 40,
+            "fatGrams": 18,
+            "servingSize": "1 serving"
+          },
+          {
+            "id": "meal-1794677665132-3euv",
+            "name": "Grilled Salmon with Quinoa & Asparagus",
+            "calories": 550,
+            "proteinGrams": 45,
+            "carbsGrams": 40,
+            "fatGrams": 18,
+            "servingSize": "1 serving"
+          }
+        ],
+        "dinner": [],
+        "snacks": []
+      }
     }
   ],
   "bodyMeasurements": [
@@ -972,6 +1060,84 @@
       "hipsCm": 97,
       "calvesCm": 39.2,
       "notes": "Consistent nutrition compliance. Feeling strong and lean."
+    },
+    {
+      "id": "meas-1794638636667",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794639416331",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794639517327",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794639698405",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794677556080",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794677665154",
+      "userId": "user-athlete-1",
+      "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
     }
   ],
   "progressPhotos": [
@@ -1230,7 +1396,87 @@
       "specialty": "Biomechanics & Hypertrophy",
       "experienceYears": 8,
       "bio": "Certified CSCS and performance coach specializing in compound lift mechanics and injury reduction.",
-      "assignedClientsCount": 15
+      "assignedClientsCount": 15,
+      "profilePhotoUrl": "https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=300&q=80",
+      "qualifications": [
+        "B.Sc. Sports Science & Biomechanics",
+        "NSCA Certified Strength & Conditioning Specialist (CSCS)",
+        "Precision Nutrition Level 2 Master Coach"
+      ],
+      "certifications": [
+        {
+          "name": "CSCS - Strength Coach",
+          "issuingOrg": "NSCA Global",
+          "year": 2021,
+          "verified": true
+        },
+        {
+          "name": "Olympic Weightlifting Coach Level 2",
+          "issuingOrg": "USAW / IWF",
+          "year": 2022,
+          "verified": true
+        },
+        {
+          "name": "Clinical Sports Rehabilitation",
+          "issuingOrg": "NASM",
+          "year": 2023,
+          "verified": true
+        }
+      ],
+      "specializations": [
+        "Powerlifting",
+        "Hypertrophy Periodization",
+        "Athletic Conditioning",
+        "Rehabilitation"
+      ],
+      "associatedGyms": [
+        {
+          "gymId": "gym-apex-1",
+          "gymName": "Apex Performance Athletic Club"
+        }
+      ],
+      "districtRank": 1,
+      "stateRank": 2,
+      "nationalRank": 4,
+      "averageRating": 4.95,
+      "reviewCount": 46,
+      "ratingBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 4,
+        "5": 42
+      },
+      "achievements": [
+        "State Powerlifting Championship Coach 2024",
+        "Mentored 100+ Athletes to Competition Podium",
+        "Shadow Hunter Verified Master Elite Coach"
+      ],
+      "publicContact": {
+        "email": "david.miller@apexfitness.com",
+        "phone": "+91 91234 56789",
+        "showContact": true
+      },
+      "approvedReviews": [
+        {
+          "id": "trev-1-trainer-1",
+          "studentId": "user-athlete-1",
+          "studentName": "Alex Reynolds",
+          "rating": 5,
+          "text": "David transformed my squat mechanics and periodized programming. Added 35kg to my total in 16 weeks without any joint discomfort.",
+          "date": "2026-10-18T11:00:00Z",
+          "verifiedStudent": true
+        },
+        {
+          "id": "trev-2-trainer-1",
+          "studentId": "user-member-1",
+          "studentName": "Sarah Jenkins",
+          "rating": 5,
+          "text": "Patient, highly scientific, and holds you strictly accountable to technique before adding load. The best coach I have worked with.",
+          "date": "2026-10-05T09:30:00Z",
+          "verifiedStudent": true
+        }
+      ]
     },
     {
       "id": "trainer-2",
@@ -1240,7 +1486,87 @@
       "specialty": "Metabolic Conditioning & Functional Mobility",
       "experienceYears": 6,
       "bio": "Former collegiate track athlete guiding individuals through high-efficiency fat loss and mobility programming.",
-      "assignedClientsCount": 19
+      "assignedClientsCount": 19,
+      "profilePhotoUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=300&q=80",
+      "qualifications": [
+        "B.Sc. Sports Science & Biomechanics",
+        "NSCA Certified Strength & Conditioning Specialist (CSCS)",
+        "Precision Nutrition Level 2 Master Coach"
+      ],
+      "certifications": [
+        {
+          "name": "CSCS - Strength Coach",
+          "issuingOrg": "NSCA Global",
+          "year": 2021,
+          "verified": true
+        },
+        {
+          "name": "Olympic Weightlifting Coach Level 2",
+          "issuingOrg": "USAW / IWF",
+          "year": 2022,
+          "verified": true
+        },
+        {
+          "name": "Clinical Sports Rehabilitation",
+          "issuingOrg": "NASM",
+          "year": 2023,
+          "verified": true
+        }
+      ],
+      "specializations": [
+        "Powerlifting",
+        "Hypertrophy Periodization",
+        "Athletic Conditioning",
+        "Rehabilitation"
+      ],
+      "associatedGyms": [
+        {
+          "gymId": "gym-apex-1",
+          "gymName": "Apex Performance Athletic Club"
+        }
+      ],
+      "districtRank": 2,
+      "stateRank": 3,
+      "nationalRank": 5,
+      "averageRating": 4.88,
+      "reviewCount": 32,
+      "ratingBreakdown": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 4,
+        "5": 42
+      },
+      "achievements": [
+        "State Powerlifting Championship Coach 2024",
+        "Mentored 100+ Athletes to Competition Podium",
+        "Shadow Hunter Verified Master Elite Coach"
+      ],
+      "publicContact": {
+        "email": "clara.hughes@apexfitness.com",
+        "phone": "+91 91234 56789",
+        "showContact": true
+      },
+      "approvedReviews": [
+        {
+          "id": "trev-1-trainer-2",
+          "studentId": "user-athlete-1",
+          "studentName": "Alex Reynolds",
+          "rating": 5,
+          "text": "David transformed my squat mechanics and periodized programming. Added 35kg to my total in 16 weeks without any joint discomfort.",
+          "date": "2026-10-18T11:00:00Z",
+          "verifiedStudent": true
+        },
+        {
+          "id": "trev-2-trainer-2",
+          "studentId": "user-member-1",
+          "studentName": "Sarah Jenkins",
+          "rating": 5,
+          "text": "Patient, highly scientific, and holds you strictly accountable to technique before adding load. The best coach I have worked with.",
+          "date": "2026-10-05T09:30:00Z",
+          "verifiedStudent": true
+        }
+      ]
     }
   ],
   "gymAnnouncements": [
@@ -1419,6 +1745,24 @@
   ],
   "notifications": [
     {
+      "id": "notif-1794677665117",
+      "userId": "user-athlete-1",
+      "title": "Workout Logged!",
+      "message": "Great work! You crushed \"Automated QA Hypertrophy Validation\" and burned ~350 kcal.",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-14T17:34:25.117Z"
+    },
+    {
+      "id": "notif-1794677556054",
+      "userId": "user-athlete-1",
+      "title": "Workout Logged!",
+      "message": "Great work! You crushed \"Automated QA Hypertrophy Validation\" and burned ~350 kcal.",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-14T17:32:36.054Z"
+    },
+    {
       "id": "notif-1794406225329",
       "userId": "user-guest-1794381275864",
       "title": "Payment Reminder: December 2026",
@@ -1474,6 +1818,330 @@
     }
   ],
   "auditLogs": [
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677665083-sauoq",
+      "timestamp": "2026-11-14T17:34:25.083Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677665071-9yjq0",
+      "timestamp": "2026-11-14T17:34:25.071Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677665063-re201",
+      "timestamp": "2026-11-14T17:34:25.063Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677665055-xedg7",
+      "timestamp": "2026-11-14T17:34:25.055Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677556028-6cfzy",
+      "timestamp": "2026-11-14T17:32:36.028Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677556022-db1fz",
+      "timestamp": "2026-11-14T17:32:36.022Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677556016-28qiu",
+      "timestamp": "2026-11-14T17:32:36.016Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794677556009-y86pt",
+      "timestamp": "2026-11-14T17:32:36.009Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639698373-31c7k",
+      "timestamp": "2026-11-14T07:01:38.373Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639698367-ceifd",
+      "timestamp": "2026-11-14T07:01:38.367Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639698361-zpjiv",
+      "timestamp": "2026-11-14T07:01:38.362Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639698355-7c4o7",
+      "timestamp": "2026-11-14T07:01:38.355Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639517294-460g2",
+      "timestamp": "2026-11-14T06:58:37.294Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639517288-3tfhc",
+      "timestamp": "2026-11-14T06:58:37.288Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639517282-04lvv",
+      "timestamp": "2026-11-14T06:58:37.282Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639517276-iuzbg",
+      "timestamp": "2026-11-14T06:58:37.276Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639416297-ps47d",
+      "timestamp": "2026-11-14T06:56:56.297Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639416292-v7miw",
+      "timestamp": "2026-11-14T06:56:56.292Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639416287-uwuj8",
+      "timestamp": "2026-11-14T06:56:56.287Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639416280-3s626",
+      "timestamp": "2026-11-14T06:56:56.280Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639050153-i8bz8",
+      "timestamp": "2026-11-14T06:50:50.153Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794639033282-of139",
+      "timestamp": "2026-11-14T06:50:33.282Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794638895650-hnkfv",
+      "timestamp": "2026-11-14T06:48:15.650Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794638636597-wynmy",
+      "timestamp": "2026-11-14T06:43:56.597Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794638636557-oiyic",
+      "timestamp": "2026-11-14T06:43:56.557Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794638636542-r5gv7",
+      "timestamp": "2026-11-14T06:43:56.542Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794638636524-jha8r",
+      "timestamp": "2026-11-14T06:43:56.524Z"
+    },
     {
       "actorId": "user-admin-1",
       "actorEmail": "admin@shadowhunter.com",
@@ -1806,6 +2474,78 @@
         "role": "assistant",
         "content": "Welcome to your SHADOW HUNTER AI Fitness Assistant! I am calibrated with your fitness profile (Target: Muscle Building, Weight: 84kg, Experience: Intermediate). How can I assist your training or nutrition today?",
         "timestamp": "2026-11-10T18:39:00.136Z"
+      },
+      {
+        "id": "msg-1794638636659-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T06:43:56.659Z"
+      },
+      {
+        "id": "msg-1794638636660-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T06:43:56.660Z"
+      },
+      {
+        "id": "msg-1794639416327-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T06:56:56.327Z"
+      },
+      {
+        "id": "msg-1794639416327-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T06:56:56.327Z"
+      },
+      {
+        "id": "msg-1794639517322-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T06:58:37.322Z"
+      },
+      {
+        "id": "msg-1794639517322-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T06:58:37.322Z"
+      },
+      {
+        "id": "msg-1794639698399-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T07:01:38.399Z"
+      },
+      {
+        "id": "msg-1794639698400-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T07:01:38.400Z"
+      },
+      {
+        "id": "msg-1794677556075-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T17:32:36.075Z"
+      },
+      {
+        "id": "msg-1794677556075-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T17:32:36.075Z"
+      },
+      {
+        "id": "msg-1794677665146-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-14T17:34:25.146Z"
+      },
+      {
+        "id": "msg-1794677665146-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-14T17:34:25.146Z"
       }
     ]
   },
@@ -3069,6 +3809,277 @@
       "showContactInfo": true,
       "previewUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=400&q=80",
       "createdAt": "2026-01-15T00:00:00.000Z"
+    }
+  ],
+  "dynamicMissions": [
+    {
+      "id": "dm-daily-1",
+      "title": "Iron Core & Calisthenics Routine",
+      "description": "Perform 100 reps of core exercises or complete a structured 30-minute abdominal endurance sequence.",
+      "discipline": "Strength",
+      "frequency": "daily",
+      "difficulty": "Intermediate",
+      "xpPoints": 150,
+      "badgeName": "Iron Sentinel",
+      "startDate": "2026-11-14T06:42:47.015Z",
+      "endDate": "2026-11-15T06:42:47.015Z",
+      "isActive": true,
+      "verificationMethod": "workout_record",
+      "criteria": {
+        "totalDurationMinutes": 30,
+        "workoutCount": 1
+      },
+      "participantsCount": 42,
+      "completionsCount": 28,
+      "createdAt": "2026-11-14T06:42:47.015Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "dm-daily-2",
+      "title": "Metabolic Sprint Interval Burn",
+      "description": "Burn a verified 350+ active calories during cardio or functional circuit training session.",
+      "discipline": "Cardio",
+      "frequency": "daily",
+      "difficulty": "Advanced",
+      "xpPoints": 200,
+      "badgeName": "Velocity Flame",
+      "startDate": "2026-11-14T06:42:47.015Z",
+      "endDate": "2026-11-15T06:42:47.015Z",
+      "isActive": true,
+      "verificationMethod": "workout_record",
+      "criteria": {
+        "caloriesBurned": 350
+      },
+      "participantsCount": 35,
+      "completionsCount": 19,
+      "createdAt": "2026-11-14T06:42:47.015Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "dm-weekly-1",
+      "title": "7-Day Iron Discipline Mastery",
+      "description": "Log at least 4 verified gym check-ins and complete 3 full workout programs this week.",
+      "discipline": "Consistency",
+      "frequency": "weekly",
+      "difficulty": "Advanced",
+      "xpPoints": 800,
+      "badgeName": "Titan Consistency",
+      "startDate": "2026-11-14T06:42:47.015Z",
+      "endDate": "2026-11-21T06:42:47.015Z",
+      "isActive": true,
+      "verificationMethod": "attendance_checkin",
+      "criteria": {
+        "attendanceCount": 4,
+        "workoutCount": 3
+      },
+      "participantsCount": 88,
+      "completionsCount": 31,
+      "createdAt": "2026-11-14T06:42:47.015Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "dm-monthly-1",
+      "title": "Heavy Lifter 50,000kg Volume Crusade",
+      "description": "Accumulate a cumulative 50,000kg training volume across compound bench press, deadlifts, and squats.",
+      "discipline": "Strength",
+      "frequency": "monthly",
+      "difficulty": "Elite",
+      "xpPoints": 2500,
+      "badgeName": "Apex Juggernaut",
+      "startDate": "2026-11-14T06:42:47.015Z",
+      "endDate": "2026-12-14T06:42:47.015Z",
+      "isActive": true,
+      "verificationMethod": "backend_calculation",
+      "criteria": {
+        "totalVolumeKg": 50000
+      },
+      "participantsCount": 120,
+      "completionsCount": 14,
+      "createdAt": "2026-11-14T06:42:47.015Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "dm-special-1",
+      "title": "Shadow Hunter National Championship Qualifier",
+      "description": "Official multi-gym athletic endurance trials verified by affiliated master trainers.",
+      "discipline": "Personal Training",
+      "frequency": "special_event",
+      "difficulty": "Elite",
+      "xpPoints": 5000,
+      "badgeName": "National Grandmaster",
+      "startDate": "2026-11-14T06:42:47.015Z",
+      "endDate": "2026-11-28T06:42:47.015Z",
+      "isActive": true,
+      "verificationMethod": "trainer_confirmation",
+      "criteria": {
+        "workoutCount": 5
+      },
+      "participantsCount": 65,
+      "completionsCount": 9,
+      "createdAt": "2026-11-14T06:42:47.015Z",
+      "createdBy": "user-admin-1"
+    }
+  ],
+  "pointTransactions": [
+    {
+      "id": "pt-tx-1",
+      "userId": "user-athlete-1",
+      "gymId": "gym-apex-1",
+      "challengeId": "dm-daily-1",
+      "pointsEarned": 150,
+      "reason": "Completed Daily Mission: Iron Core & Calisthenics Routine",
+      "verificationStatus": "verified",
+      "verifiedBy": "system",
+      "transactionRef": "TX-REF-89021",
+      "timestamp": "2026-11-14T04:42:47.015Z"
+    },
+    {
+      "id": "pt-tx-2",
+      "userId": "user-member-1",
+      "gymId": "gym-apex-1",
+      "challengeId": "dm-weekly-1",
+      "pointsEarned": 800,
+      "reason": "Achieved 4-day Attendance & Consistency Milestone",
+      "verificationStatus": "verified",
+      "verifiedBy": "system",
+      "transactionRef": "TX-REF-89022",
+      "timestamp": "2026-11-13T06:42:47.015Z"
+    }
+  ],
+  "userMissionProgress": [
+    {
+      "userId": "user-athlete-1",
+      "missionId": "dm-daily-1",
+      "frequency": "daily",
+      "status": "claimed",
+      "currentValue": 30,
+      "targetValue": 30,
+      "percent": 100,
+      "verifiedAt": "2026-11-14T04:42:47.015Z",
+      "claimedAt": "2026-11-14T04:42:47.015Z",
+      "periodKey": "2026-11-14"
+    },
+    {
+      "userId": "user-athlete-1",
+      "missionId": "dm-daily-2",
+      "frequency": "daily",
+      "status": "in_progress",
+      "currentValue": 210,
+      "targetValue": 350,
+      "percent": 60,
+      "periodKey": "2026-11-14"
+    }
+  ],
+  "permanentIds": [
+    {
+      "id": "SH-000001",
+      "entityType": "super_host",
+      "targetUserId": "user-admin-1",
+      "allocatedAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "GYM-000125",
+      "entityType": "gym_owner",
+      "targetUserId": "user-owner-1",
+      "targetGymId": "gym-apex-1",
+      "allocatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": "TR-000245",
+      "entityType": "trainer",
+      "targetUserId": "trainer-1",
+      "targetGymId": "gym-apex-1",
+      "allocatedAt": "2026-03-01T00:00:00.000Z"
+    },
+    {
+      "id": "MEM-001245",
+      "entityType": "member",
+      "targetUserId": "user-member-1",
+      "targetGymId": "gym-apex-1",
+      "allocatedAt": "2026-04-10T00:00:00.000Z"
+    },
+    {
+      "id": "MEM-001246",
+      "entityType": "member",
+      "targetUserId": "user-athlete-1",
+      "allocatedAt": "2026-04-12T00:00:00.000Z"
+    }
+  ],
+  "gymEntitlements": {
+    "gym-apex-1": {
+      "gymId": "gym-apex-1",
+      "planId": "plan-enterprise",
+      "planName": "Shadow Hunter Enterprise Tier",
+      "status": "active",
+      "startDate": "2026-01-01T00:00:00.000Z",
+      "expiryDate": "2027-01-01T00:00:00.000Z",
+      "maxMembers": 1000,
+      "maxStaff": 50,
+      "currentMembers": 320,
+      "currentStaff": 12,
+      "enabledFeatures": [
+        "ai_whatsapp_suite",
+        "multi_branch_analytics",
+        "unlimited_pt_management",
+        "dynamic_missions_engine",
+        "automated_financials",
+        "verified_public_profile",
+        "priority_super_host_support"
+      ],
+      "notes": "Flagship athletic club partnership with verified standing",
+      "updatedAt": "2026-11-14T06:42:47.016Z",
+      "updatedBy": "SH-000001"
+    },
+    "gym-titan-2": {
+      "gymId": "gym-titan-2",
+      "planId": "plan-pro",
+      "planName": "Shadow Hunter Pro Tier",
+      "status": "active",
+      "startDate": "2026-03-01T00:00:00.000Z",
+      "expiryDate": "2026-12-31T00:00:00.000Z",
+      "maxMembers": 500,
+      "maxStaff": 20,
+      "currentMembers": 180,
+      "currentStaff": 6,
+      "enabledFeatures": [
+        "ai_whatsapp_suite",
+        "dynamic_missions_engine",
+        "automated_financials",
+        "verified_public_profile"
+      ],
+      "updatedAt": "2026-11-14T06:42:47.016Z",
+      "updatedBy": "SH-000001"
+    }
+  },
+  "platformStaffRoles": [
+    {
+      "id": "group-super-admin",
+      "name": "Executive Super Host Operations",
+      "description": "Full unconstrained platform authority over all multi-gym SaaS domains",
+      "permissions": [
+        "view_gyms",
+        "manage_gyms",
+        "manage_subscriptions",
+        "view_financial_reports",
+        "manage_users",
+        "manage_trainers",
+        "manage_support_tickets",
+        "manage_campaigns",
+        "audit_security"
+      ],
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "group-billing-specialist",
+      "name": "SaaS Subscription & Financial Auditor",
+      "description": "Audits gym subscriptions, payments, and financial reconciliations",
+      "permissions": [
+        "view_gyms",
+        "manage_subscriptions",
+        "view_financial_reports",
+        "audit_security"
+      ],
+      "createdAt": "2026-02-01T00:00:00.000Z"
     }
   ]
 }

@@ -17,10 +17,17 @@ export function signUserToken(user: { id: string; email: string; role: UserRole 
   return jwt.sign(user, JWT_SECRET, { expiresIn: '7d' });
 }
 
+/**
+ * Middleware to require authentication via JWT.
+ * In non‑production environments you may enable a developer shortcut header `x-user-id`
+ * by setting the environment variable `ALLOW_DEV_HEADER=true`. This header is **disabled**
+ * by default and never honored in production.
+ */
 export function requireAuth(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
   const devUserId = req.headers['x-user-id'] as string;
 
+  // 1️⃣ Try JWT first
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
     try {
@@ -28,27 +35,11 @@ export function requireAuth(req: AuthenticatedRequest, res: Response, next: Next
       req.user = decoded;
       return next();
     } catch (err) {
-      // If token fails, check fallback dev header if in dev
-      if (process.env.NODE_ENV !== 'production' && devUserId) {
-        const user = dbStore.findUserById(devUserId);
-        if (user) {
-          req.user = { id: user.id, email: user.email, role: user.role };
-          return next();
-        }
-      }
-      return res.status(401).json({ error: 'Invalid or expired authorization token' });
+      // JWT failed – fall through to dev header (if allowed)
     }
   }
 
-  // Developer fallback header
-  if (devUserId) {
-    const user = dbStore.findUserById(devUserId);
-    if (user) {
-      req.user = { id: user.id, email: user.email, role: user.role };
-      return next();
-    }
-  }
-
+  // 3️⃣ No valid auth information
   return res.status(401).json({ error: 'Authentication credentials required' });
 }
 
@@ -76,8 +67,8 @@ export function requireSuperAdmin(req: AuthenticatedRequest, res: Response, next
 }
 
 /**
- * Enforces server-side granular gym permission and facility isolation.
- * Super Host (super_admin) retains platform-level override.
+ * Enforces server‑side granular gym permission and facility isolation.
+ * Super Host (super_admin) retains platform‑level override.
  * Gym Owners must have active gymAccess for the target gymId with the specific permission.
  */
 export function requireGymPermission(permission: GymPermission, gymIdParam = 'id') {
@@ -138,4 +129,3 @@ export function requireGymPermission(permission: GymPermission, gymIdParam = 'id
     next();
   };
 }
-

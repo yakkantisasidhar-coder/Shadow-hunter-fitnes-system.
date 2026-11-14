@@ -116,3 +116,29 @@ progressRouter.get('/analytics', requireAuth, (req: AuthenticatedRequest, res: R
     }
   });
 });
+
+// Progress Stats Dashboard
+progressRouter.get('/stats', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const userHistory = dbStore.getData().workoutHistory.filter(h => h.userId === req.user?.id);
+  const userMeasurements = dbStore.getData().bodyMeasurements.filter(m => m.userId === req.user?.id);
+  const userProfile = dbStore.getUserProfile(req.user.id);
+
+  const totalWorkouts = userHistory.length;
+  const totalMinutes = userHistory.reduce((sum, h) => sum + h.durationMinutes, 0);
+  const totalCalories = userHistory.reduce((sum, h) => sum + h.caloriesBurned, 0);
+  const totalVolume = userHistory.reduce((sum, h) => sum + h.totalVolumeKg, 0);
+
+  res.json({
+    stats: {
+      totalWorkouts,
+      totalMinutes,
+      totalCalories,
+      totalVolume,
+      loggedMeasurementsCount: userMeasurements.length,
+      currentWeight: userProfile?.currentWeight || (userMeasurements.length > 0 ? userMeasurements[userMeasurements.length - 1].weightKg : 80),
+      targetWeight: userProfile?.targetWeight || 75
+    }
+  });
+});
