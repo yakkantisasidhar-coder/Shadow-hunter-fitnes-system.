@@ -43,7 +43,13 @@ import {
   WhatsAppCampaign,
   WhatsAppMessageLog,
   WhatsAppAutomationSettings,
-  GymDesignTemplate
+  GymDesignTemplate,
+  DynamicMission,
+  PointTransaction,
+  UserMissionProgress,
+  PermanentIdRecord,
+  GymSubscriptionEntitlement,
+  PlatformStaffPermissionGroup
 } from '../types.js';
 import { SEED_EXERCISES, SEED_WORKOUT_PROGRAMS, SEED_SUBSCRIPTION_PLANS } from './seedData.js';
 import { 
@@ -126,6 +132,12 @@ export interface DatabaseSchema {
   whatsappMessageLogs: WhatsAppMessageLog[];
   whatsappAutomationSettings: Record<string, WhatsAppAutomationSettings>;
   gymDesignTemplates: GymDesignTemplate[];
+  dynamicMissions: DynamicMission[];
+  pointTransactions: PointTransaction[];
+  userMissionProgress: UserMissionProgress[];
+  permanentIds: PermanentIdRecord[];
+  gymEntitlements: Record<string, GymSubscriptionEntitlement>;
+  platformStaffRoles: PlatformStaffPermissionGroup[];
 }
 
 class DatabaseStore {
@@ -366,6 +378,251 @@ class DatabaseStore {
             if (!p.stateRank) p.stateRank = pIdx + 3;
             if (!p.nationalRank) p.nationalRank = pIdx + 8;
           });
+        }
+
+        // Phase 1 & 2 Entities Hydration
+        if (!parsed.dynamicMissions || parsed.dynamicMissions.length === 0) {
+          parsed.dynamicMissions = [
+            {
+              id: 'dm-daily-1',
+              title: 'Iron Core & Calisthenics Routine',
+              description: 'Perform 100 reps of core exercises or complete a structured 30-minute abdominal endurance sequence.',
+              discipline: 'Strength',
+              frequency: 'daily',
+              difficulty: 'Intermediate',
+              xpPoints: 150,
+              badgeName: 'Iron Sentinel',
+              startDate: new Date().toISOString(),
+              endDate: new Date(Date.now() + 86400000).toISOString(),
+              isActive: true,
+              verificationMethod: 'workout_record',
+              criteria: { totalDurationMinutes: 30, workoutCount: 1 },
+              participantsCount: 42,
+              completionsCount: 28,
+              createdAt: new Date().toISOString(),
+              createdBy: 'system'
+            },
+            {
+              id: 'dm-daily-2',
+              title: 'Metabolic Sprint Interval Burn',
+              description: 'Burn a verified 350+ active calories during cardio or functional circuit training session.',
+              discipline: 'Cardio',
+              frequency: 'daily',
+              difficulty: 'Advanced',
+              xpPoints: 200,
+              badgeName: 'Velocity Flame',
+              startDate: new Date().toISOString(),
+              endDate: new Date(Date.now() + 86400000).toISOString(),
+              isActive: true,
+              verificationMethod: 'workout_record',
+              criteria: { caloriesBurned: 350 },
+              participantsCount: 35,
+              completionsCount: 19,
+              createdAt: new Date().toISOString(),
+              createdBy: 'system'
+            },
+            {
+              id: 'dm-weekly-1',
+              title: '7-Day Iron Discipline Mastery',
+              description: 'Log at least 4 verified gym check-ins and complete 3 full workout programs this week.',
+              discipline: 'Consistency',
+              frequency: 'weekly',
+              difficulty: 'Advanced',
+              xpPoints: 800,
+              badgeName: 'Titan Consistency',
+              startDate: new Date().toISOString(),
+              endDate: new Date(Date.now() + 86400000 * 7).toISOString(),
+              isActive: true,
+              verificationMethod: 'attendance_checkin',
+              criteria: { attendanceCount: 4, workoutCount: 3 },
+              participantsCount: 88,
+              completionsCount: 31,
+              createdAt: new Date().toISOString(),
+              createdBy: 'system'
+            },
+            {
+              id: 'dm-monthly-1',
+              title: 'Heavy Lifter 50,000kg Volume Crusade',
+              description: 'Accumulate a cumulative 50,000kg training volume across compound bench press, deadlifts, and squats.',
+              discipline: 'Strength',
+              frequency: 'monthly',
+              difficulty: 'Elite',
+              xpPoints: 2500,
+              badgeName: 'Apex Juggernaut',
+              startDate: new Date().toISOString(),
+              endDate: new Date(Date.now() + 86400000 * 30).toISOString(),
+              isActive: true,
+              verificationMethod: 'backend_calculation',
+              criteria: { totalVolumeKg: 50000 },
+              participantsCount: 120,
+              completionsCount: 14,
+              createdAt: new Date().toISOString(),
+              createdBy: 'system'
+            },
+            {
+              id: 'dm-special-1',
+              title: 'Shadow Hunter National Championship Qualifier',
+              description: 'Official multi-gym athletic endurance trials verified by affiliated master trainers.',
+              discipline: 'Personal Training',
+              frequency: 'special_event',
+              difficulty: 'Elite',
+              xpPoints: 5000,
+              badgeName: 'National Grandmaster',
+              startDate: new Date().toISOString(),
+              endDate: new Date(Date.now() + 86400000 * 14).toISOString(),
+              isActive: true,
+              verificationMethod: 'trainer_confirmation',
+              criteria: { workoutCount: 5 },
+              participantsCount: 65,
+              completionsCount: 9,
+              createdAt: new Date().toISOString(),
+              createdBy: 'user-admin-1'
+            }
+          ];
+        }
+
+        if (!parsed.pointTransactions) {
+          parsed.pointTransactions = [
+            {
+              id: 'pt-tx-1',
+              userId: 'user-athlete-1',
+              gymId: 'gym-apex-1',
+              challengeId: 'dm-daily-1',
+              pointsEarned: 150,
+              reason: 'Completed Daily Mission: Iron Core & Calisthenics Routine',
+              verificationStatus: 'verified',
+              verifiedBy: 'system',
+              transactionRef: 'TX-REF-89021',
+              timestamp: new Date(Date.now() - 3600000 * 2).toISOString()
+            },
+            {
+              id: 'pt-tx-2',
+              userId: 'user-member-1',
+              gymId: 'gym-apex-1',
+              challengeId: 'dm-weekly-1',
+              pointsEarned: 800,
+              reason: 'Achieved 4-day Attendance & Consistency Milestone',
+              verificationStatus: 'verified',
+              verifiedBy: 'system',
+              transactionRef: 'TX-REF-89022',
+              timestamp: new Date(Date.now() - 86400000 * 1).toISOString()
+            }
+          ];
+        }
+
+        if (!parsed.userMissionProgress) {
+          parsed.userMissionProgress = [
+            {
+              userId: 'user-athlete-1',
+              missionId: 'dm-daily-1',
+              frequency: 'daily',
+              status: 'claimed',
+              currentValue: 30,
+              targetValue: 30,
+              percent: 100,
+              verifiedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+              claimedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+              periodKey: new Date().toISOString().split('T')[0]
+            },
+            {
+              userId: 'user-athlete-1',
+              missionId: 'dm-daily-2',
+              frequency: 'daily',
+              status: 'in_progress',
+              currentValue: 210,
+              targetValue: 350,
+              percent: 60,
+              periodKey: new Date().toISOString().split('T')[0]
+            }
+          ];
+        }
+
+        if (!parsed.permanentIds) {
+          parsed.permanentIds = [
+            { id: 'SH-000001', entityType: 'super_host', targetUserId: 'user-admin-1', allocatedAt: '2026-01-01T00:00:00.000Z' },
+            { id: 'GYM-000125', entityType: 'gym_owner', targetUserId: 'user-owner-1', targetGymId: 'gym-apex-1', allocatedAt: '2026-02-15T00:00:00.000Z' },
+            { id: 'TR-000245', entityType: 'trainer', targetUserId: 'trainer-1', targetGymId: 'gym-apex-1', allocatedAt: '2026-03-01T00:00:00.000Z' },
+            { id: 'MEM-001245', entityType: 'member', targetUserId: 'user-member-1', targetGymId: 'gym-apex-1', allocatedAt: '2026-04-10T00:00:00.000Z' },
+            { id: 'MEM-001246', entityType: 'member', targetUserId: 'user-athlete-1', allocatedAt: '2026-04-12T00:00:00.000Z' }
+          ];
+        }
+
+        if (!parsed.gymEntitlements) {
+          parsed.gymEntitlements = {
+            'gym-apex-1': {
+              gymId: 'gym-apex-1',
+              planId: 'plan-enterprise',
+              planName: 'Shadow Hunter Enterprise Tier',
+              status: 'active',
+              startDate: '2026-01-01T00:00:00.000Z',
+              expiryDate: '2027-01-01T00:00:00.000Z',
+              maxMembers: 1000,
+              maxStaff: 50,
+              currentMembers: 320,
+              currentStaff: 12,
+              enabledFeatures: [
+                'ai_whatsapp_suite',
+                'multi_branch_analytics',
+                'unlimited_pt_management',
+                'dynamic_missions_engine',
+                'automated_financials',
+                'verified_public_profile',
+                'priority_super_host_support'
+              ],
+              notes: 'Flagship athletic club partnership with verified standing',
+              updatedAt: new Date().toISOString(),
+              updatedBy: 'SH-000001'
+            },
+            'gym-titan-2': {
+              gymId: 'gym-titan-2',
+              planId: 'plan-pro',
+              planName: 'Shadow Hunter Pro Tier',
+              status: 'active',
+              startDate: '2026-03-01T00:00:00.000Z',
+              expiryDate: '2026-12-31T00:00:00.000Z',
+              maxMembers: 500,
+              maxStaff: 20,
+              currentMembers: 180,
+              currentStaff: 6,
+              enabledFeatures: [
+                'ai_whatsapp_suite',
+                'dynamic_missions_engine',
+                'automated_financials',
+                'verified_public_profile'
+              ],
+              updatedAt: new Date().toISOString(),
+              updatedBy: 'SH-000001'
+            }
+          };
+        }
+
+        if (!parsed.platformStaffRoles) {
+          parsed.platformStaffRoles = [
+            {
+              id: 'group-super-admin',
+              name: 'Executive Super Host Operations',
+              description: 'Full unconstrained platform authority over all multi-gym SaaS domains',
+              permissions: [
+                'view_gyms',
+                'manage_gyms',
+                'manage_subscriptions',
+                'view_financial_reports',
+                'manage_users',
+                'manage_trainers',
+                'manage_support_tickets',
+                'manage_campaigns',
+                'audit_security'
+              ],
+              createdAt: '2026-01-01T00:00:00.000Z'
+            },
+            {
+              id: 'group-billing-specialist',
+              name: 'SaaS Subscription & Financial Auditor',
+              description: 'Audits gym subscriptions, payments, and financial reconciliations',
+              permissions: ['view_gyms', 'manage_subscriptions', 'view_financial_reports', 'audit_security'],
+              createdAt: '2026-02-01T00:00:00.000Z'
+            }
+          ];
         }
 
         return parsed;
@@ -921,7 +1178,13 @@ class DatabaseStore {
       whatsappCampaigns: SEED_WHATSAPP_CAMPAIGNS,
       whatsappMessageLogs: SEED_WHATSAPP_MESSAGE_LOGS,
       whatsappAutomationSettings: SEED_WHATSAPP_AUTOMATION_SETTINGS,
-      gymDesignTemplates: SEED_GYM_DESIGN_TEMPLATES
+      gymDesignTemplates: SEED_GYM_DESIGN_TEMPLATES,
+      dynamicMissions: [],
+      pointTransactions: [],
+      userMissionProgress: [],
+      permanentIds: [],
+      gymEntitlements: {},
+      platformStaffRoles: []
     };
 
     return defaultData;

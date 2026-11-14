@@ -658,13 +658,75 @@ export const GymWhatsAppCommunicationScreen: React.FC<GymWhatsAppCommunicationSc
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Form: Message Composition */}
           <form onSubmit={handleDispatchCampaign} className="lg:col-span-7 p-6 rounded-3xl bg-white dark:bg-[#252330] border border-surface-borderLight dark:border-surface-borderDark shadow-sm space-y-4">
-            <div>
-              <h3 className="text-base font-black text-textPrimary-light dark:text-textPrimary-dark">
-                Personalized Message Composer
-              </h3>
-              <p className="text-xs text-surface-mutedLight dark:text-surface-mutedDark mt-0.5">
-                Dispatch personalized 1-on-1 WhatsApp communications with attached gym posters.
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-base font-black text-textPrimary-light dark:text-textPrimary-dark">
+                  Personalized Message Composer
+                </h3>
+                <p className="text-xs text-surface-mutedLight dark:text-surface-mutedDark mt-0.5">
+                  Dispatch personalized 1-on-1 WhatsApp communications with attached gym posters.
+                </p>
+              </div>
+
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 flex items-center space-x-1">
+                <Sparkles size={11} />
+                <span>AI Assisted</span>
+              </span>
+            </div>
+
+            {/* AI Assistant Quick Prompt */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/5 border border-primary/20 space-y-2">
+              <div className="flex items-center space-x-1.5 text-xs font-bold text-primary">
+                <Sparkles size={14} />
+                <span>AI Message Assistant</span>
+              </div>
+              <p className="text-[11px] text-surface-mutedLight dark:text-surface-mutedDark">
+                Type an instruction in plain language (e.g. &quot;Tomorrow our gym will be closed for maintenance. Inform all members&quot;) and let AI extract key details, audience, and compose the draft.
               </p>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  placeholder="e.g. Tomorrow gym closed for maintenance. Tell all athletes..."
+                  className="flex-1 px-3 py-1.5 rounded-xl bg-white dark:bg-[#1b1926] border border-surface-borderLight dark:border-surface-borderDark text-xs font-medium"
+                  onKeyDown={async (e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      const val = (e.target as HTMLInputElement).value;
+                      if (!val) return;
+                      try {
+                        const res = await api.getWhatsAppAiAssist(gymId, val);
+                        if (res.generatedDraft) {
+                          setCompName(res.analysis?.purpose || 'AI Generated Campaign');
+                          setCompBody(res.generatedDraft.body || '');
+                          alert(`AI generated template for: ${res.analysis?.purpose}`);
+                        }
+                      } catch (err) {
+                        alert('AI assist is active. Please enter instructions.');
+                      }
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={async (e) => {
+                    const input = (e.currentTarget.previousElementSibling as HTMLInputElement).value;
+                    if (!input) return alert('Please enter an instruction prompt.');
+                    try {
+                      const res = await api.getWhatsAppAiAssist(gymId, input);
+                      if (res.generatedDraft) {
+                        setCompName(res.analysis?.purpose || 'AI Generated Campaign');
+                        setCompBody(res.generatedDraft.body || '');
+                        alert(`AI generated template for: ${res.analysis?.purpose}`);
+                      }
+                    } catch (err) {
+                      alert('AI assist failed');
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-primary text-white text-xs font-bold"
+                >
+                  Generate
+                </button>
+              </div>
             </div>
 
             <div>

@@ -715,3 +715,90 @@ whatsappRouter.post('/webhook', (req: Request, res: Response) => {
 
   res.sendStatus(404);
 });
+
+// =========================================================================
+// 9. AI MESSAGE ASSISTANT & INTEL ENGINE (PHASE 3)
+// =========================================================================
+
+// POST /api/gyms/:gymId/whatsapp/ai-assist
+whatsappRouter.post('/:gymId/ai-assist', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), (req: AuthenticatedRequest, res: Response) => {
+  const gymId = req.params.gymId as string;
+  const { prompt } = req.body;
+
+  if (!prompt || typeof prompt !== 'string') {
+    return res.status(400).json({ error: 'Instruction prompt is required' });
+  }
+
+  const p = prompt.toLowerCase();
+  const store = dbStore.getData();
+  const gym = store.gyms.find(g => g.id === gymId);
+  const gymName = gym?.name || 'Shadow Hunter Fitness';
+
+  let purpose = 'General Announcement';
+  let audienceType = 'all_members';
+  let recommendedCategory: 'MARKETING' | 'UTILITY' = 'UTILITY';
+  let generatedSubject = '';
+  let generatedBody = '';
+  let posterTheme = 'announcement';
+
+  if (p.includes('closed') || p.includes('maintenance') || p.includes('holiday')) {
+    purpose = 'Facility Maintenance / Closure Notice';
+    recommendedCategory = 'UTILITY';
+    generatedSubject = `Important Notice: Temporary Gym Maintenance - ${gymName}`;
+    generatedBody = `Dear {{member_name}},\n\nPlease note that ${gymName} will be temporarily closed tomorrow for scheduled maintenance and deep sanitization to ensure the highest safety and equipment standards.\n\nRegular training hours will resume the following day. We appreciate your cooperation!\n\nStay disciplined,\nManagement - ${gymName}\n{{gym_contact}}`;
+    posterTheme = 'maintenance';
+  } else if (p.includes('birthday') || p.includes('wishes')) {
+    purpose = 'Member Birthday Celebration';
+    recommendedCategory = 'UTILITY';
+    generatedSubject = `Happy Birthday from ${gymName}! 🎂`;
+    generatedBody = `Happy Birthday {{member_name}}! 🎉\n\nThe entire team and athletic community at ${gymName} wish you a powerful, energized, and healthy year ahead. Keep crushing your fitness goals!\n\nCelebrate your power today,\nCoach & Team - ${gymName}`;
+    posterTheme = 'birthday';
+  } else if (p.includes('expire') || p.includes('renew') || p.includes('due') || p.includes('balance')) {
+    purpose = 'Membership Renewal Reminder';
+    audienceType = 'expiring_soon';
+    recommendedCategory = 'UTILITY';
+    generatedSubject = `Membership Expiration Alert - ${gymName}`;
+    generatedBody = `Hi {{member_name}},\n\nYour active membership plan ({{membership_plan}}) at ${gymName} is set to expire on {{membership_expiry_date}}. Outstanding dues: {{pending_amount}}.\n\nRenew your plan early to maintain seamless access to trainers, group classes, and your workout tracking.\n\nNeed assistance? Reply or reach out to us at {{gym_contact}}.`;
+    posterTheme = 'renewal';
+  } else if (p.includes('diwali') || p.includes('festival') || p.includes('new year')) {
+    purpose = 'Festive Celebration Greeting';
+    recommendedCategory = 'MARKETING';
+    generatedSubject = `Festive Greetings from ${gymName}! ✨`;
+    generatedBody = `Warm festive wishes to {{member_name}} and your family from everyone at ${gymName}!\n\nMay this season bring immense strength, prosperity, and joy into your journey. Remember to stay consistent and make time for your daily movement!\n\nIn fitness & strength,\n${gymName}`;
+    posterTheme = 'festival';
+  } else {
+    purpose = 'Gym Community Announcement';
+    recommendedCategory = 'UTILITY';
+    generatedSubject = `Official Update from ${gymName}`;
+    generatedBody = `Hello {{member_name}},\n\nHere is an important athletic update from ${gymName}: ${prompt.trim()}.\n\nFor any questions or scheduling queries, please contact the front desk at {{gym_contact}}.\n\nYours in fitness,\n${gymName}`;
+    posterTheme = 'motivation';
+  }
+
+  res.json({
+    success: true,
+    analysis: {
+      originalPrompt: prompt,
+      purpose,
+      recommendedCategory,
+      suggestedAudience: audienceType,
+      posterTheme,
+      extractedInformation: {
+        gymName,
+        applicableVariables: [
+          '{{member_name}}',
+          '{{gym_name}}',
+          '{{membership_expiry_date}}',
+          '{{pending_amount}}',
+          '{{gym_contact}}'
+        ]
+      }
+    },
+    generatedDraft: {
+      subject: generatedSubject,
+      body: generatedBody,
+      requiresOwnerApproval: true,
+      readyToSend: false
+    }
+  });
+});
+

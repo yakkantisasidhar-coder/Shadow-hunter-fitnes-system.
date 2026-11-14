@@ -151,6 +151,13 @@ export const SuperAdminDashboardScreen: React.FC<SuperAdminDashboardScreenProps>
             color: 'text-indigo-500'
           },
           {
+            title: 'Subscription & Entitlement Centre',
+            desc: 'Search gyms by permanent ID or registered email, manage SaaS plan tiers, adjust member/staff limits, and enforce entitlements.',
+            screen: 'admin-subscription-centre',
+            icon: CreditCard,
+            color: 'text-emerald-500'
+          },
+          {
             title: 'Role & RBAC Permission Matrix',
             desc: 'Assign Gym Leader, Moderator, Manager, and Editor roles scoped to individual facilities.',
             screen: 'admin-permissions',

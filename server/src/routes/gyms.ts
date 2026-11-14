@@ -1755,4 +1755,101 @@ gymsRouter.put('/:id/public-profile', requireAuth, requireGymPermission('edit_gy
   res.json({ success: true, gym });
 });
 
+// ==========================================
+// PHASE 4: RECONCILED PAYMENT ENGINE & OWNER NOTIFICATIONS
+// ==========================================
+
+// Record Verified Member Payment with Status & Owner Alerts
+gymsRouter.post('/:gymId/financials/record-verified-payment', requireAuth, requireGymPermission('record_payments', 'gymId'), (req: AuthenticatedRequest, res: Response) => {
+  const gymId = req.params.gymId as string;
+  const {
+    memberId,
+    memberName,
+    amount,
+    paymentMethod, // 'upi' | 'cash' | 'razorpay' | 'card' | 'bank_transfer'
+    serviceType,   // 'general_membership' | 'personal_training' | 'group_training' | 'supplement'
+    invoiceId,
+    transactionRef,
+    notes
+  } = req.body;
+
+  if (!memberId || !amount || Number(amount) <= 0) {
+    return res.status(400).json({ error: 'Valid memberId and payment amount are required' });
+  }
+
+  const store = dbStore.getData();
+  const gym = store.gyms.find(g => g.id === gymId);
+  const member = store.gymMembers.find(m => m.id === memberId && m.gymId === gymId);
+
+  const numAmount = Number(amount);
+  const safeTxRef = transactionRef || `TX-REC-${Date.now().toString(36).toUpperCase()}`;
+
+  // Prevent duplicate transaction references
+  const isDuplicate = (store.gymPayments || []).some(p => p.receiptNumber === safeTxRef);
+  if (isDuplicate) {
+    return res.status(409).json({ error: 'Duplicate transaction reference detected. Payment already processed.' });
+  }
+
+  // Calculate new balances and payment status
+  const prevBalance = member ? (member.outstandingBalance || 0) : 0;
+  const newBalance = Math.max(0, prevBalance - numAmount);
+  const paymentStatus: 'PAID' | 'PARTIALLY PAID' = newBalance === 0 ? 'PAID' : 'PARTIALLY PAID';
+
+  if (member) {
+    member.outstandingBalance = newBalance;
+    member.paymentStatus = newBalance === 0 ? 'paid' : 'partial';
+  }
+
+  const newPayment: GymPaymentRecord = {
+    id: `gpay-${Date.now()}`,
+    gymId,
+    memberId,
+    memberName: memberName || member?.userName || 'Athlete',
+    amount: numAmount,
+    paymentMethod: (paymentMethod === 'cash' || paymentMethod === 'upi') ? paymentMethod : 'online',
+    receiptNumber: safeTxRef,
+    invoiceId: invoiceId || `inv-${Date.now()}`,
+    recordedBy: (req.user as any)?.fullName || req.user?.email || 'Gym Staff',
+    recordedAt: new Date().toISOString(),
+    notes: notes || `Direct verified ${serviceType || 'general'} payment`
+  };
+
+  if (!store.gymPayments) store.gymPayments = [];
+  store.gymPayments.unshift(newPayment);
+
+  // Send High-Priority In-App Notification to Gym Owner
+  store.notifications.unshift({
+    id: `notif-${Date.now()}`,
+    userId: gym?.ownerId || req.user!.id,
+    title: 'PAYMENT RECEIVED 💰',
+    message: `Member: ${newPayment.memberName} | Amount: ₹${numAmount.toLocaleString()} | Method: ${paymentMethod?.toUpperCase() || 'UPI'} | Status: ${paymentStatus} | Remaining Dues: ₹${newBalance.toLocaleString()}`,
+    type: 'payment',
+    read: false,
+    createdAt: new Date().toISOString()
+  });
+
+  // Add immutable audit log
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'unknown',
+    actorEmail: req.user?.email || 'unknown',
+    actorRole: req.user?.role || 'gym_owner',
+    action: 'RECORD_VERIFIED_PAYMENT',
+    targetType: 'payment',
+    targetId: newPayment.id,
+    details: `Verified payment of ₹${numAmount} for member ${newPayment.memberName} (${safeTxRef}). Balance updated to ₹${newBalance}.`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+
+  res.status(201).json({
+    success: true,
+    payment: newPayment,
+    paymentStatus,
+    outstandingBalance: newBalance,
+    receiptNumber: safeTxRef
+  });
+});
+
+
 

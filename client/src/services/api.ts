@@ -923,6 +923,79 @@ class ApiService {
       body: JSON.stringify(payload)
     });
   }
+
+  // Phase 1: Dynamic Missions & Verified Points
+  public getDynamicMissions() {
+    return this.request('/challenges/missions');
+  }
+
+  public joinDynamicMission(missionId: string) {
+    return this.request(`/challenges/missions/${missionId}/join`, {
+      method: 'POST'
+    });
+  }
+
+  public verifyMissionCompletion(missionId: string) {
+    return this.request(`/challenges/missions/${missionId}/verify-completion`, {
+      method: 'POST'
+    });
+  }
+
+  public getPointsLedger() {
+    return this.request('/challenges/points-ledger');
+  }
+
+  public createDynamicMission(payload: any) {
+    return this.request('/challenges/missions', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  // Phase 2: Super Host Subscription Management Centre
+  public getSubscriptionCentreGyms(search?: string) {
+    const qs = search ? `?q=${encodeURIComponent(search)}` : '';
+    return this.request(`/admin/subscription-centre/gyms${qs}`);
+  }
+
+  public updateGymEntitlement(payload: any) {
+    return this.request('/admin/subscription-centre/update-entitlement', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  public searchPermanentIds(query?: string) {
+    const qs = query ? `?q=${encodeURIComponent(query)}` : '';
+    return this.request(`/admin/permanent-ids/search${qs}`);
+  }
+
+  public getPlatformStaffGroups() {
+    return this.request('/admin/platform-staff/groups');
+  }
+
+  public createPlatformStaffGroup(payload: any) {
+    return this.request('/admin/platform-staff/groups', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  // Phase 3: AI WhatsApp Intelligence
+  public getWhatsAppAiAssist(gymId: string, prompt: string) {
+    return this.request(`/gyms/whatsapp/${gymId}/ai-assist`, {
+      method: 'POST',
+      body: JSON.stringify({ prompt })
+    });
+  }
+
+  // Phase 4: Financial Payments Reconciliation
+  public recordVerifiedPayment(gymId: string, payload: any) {
+    return this.request(`/gyms/${gymId}/financials/record-verified-payment`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
 }
 
 export const api = new ApiService();

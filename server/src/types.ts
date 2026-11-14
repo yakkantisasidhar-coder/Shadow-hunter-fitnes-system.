@@ -369,6 +369,7 @@ export interface GymMemberRecord {
   workoutsCompleted?: number;
   lastActive?: string;
   outstandingBalance?: number;
+  paymentStatus?: 'paid' | 'unpaid' | 'overdue' | 'partial';
   appliedAt: string;
   approvedAt?: string;
 }
@@ -551,7 +552,7 @@ export interface AppNotification {
   userId: string;
   title: string;
   message: string;
-  type: 'workout' | 'challenge' | 'gym' | 'payment' | 'security';
+  type: 'workout' | 'challenge' | 'gym' | 'payment' | 'security' | 'achievement';
   read: boolean;
   createdAt: string;
 }
@@ -563,7 +564,7 @@ export interface AuditLogItem {
   actorEmail: string;
   actorRole: string;
   action: string;
-  targetType: 'user' | 'gym' | 'permission' | 'system' | 'subscription';
+  targetType: 'user' | 'gym' | 'permission' | 'system' | 'subscription' | 'payment';
   targetId: string;
   details: string;
   ipAddress: string;
@@ -963,6 +964,132 @@ export interface GymDesignTemplate {
   aiPrompt?: string;
   createdAt: string;
 }
+
+// ==========================================
+// PHASE 1: DYNAMIC MISSIONS & POINTS ENGINE
+// ==========================================
+
+export type ChallengeFrequency = 'daily' | 'weekly' | 'monthly' | 'special_event';
+export type ChallengeDiscipline = 
+  | 'Strength' 
+  | 'Cardio' 
+  | 'Flexibility' 
+  | 'Endurance' 
+  | 'Consistency' 
+  | 'Weight Management' 
+  | 'Personal Training' 
+  | 'Group Activities' 
+  | 'General Fitness';
+
+export interface DynamicMission {
+  id: string;
+  title: string;
+  description: string;
+  discipline: ChallengeDiscipline;
+  frequency: ChallengeFrequency;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced' | 'Elite';
+  xpPoints: number;
+  badgeName?: string;
+  badgeIcon?: string;
+  startDate: string; // ISO
+  endDate: string;   // ISO
+  isActive: boolean;
+  targetGymId?: string; // Optional: gym specific or global
+  targetRegion?: string;
+  verificationMethod: 'workout_record' | 'attendance_checkin' | 'trainer_confirmation' | 'backend_calculation';
+  criteria: {
+    workoutCount?: number;
+    totalDurationMinutes?: number;
+    caloriesBurned?: number;
+    totalVolumeKg?: number;
+    attendanceCount?: number;
+    streakDays?: number;
+    specificExerciseId?: string;
+    specificReps?: number;
+  };
+  participantsCount: number;
+  completionsCount: number;
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface PointTransaction {
+  id: string;
+  userId: string;
+  gymId?: string;
+  challengeId?: string;
+  pointsEarned: number;
+  reason: string;
+  verificationStatus: 'verified' | 'pending' | 'flagged';
+  verifiedBy?: string;
+  transactionRef: string;
+  timestamp: string;
+}
+
+export interface UserMissionProgress {
+  userId: string;
+  missionId: string;
+  frequency: ChallengeFrequency;
+  status: 'in_progress' | 'completed' | 'claimed' | 'expired';
+  currentValue: number;
+  targetValue: number;
+  percent: number;
+  verifiedAt?: string;
+  claimedAt?: string;
+  periodKey: string; // e.g. "2026-11-14" for daily, "2026-W46" for weekly, "2026-11" for monthly
+}
+
+// ==========================================
+// PHASE 2: SUPER HOST ID & SUBSCRIPTION ENTITLEMENTS
+// ==========================================
+
+export interface PermanentIdRecord {
+  id: string; // e.g. "SH-000001", "GYM-000125", "TR-000245", "MEM-001245", "STF-000125"
+  entityType: 'super_host' | 'gym_owner' | 'trainer' | 'member' | 'staff';
+  targetUserId: string;
+  targetGymId?: string;
+  allocatedAt: string;
+}
+
+export interface GymSubscriptionEntitlement {
+  gymId: string;
+  planId: string;
+  planName: string;
+  status: 'active' | 'trial' | 'grace_period' | 'suspended' | 'cancelled' | 'expired';
+  startDate: string;
+  expiryDate: string;
+  maxMembers: number;
+  maxStaff: number;
+  currentMembers: number;
+  currentStaff: number;
+  enabledFeatures: string[];
+  discountPercent?: number;
+  trialDaysLeft?: number;
+  lastPaymentRef?: string;
+  notes?: string;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+export interface PlatformStaffPermissionGroup {
+  id: string;
+  name: string;
+  description: string;
+  permissions: Array<
+    | 'view_gyms'
+    | 'manage_gyms'
+    | 'manage_subscriptions'
+    | 'view_financial_reports'
+    | 'manage_users'
+    | 'manage_trainers'
+    | 'manage_support_tickets'
+    | 'manage_campaigns'
+    | 'audit_security'
+  >;
+  assignedGymIds?: string[]; // Empty means all platform gyms
+  createdAt: string;
+}
+
 
 
 

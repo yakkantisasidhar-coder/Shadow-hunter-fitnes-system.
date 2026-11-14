@@ -1000,5 +1000,222 @@ adminRouter.post('/verify-trainer-certification', (req: AuthenticatedRequest, re
   res.json({ success: true, trainerId, certifications: trainer.certifications });
 });
 
+// ==========================================
+// PHASE 2: SUPER HOST SUBSCRIPTION MANAGEMENT CENTRE
+// & PERMANENT UNIQUE ID SYSTEM
+// ==========================================
+
+// Helper: Ensure entity has permanent ID
+function getOrGeneratePermanentId(entityType: 'super_host' | 'gym_owner' | 'trainer' | 'member' | 'staff', targetUserId: string, targetGymId?: string): string {
+  const store = dbStore.getData();
+  if (!store.permanentIds) store.permanentIds = [];
+
+  const existing = store.permanentIds.find(p => p.targetUserId === targetUserId && (!targetGymId || p.targetGymId === targetGymId));
+  if (existing) return existing.id;
+
+  const prefixMap = {
+    super_host: 'SH',
+    gym_owner: 'GYM',
+    trainer: 'TR',
+    member: 'MEM',
+    staff: 'STF'
+  };
+
+  const count = store.permanentIds.filter(p => p.entityType === entityType).length + 1;
+  const newId = `${prefixMap[entityType]}-${String(count).padStart(6, '0')}`;
+
+  store.permanentIds.push({
+    id: newId,
+    entityType,
+    targetUserId,
+    targetGymId,
+    allocatedAt: new Date().toISOString()
+  });
+
+  return newId;
+}
+
+// Search Permanent IDs
+adminRouter.get('/permanent-ids/search', (req: AuthenticatedRequest, res: Response) => {
+  const query = (req.query.q as string || '').toUpperCase().trim();
+  const store = dbStore.getData();
+  if (!store.permanentIds) store.permanentIds = [];
+
+  let matches = store.permanentIds;
+  if (query) {
+    matches = matches.filter(p => p.id.includes(query) || p.targetUserId.toUpperCase().includes(query));
+  }
+
+  res.json({ permanentIds: matches });
+});
+
+// Get Gym Subscription Entitlements & Search
+adminRouter.get('/subscription-centre/gyms', (req: AuthenticatedRequest, res: Response) => {
+  const query = (req.query.q as string || '').toLowerCase().trim();
+  const store = dbStore.getData();
+  if (!store.gymEntitlements) store.gymEntitlements = {};
+
+  const gyms = store.gyms.map(gym => {
+    let entitlement = store.gymEntitlements[gym.id];
+    if (!entitlement) {
+      entitlement = {
+        gymId: gym.id,
+        planId: 'plan-pro',
+        planName: 'Shadow Hunter Pro Partner',
+        status: 'active',
+        startDate: new Date().toISOString(),
+        expiryDate: new Date(Date.now() + 86400000 * 180).toISOString(),
+        maxMembers: gym.capacity || 500,
+        maxStaff: 20,
+        currentMembers: gym.memberCount || 120,
+        currentStaff: 5,
+        enabledFeatures: [
+          'ai_whatsapp_suite',
+          'dynamic_missions_engine',
+          'automated_financials',
+          'verified_public_profile'
+        ],
+        updatedAt: new Date().toISOString(),
+        updatedBy: req.user?.id || 'SH-000001'
+      };
+      store.gymEntitlements[gym.id] = entitlement;
+    }
+
+    const ownerPermanentId = getOrGeneratePermanentId('gym_owner', gym.ownerId, gym.id);
+    const gymPermanentId = getOrGeneratePermanentId('gym_owner', gym.id, gym.id);
+
+    return {
+      gym,
+      gymPermanentId,
+      ownerPermanentId,
+      entitlement
+    };
+  });
+
+  let filtered = gyms;
+  if (query) {
+    filtered = gyms.filter(
+      item =>
+        item.gym.name.toLowerCase().includes(query) ||
+        item.gym.id.toLowerCase().includes(query) ||
+        item.gymPermanentId.toLowerCase().includes(query) ||
+        item.ownerPermanentId.toLowerCase().includes(query) ||
+        item.gym.ownerEmail.toLowerCase().includes(query)
+    );
+  }
+
+  res.json({ gyms: filtered });
+});
+
+// Update Subscription Entitlement (Upgrade, Downgrade, Extend, Suspend)
+adminRouter.post('/subscription-centre/update-entitlement', (req: AuthenticatedRequest, res: Response) => {
+  const {
+    gymId,
+    planId,
+    planName,
+    status,
+    expiryDate,
+    maxMembers,
+    maxStaff,
+    enabledFeatures,
+    notes,
+    discountPercent
+  } = req.body;
+
+  if (!gymId) return res.status(400).json({ error: 'gymId is required' });
+
+  const store = dbStore.getData();
+  if (!store.gymEntitlements) store.gymEntitlements = {};
+
+  const current = store.gymEntitlements[gymId] || {
+    gymId,
+    planId: 'plan-pro',
+    planName: 'Pro Tier',
+    status: 'active',
+    startDate: new Date().toISOString(),
+    expiryDate: new Date(Date.now() + 86400000 * 30).toISOString(),
+    maxMembers: 500,
+    maxStaff: 20,
+    currentMembers: 50,
+    currentStaff: 5,
+    enabledFeatures: ['ai_whatsapp_suite'],
+    updatedAt: new Date().toISOString(),
+    updatedBy: req.user?.id || 'SH-000001'
+  };
+
+  const updated: any = {
+    ...current,
+    planId: planId || current.planId,
+    planName: planName || current.planName,
+    status: status || current.status,
+    expiryDate: expiryDate || current.expiryDate,
+    maxMembers: maxMembers !== undefined ? Number(maxMembers) : current.maxMembers,
+    maxStaff: maxStaff !== undefined ? Number(maxStaff) : current.maxStaff,
+    enabledFeatures: enabledFeatures || current.enabledFeatures,
+    discountPercent: discountPercent !== undefined ? Number(discountPercent) : current.discountPercent,
+    notes: notes || current.notes,
+    updatedAt: new Date().toISOString(),
+    updatedBy: req.user?.id || 'SH-000001'
+  };
+
+  store.gymEntitlements[gymId] = updated;
+
+  // Add immutable audit log
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'admin',
+    actorEmail: req.user?.email || 'admin@shadowhunter.com',
+    actorRole: 'super_admin',
+    action: 'SUBSCRIPTION_ENTITLEMENT_UPDATE',
+    targetType: 'gym',
+    targetId: gymId,
+    details: `Updated subscription entitlement for gym ${gymId} to plan: ${updated.planName}, status: ${updated.status}, maxMembers: ${updated.maxMembers}`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+  res.json({ success: true, entitlement: updated });
+});
+
+// Platform Staff & Granular Permission Management
+adminRouter.get('/platform-staff/groups', (_req: AuthenticatedRequest, res: Response) => {
+  const store = dbStore.getData();
+  if (!store.platformStaffRoles) store.platformStaffRoles = [];
+  res.json({ permissionGroups: store.platformStaffRoles });
+});
+
+adminRouter.post('/platform-staff/groups', (req: AuthenticatedRequest, res: Response) => {
+  const { name, description, permissions, assignedGymIds } = req.body;
+  if (!name || !permissions) return res.status(400).json({ error: 'Name and permissions are required' });
+
+  const store = dbStore.getData();
+  if (!store.platformStaffRoles) store.platformStaffRoles = [];
+
+  const newGroup = {
+    id: `group-${Date.now()}`,
+    name,
+    description: description || '',
+    permissions,
+    assignedGymIds: assignedGymIds || [],
+    createdAt: new Date().toISOString()
+  };
+
+  store.platformStaffRoles.push(newGroup);
+
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'admin',
+    actorEmail: req.user?.email || 'admin@shadowhunter.com',
+    actorRole: 'super_admin',
+    action: 'CREATE_STAFF_PERMISSION_GROUP',
+    targetType: 'system',
+    targetId: newGroup.id,
+    details: `Created custom platform staff group: ${name}`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+  res.status(201).json({ group: newGroup });
+});
+
+
 
 

@@ -73,6 +73,7 @@ import { AuditLogsScreen } from './screens/admin/AuditLogsScreen';
 import { GymAccessControlScreen } from './screens/admin/GymAccessControlScreen';
 import { AdminGymNetworkScreen } from './screens/admin/AdminGymNetworkScreen';
 import { AdminMyTeamScreen } from './screens/admin/AdminMyTeamScreen';
+import { SuperHostSubscriptionCentreScreen } from './screens/admin/SuperHostSubscriptionCentreScreen';
 
 // Public Profiles
 import { PublicGymProfileScreen } from './screens/public/PublicGymProfileScreen';
@@ -241,6 +242,8 @@ function AppContent() {
         return <AdminGymNetworkScreen onNavigate={navigate} />;
       case 'admin-team':
         return <AdminMyTeamScreen onNavigate={navigate} />;
+      case 'admin-subscription-centre':
+        return <SuperHostSubscriptionCentreScreen onNavigate={navigate} />;
 
       default:
         return <HomeScreen onNavigate={navigate} />;
