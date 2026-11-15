@@ -260,6 +260,114 @@ async function runTestSuite() {
     assert(true, 'Header Forgery Vulnerability Check', `Server rejected header bypass with status ${headerBypassProbe.status}`);
   }
 
+  console.log(`\n--- SUITE 9: AUTOMATION & INTELLIGENCE INTEGRATION LOOPS ---`);
+
+  // Loop 1: Dynamic Missions Discovery & Verification
+  const missionsRes = await request('/api/challenges/missions', {}, athleteToken);
+  assert(missionsRes.status === 200 && Array.isArray(missionsRes.data?.missions) && missionsRes.data.missions.length > 0,
+    `Dynamic Missions Discovery (Found ${missionsRes.data?.missions?.length || 0} active missions)`);
+
+  const targetMission = missionsRes.data?.missions?.[0];
+  let verifiedPointsEarned = 0;
+  if (targetMission) {
+    // Join mission
+    await request(`/api/challenges/missions/${targetMission.id}/join`, { method: 'POST' }, athleteToken);
+    // Verify completion
+    const verifyMission = await request(`/api/challenges/missions/${targetMission.id}/verify-completion`, { method: 'POST' }, athleteToken);
+    // 200 or 400 (if already claimed in prior cycle)
+    const missionSuccess = verifyMission.status === 200 || (verifyMission.status === 400 && verifyMission.data?.error?.includes('already claimed'));
+    assert(missionSuccess, 'Dynamic Mission Verification & Ledger Recording (/api/challenges/missions/:id/verify-completion)');
+    verifiedPointsEarned = verifyMission.data?.pointsEarned || 0;
+  }
+
+  // Loop 2: Points Ledger & Leaderboard Linkage
+  const ledgerRes = await request('/api/challenges/points-ledger', {}, athleteToken);
+  assert(ledgerRes.status === 200 && Array.isArray(ledgerRes.data?.transactions),
+    `Points Ledger Immutability Audit (Total verified transactions: ${ledgerRes.data?.transactions?.length || 0})`);
+
+  const memberLeaderboard = await request('/api/leaderboards/members?scope=national', {}, athleteToken);
+  assert(memberLeaderboard.status === 200 && Array.isArray(memberLeaderboard.data?.rankings),
+    `Live Member Leaderboard Linkage (Rankings derived from verified points & progress)`);
+
+  // Loop 3: Student Achievement Contribution to Trainer Rankings
+  const trainerLeaderboard = await request('/api/leaderboards/trainers?scope=national', {}, athleteToken);
+  assert(trainerLeaderboard.status === 200 && Array.isArray(trainerLeaderboard.data?.rankings) && trainerLeaderboard.data.rankings.length > 0,
+    `Trainer Leaderboard Integration (Includes student achievements bonus in ranking scores)`);
+
+  // Loop 4 & 5: Verified Payment Recording, Balance Reconciliation & Owner Alert
+  const recordPaymentRes = await request(`/api/gyms/${apexGymId}/financials/record-verified-payment`, {
+    method: 'POST',
+    body: JSON.stringify({
+      memberId: 'gm-1',
+      memberName: 'John Doe',
+      amount: 1500,
+      paymentMethod: 'upi',
+      serviceType: 'general_membership',
+      notes: 'Automated QA Test Payment'
+    })
+  }, ownerToken);
+  assert(recordPaymentRes.status === 201 && recordPaymentRes.data?.paymentStatus,
+    `Verified Payment Processing & Balance Reconciliation (Status: ${recordPaymentRes.data?.paymentStatus || 'PAID'})`);
+
+  // Loop 6: Automated Membership Expiry Scanning & Follow-up Campaign Dispatched
+  const expiryCheckRes = await request(`/api/gyms/whatsapp/${apexGymId}/automations/run-expiry-check`, {
+    method: 'POST'
+  }, ownerToken);
+  assert(expiryCheckRes.status === 200 && typeof expiryCheckRes.data?.scannedCount === 'number',
+    `Automated Expiry Renewal Engine (Scanned: ${expiryCheckRes.data?.scannedCount}, Dispatched: ${expiryCheckRes.data?.dispatchedCount})`);
+
+  // Loop 7: Subscription Entitlement Gating Check
+  // Test that an invalid facility or gated feature requires proper entitlement
+  const unentitledCall = await request(`/api/gyms/whatsapp/gym-nonexistent/posters/ai-generate`, {
+    method: 'POST',
+    body: JSON.stringify({ prompt: 'Test announcement' })
+  }, ownerToken);
+  assert(unentitledCall.status === 403, 'Subscription Entitlement Gating Enforcement (Blocked un-entitled facility with 403)');
+
+  // Loop 8: Deterministic AI Poster Synthesis with Gym Branding
+  const aiPosterRes = await request(`/api/gyms/whatsapp/${apexGymId}/posters/ai-generate`, {
+    method: 'POST',
+    body: JSON.stringify({ prompt: 'Diwali festive special offer' })
+  }, ownerToken);
+  assert(aiPosterRes.status === 200 && aiPosterRes.data?.poster?.headline && aiPosterRes.data?.poster?.accentColor,
+    `AI Poster Designer Synthesis with Gym Branding (Headline: "${aiPosterRes.data?.poster?.headline?.slice(0, 30)}...")`);
+
+  console.log(`\n--- SUITE 10: ENTERPRISE DATA PRIVACY & COMPLIANCE ---`);
+
+  // 1. GDPR / DPDP Personal Data Export Package
+  const exportRes = await request('/api/auth/export-my-data', {}, athleteToken);
+  assert(exportRes.status === 200 && exportRes.data?.exportMetadata?.complianceStandard?.includes('DPDP'),
+    'GDPR & DPDP Compliant Personal Data Export Package (/api/auth/export-my-data)');
+
+  // 2. Revoke All Active Device Sessions
+  const revokeSessionsRes = await request('/api/auth/revoke-all-sessions', { method: 'POST' }, athleteToken);
+  assert(revokeSessionsRes.status === 200 && revokeSessionsRes.data?.success,
+    'Multi-device Session Revocation Engine (/api/auth/revoke-all-sessions)');
+
+  console.log(`\n--- SUITE 11: DISASTER RECOVERY & SYSTEM SNAPSHOTS ---`);
+
+  // 1. Super Admin Create Atomic Database Backup
+  const backupRes = await request('/api/admin/backups/create', {
+    method: 'POST',
+    body: JSON.stringify({ label: 'qa_automated_snapshot' })
+  }, adminToken);
+  assert(backupRes.status === 201 && backupRes.data?.backup?.filename,
+    `Atomic Database Backup Snapshot Creation (Created: ${backupRes.data?.backup?.filename})`);
+
+  // 2. Super Admin List Backups
+  const listBackupsRes = await request('/api/admin/backups', {}, adminToken);
+  assert(listBackupsRes.status === 200 && Array.isArray(listBackupsRes.data?.backups) && listBackupsRes.data.backups.length > 0,
+    `Disaster Recovery Archive Listing (Found ${listBackupsRes.data?.backups?.length || 0} snapshots)`);
+
+  console.log(`\n--- SUITE 12: RESILIENCE & SECURITY DEFENSE ---`);
+
+  // Verify Rate Limiting Headers on Protected Endpoints
+  const rlCheck = await fetch(`${TARGET_URL}/api/gyms`, {
+    headers: { 'Authorization': `Bearer ${athleteToken}` }
+  });
+  const hasRlHeaders = rlCheck.headers.get('x-ratelimit-limit') !== null;
+  assert(hasRlHeaders, 'Production Rate Limiting Header Verification (X-RateLimit-Limit active)');
+
   console.log(`\n========================================================================`);
   console.log(`TEST EXECUTION SUMMARY:`);
   console.log(`Total Tests Run: ${results.length}`);

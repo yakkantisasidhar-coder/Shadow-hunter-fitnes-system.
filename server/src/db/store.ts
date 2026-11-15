@@ -84,6 +84,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, '../../data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
+const BACKUP_DIR = path.join(DATA_DIR, 'backups');
 
 export interface DatabaseSchema {
   users: Array<{
@@ -640,6 +641,65 @@ class DatabaseStore {
     } catch (err) {
       console.error('Failed to save db.json:', err);
     }
+  }
+
+  public createBackup(label?: string): { backupPath: string; filename: string; timestamp: string; sizeBytes: number } {
+    this.ensureDirectoryExists();
+    if (!fs.existsSync(BACKUP_DIR)) {
+      fs.mkdirSync(BACKUP_DIR, { recursive: true });
+    }
+    const cleanLabel = (label || 'manual').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `db-backup-${timestamp}-${cleanLabel}.json`;
+    const backupPath = path.join(BACKUP_DIR, filename);
+
+    // Write current atomic state snapshot
+    fs.writeFileSync(backupPath, JSON.stringify(this.data, null, 2), 'utf-8');
+    const stats = fs.statSync(backupPath);
+
+    return {
+      backupPath,
+      filename,
+      timestamp: new Date().toISOString(),
+      sizeBytes: stats.size
+    };
+  }
+
+  public listBackups(): Array<{ filename: string; timestamp: string; sizeBytes: number }> {
+    if (!fs.existsSync(BACKUP_DIR)) return [];
+    const files = fs.readdirSync(BACKUP_DIR);
+    return files
+      .filter(f => f.endsWith('.json'))
+      .map(filename => {
+        const fullPath = path.join(BACKUP_DIR, filename);
+        const stats = fs.statSync(fullPath);
+        return {
+          filename,
+          timestamp: stats.mtime.toISOString(),
+          sizeBytes: stats.size
+        };
+      })
+      .sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  }
+
+  public restoreBackup(filename: string): boolean {
+    const safeFilename = path.basename(filename);
+    const backupPath = path.join(BACKUP_DIR, safeFilename);
+    if (!fs.existsSync(backupPath)) {
+      throw new Error(`Backup snapshot file '${safeFilename}' does not exist.`);
+    }
+
+    const raw = fs.readFileSync(backupPath, 'utf-8');
+    const parsed = JSON.parse(raw) as DatabaseSchema;
+
+    // Safety validation of core tables before applying restore
+    if (!parsed.users || !parsed.userProfiles || !parsed.gyms) {
+      throw new Error('Invalid backup file: Essential database schemas missing from snapshot.');
+    }
+
+    this.data = parsed;
+    this.save();
+    return true;
   }
 
   private createInitialData(): DatabaseSchema {

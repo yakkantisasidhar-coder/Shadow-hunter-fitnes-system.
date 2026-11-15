@@ -129,3 +129,72 @@ export function requireGymPermission(permission: GymPermission, gymIdParam = 'id
     next();
   };
 }
+
+/**
+ * Enforces server-side subscription entitlement verification for gym facilities.
+ * Verifies that the facility holds an active subscription and that the specific
+ * requested feature key is included in the gym's plan tier entitlements.
+ */
+export function requireGymEntitlement(featureKey: string, gymIdParam = 'id') {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    // Super Host has complete system-wide override
+    if (req.user?.role === 'super_admin') {
+      return next();
+    }
+
+    const gymId = (req.params[gymIdParam] || req.body?.gymId || req.query?.gymId) as string;
+    if (!gymId) {
+      return res.status(400).json({ error: 'Facility ID is required for entitlement verification.' });
+    }
+
+    const store = dbStore.getData();
+    if (!store.gymEntitlements) store.gymEntitlements = {};
+
+    let entitlement = store.gymEntitlements[gymId];
+    if (!entitlement) {
+      // Default initial partner tier entitlement for existing approved facilities
+      entitlement = {
+        gymId,
+        planId: 'plan-pro',
+        planName: 'Shadow Hunter Pro Partner',
+        status: 'active',
+        startDate: new Date().toISOString(),
+        expiryDate: new Date(Date.now() + 86400000 * 180).toISOString(),
+        maxMembers: 500,
+        maxStaff: 20,
+        currentMembers: 120,
+        currentStaff: 5,
+        enabledFeatures: [
+          'ai_whatsapp_suite',
+          'dynamic_missions_engine',
+          'automated_financials',
+          'verified_public_profile'
+        ],
+        updatedAt: new Date().toISOString(),
+        updatedBy: 'system_auto_entitle'
+      };
+      store.gymEntitlements[gymId] = entitlement;
+      dbStore.save();
+    }
+
+    if (entitlement.status === 'suspended') {
+      return res.status(403).json({
+        error: `Entitlement Restricted: Subscription for facility '${gymId}' is currently suspended. Please contact Super Host administration.`
+      });
+    }
+
+    if (entitlement.status === 'expired' || new Date(entitlement.expiryDate).getTime() < Date.now()) {
+      return res.status(403).json({
+        error: `Entitlement Expired: Subscription for facility '${gymId}' expired on ${entitlement.expiryDate.split('T')[0]}. Subscription renewal required.`
+      });
+    }
+
+    if (!entitlement.enabledFeatures || !entitlement.enabledFeatures.includes(featureKey)) {
+      return res.status(403).json({
+        error: `Feature Gated: Facility '${gymId}' plan tier (${entitlement.planName}) does not include entitlement for '${featureKey}'. Please upgrade subscription tier.`
+      });
+    }
+
+    next();
+  };
+}

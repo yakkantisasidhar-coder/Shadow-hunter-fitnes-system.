@@ -18,13 +18,55 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
     { id: 'sess-2', device: 'PWA Mobile App • Android 15', ip: '172.56.21.90', location: 'Metropolis Region', current: false }
   ]);
   const [revokedNotice, setRevokedNotice] = useState<string | null>(null);
+  const [profileNotice, setProfileNotice] = useState<string | null>(null);
 
-  const handleExportData = () => {
+  const handleExportData = async () => {
     setExportLoading(true);
-    setTimeout(() => {
+    try {
+      const data = await api.exportMyData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `shadow-hunter-export-${user?.id || 'athlete'}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setRevokedNotice('Your complete athlete dataset has been securely compiled and downloaded.');
+      setTimeout(() => setRevokedNotice(null), 4000);
+    } catch (err: any) {
+      setRevokedNotice('Export failed: ' + (err.message || 'Network error'));
+      setTimeout(() => setRevokedNotice(null), 4000);
+    } finally {
       setExportLoading(false);
-      alert('Your complete athlete dataset (workouts, measurements, nutrition) has been compiled into JSON archive.');
-    }, 1000);
+    }
+  };
+
+  const handleRevokeSession = async (sessionDevice: string, sessionId: string) => {
+    try {
+      await api.revokeAllSessions();
+      setActiveSessions(prev => prev.filter(s => s.id !== sessionId));
+      setRevokedNotice(`Remote session ${sessionDevice} revoked and invalidated.`);
+      setTimeout(() => setRevokedNotice(null), 3000);
+    } catch (err: any) {
+      setRevokedNotice('Revocation error: ' + (err.message || 'Failed'));
+      setTimeout(() => setRevokedNotice(null), 3000);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (confirm('Are you sure you want to permanently erase your Shadow Hunter account? This action cannot be reversed.')) {
+      try {
+        await api.deleteAccount('DELETE_MY_ACCOUNT');
+        setRevokedNotice('Account has been deactivated. Logging out...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } catch (err: any) {
+        setRevokedNotice('Deletion error: ' + (err.message || 'Failed'));
+      }
+    }
   };
 
   return (
@@ -69,7 +111,8 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
             onClick={async () => {
               const nextVal = !(user?.publicProfileEnabled ?? true);
               await api.updateMemberPrivacySettings({ publicProfileEnabled: nextVal });
-              alert(`Public profile visibility ${nextVal ? 'enabled' : 'disabled'}.`);
+              setProfileNotice(`Public profile visibility ${nextVal ? 'enabled' : 'disabled'}.`);
+              setTimeout(() => setProfileNotice(null), 3000);
             }}
             className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${
               user?.publicProfileEnabled !== false
@@ -80,6 +123,13 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
             {user?.publicProfileEnabled !== false ? 'Enabled' : 'Private'}
           </button>
         </div>
+
+        {profileNotice && (
+          <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 text-xs font-bold text-primary flex items-center space-x-2">
+            <CheckCircle2 size={14} />
+            <span>{profileNotice}</span>
+          </div>
+        )}
 
         <div className="flex justify-end pt-1">
           <button
@@ -160,11 +210,7 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
                 </span>
               ) : (
                 <button
-                  onClick={() => {
-                    setActiveSessions(prev => prev.filter(s => s.id !== session.id));
-                    setRevokedNotice(`Remote session ${session.device} revoked and invalidated.`);
-                    setTimeout(() => setRevokedNotice(null), 3000);
-                  }}
+                  onClick={() => handleRevokeSession(session.device, session.id)}
                   className="text-xs font-bold text-rose-500 hover:underline cursor-pointer"
                 >
                   Revoke
@@ -210,11 +256,7 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
             </p>
           </div>
           <button
-            onClick={() => {
-              if (confirm('Are you sure you want to permanently erase your Shadow Hunter account? This action cannot be reversed.')) {
-                alert('Account purge scheduled in accordance with privacy regulations.');
-              }
-            }}
+            onClick={handleDeleteAccount}
             className="px-3.5 py-1.5 rounded-xl bg-rose-500/10 text-rose-500 text-xs font-bold hover:bg-rose-500/20"
           >
             Delete Account

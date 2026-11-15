@@ -16,6 +16,7 @@ import { notificationsRouter } from './routes/notifications.js';
 import { leaderboardsRouter } from './routes/leaderboards.js';
 import { whatsappRouter } from './routes/whatsapp.js';
 import { publicProfilesRouter } from './routes/publicProfiles.js';
+import { rateLimiter } from './middleware/rateLimiter.js';
 
 dotenv.config();
 
@@ -33,6 +34,19 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'x-user-id']
 }));
 app.use(express.json());
+
+// Production Rate Limiting
+app.use('/api/auth/login', rateLimiter({
+  windowMs: 60 * 1000,
+  maxRequests: 25,
+  keyPrefix: 'auth_login',
+  message: 'Too many authentication attempts. Please wait 60 seconds before retrying.'
+}));
+app.use('/api', rateLimiter({
+  windowMs: 60 * 1000,
+  maxRequests: 300,
+  keyPrefix: 'api_global'
+}));
 
 // Routes Mount
 app.use('/api/auth', authRouter);

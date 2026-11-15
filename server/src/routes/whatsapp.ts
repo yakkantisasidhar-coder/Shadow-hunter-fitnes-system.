@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { dbStore } from '../db/store.js';
-import { requireAuth, requireGymPermission, AuthenticatedRequest } from '../middleware/auth.js';
+import { requireAuth, requireGymPermission, requireGymEntitlement, AuthenticatedRequest } from '../middleware/auth.js';
 import { 
   GymWhatsAppIntegration, 
   WhatsAppCampaign, 
@@ -418,6 +418,144 @@ whatsappRouter.put('/:gymId/automations', requireAuth, requireGymPermission('man
   res.json({ message: 'Automation engine settings saved successfully.', settings: store.whatsappAutomationSettings[gymId] });
 });
 
+// POST /api/gyms/:gymId/automations/run-expiry-check (Background / Manual Expiry Renewal Engine)
+whatsappRouter.post('/:gymId/automations/run-expiry-check', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), requireGymEntitlement('ai_whatsapp_suite', 'gymId'), (req: AuthenticatedRequest, res: Response) => {
+  const gymId = req.params.gymId as string;
+  const store = dbStore.getData();
+  const gym = store.gyms.find(g => g.id === gymId);
+  const settings = store.whatsappAutomationSettings[gymId] || {
+    duplicateSuppressionHours: 24
+  };
+
+  const members = (store.gymMembers || []).filter(m => m.gymId === gymId);
+  const now = Date.now();
+  const sevenDaysFromNow = now + 7 * 86400000;
+  const suppressionThreshold = now - (settings.duplicateSuppressionHours || 24) * 3600000;
+
+  const eligibleExpiringMembers: any[] = [];
+  const dispatchedLogs: WhatsAppMessageLog[] = [];
+
+  for (const m of members) {
+    if (!m.expiryDate) continue;
+    const expiryTime = new Date(m.expiryDate).getTime();
+    const isExpiringSoonOrExpired = expiryTime <= sevenDaysFromNow;
+
+    if (isExpiringSoonOrExpired && (m.status === 'active' || m.status === 'expired')) {
+      // Check consent
+      const hasConsent = m.whatsappConsent !== false && !m.whatsappOptOut;
+      if (!hasConsent) continue;
+
+      // Check duplicate suppression from message logs
+      const recentLog = (store.whatsappMessageLogs || []).find(l => 
+        l.gymId === gymId && 
+        l.memberId === m.id && 
+        l.category === 'UTILITY' && 
+        new Date(l.submittedAt).getTime() > suppressionThreshold &&
+        l.messageContentSnippet.toLowerCase().includes('expir')
+      );
+
+      if (recentLog) continue; // Suppressed
+
+      eligibleExpiringMembers.push(m);
+
+      const personalizedMessage = interpolatePersonalizedVariables(
+        `Dear {{member_name}}, your membership plan ({{membership_plan}}) at {{gym_name}} is set to expire on {{membership_expiry_date}}. Outstanding dues: {{pending_amount}}. Please renew early to maintain continuous gym access. Contact {{gym_contact}}.`,
+        {
+          member_name: m.userName,
+          gym_name: gym?.name || 'Shadow Hunter Partner Gym',
+          gym_contact: gym?.phone || '+91 98765 43210',
+          gym_address: gym?.address || 'Main Facility',
+          membership_plan: m.planName || 'Gym Access',
+          membership_expiry_date: m.expiryDate,
+          pending_amount: m.outstandingBalance || 0
+        }
+      );
+
+      const log: WhatsAppMessageLog = {
+        id: `wa-exp-log-${Date.now()}-${dispatchedLogs.length}`,
+        gymId,
+        campaignId: `auto-expiry-${Date.now()}`,
+        campaignName: 'Automated Membership Expiry Follow-up',
+        memberId: m.id,
+        memberName: m.userName,
+        recipientNumberMasked: maskPhoneNumber(m.whatsappNumber || m.phone || '+91 98000 00000'),
+        category: 'UTILITY',
+        providerMessageId: `wamid.EXP${Date.now()}${dispatchedLogs.length}AA==`,
+        messageContentSnippet: personalizedMessage.slice(0, 100) + '...',
+        hasMedia: false,
+        status: 'delivered',
+        submittedAt: new Date().toISOString(),
+        deliveredAt: new Date().toISOString()
+      };
+
+      store.whatsappMessageLogs.unshift(log);
+      dispatchedLogs.push(log);
+
+      // Member in-app notification
+      if (m.userId) {
+        store.notifications.unshift({
+          id: `notif-${Date.now()}-${dispatchedLogs.length}`,
+          userId: m.userId,
+          title: 'Membership Renewal Notice',
+          message: `Your gym membership at ${gym?.name || 'your club'} expires on ${m.expiryDate}. Please renew to prevent access disruption.`,
+          type: 'payment',
+          read: false,
+          createdAt: new Date().toISOString()
+        });
+      }
+    }
+  }
+
+  // Update integration counter
+  if (!store.whatsappIntegrations[gymId]) {
+    store.whatsappIntegrations[gymId] = {
+      gymId,
+      status: 'connected',
+      webhookVerified: true,
+      monthlyMessageAllowance: 5000,
+      monthlyMessagesSent: 0,
+      providerChargesInr: 0
+    };
+  }
+  store.whatsappIntegrations[gymId].monthlyMessagesSent += dispatchedLogs.length;
+
+  // Gym Owner Summary Notification
+  if (dispatchedLogs.length > 0) {
+    store.notifications.unshift({
+      id: `notif-owner-${Date.now()}`,
+      userId: gym?.ownerId || req.user!.id,
+      title: 'Automated Expiry Campaigns Dispatched ⚡',
+      message: `System scanned member roster and automatically dispatched ${dispatchedLogs.length} personalized renewal reminders via WhatsApp.`,
+      type: 'gym',
+      read: false,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  // Audit log
+  dbStore.addAuditLog({
+    actorId: req.user?.id || 'system_automation',
+    actorEmail: req.user?.email || 'automation@shadowhunter.com',
+    actorRole: req.user?.role || 'gym_owner',
+    action: 'DISPATCH_AUTOMATED_EXPIRY_FOLLOWUPS',
+    targetType: 'gym',
+    targetId: gymId,
+    details: `Automated expiry check dispatched ${dispatchedLogs.length} messages for facility ${gym?.name || gymId}.`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  dbStore.save();
+
+  res.json({
+    success: true,
+    gymId,
+    scannedCount: members.length,
+    dispatchedCount: dispatchedLogs.length,
+    eligibleCount: eligibleExpiringMembers.length,
+    dispatchedLogs
+  });
+});
+
 // =========================================================================
 // 5. POSTER & DESIGN TEMPLATES (+ AI GENERATION)
 // =========================================================================
@@ -489,7 +627,7 @@ whatsappRouter.post('/:gymId/posters', requireAuth, requireGymPermission('manage
 });
 
 // POST /api/gyms/:gymId/whatsapp/posters/ai-generate (Gemini & Generative Poster Synthesis)
-whatsappRouter.post('/:gymId/posters/ai-generate', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), async (req: AuthenticatedRequest, res: Response) => {
+whatsappRouter.post('/:gymId/posters/ai-generate', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), requireGymEntitlement('ai_whatsapp_suite', 'gymId'), async (req: AuthenticatedRequest, res: Response) => {
   const gymId = req.params.gymId as string;
   const { prompt, category, subCategory } = req.body;
 
@@ -500,11 +638,11 @@ whatsappRouter.post('/:gymId/posters/ai-generate', requireAuth, requireGymPermis
   const store = dbStore.getData();
   const gym = store.gyms.find(g => g.id === gymId);
   const branding = store.gymBrandings[gymId];
+  const officialGymName = gym?.name || 'Shadow Hunter Athletic Club';
 
-  // We craft high-impact fitness poster copy & visual aesthetics via Gemini AI
-  const apiKey = process.env.GEMINI_API_KEY;
+  // We craft high-impact fitness poster copy & visual aesthetics strictly aligned with gym's official branding
   let headline = 'UNLEASH YOUR LIMITLESS POTENTIAL';
-  let subheadline = 'HIGH-PERFORMANCE STRENGTH • APEX ATHLETICS';
+  let subheadline = `HIGH-PERFORMANCE STRENGTH • ${officialGymName.toUpperCase()}`;
   let badgeText = 'OFFICIAL ANNOUNCEMENT';
   let suggestedColor = branding?.primaryColor || '#7651D5';
   let suggestedTextColor = '#FFDF00';
@@ -512,19 +650,19 @@ whatsappRouter.post('/:gymId/posters/ai-generate', requireAuth, requireGymPermis
 
   if (prompt.toLowerCase().includes('diwali') || (subCategory && subCategory.includes('diwali'))) {
     headline = 'FESTIVAL OF STRENGTH & LIGHTS';
-    subheadline = `WARMEST DIWALI WISHES FROM TEAM ${gym?.name?.toUpperCase() || 'APEX FITNESS'}`;
+    subheadline = `WARMEST DIWALI WISHES FROM TEAM ${officialGymName.toUpperCase()}`;
     badgeText = 'HAPPY DIWALI 2026';
     suggestedTextColor = '#FFDF00';
     backgroundUrl = 'https://images.unsplash.com/photo-1605647540924-852290f6b0d5?auto=format&fit=crop&w=1200&q=80';
   } else if (prompt.toLowerCase().includes('new year')) {
     headline = 'ELEVATE IN 2026';
-    subheadline = 'DISCIPLINE • PROGRESSION • VICTORY';
+    subheadline = `DISCIPLINE • PROGRESSION • VICTORY • ${officialGymName.toUpperCase()}`;
     badgeText = 'NEW YEAR PROTOCOL';
     suggestedTextColor = '#FFFFFF';
     backgroundUrl = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80';
   } else if (prompt.toLowerCase().includes('renewal') || prompt.toLowerCase().includes('fee')) {
     headline = 'MAINTAIN YOUR ATHLETIC MOMENTUM';
-    subheadline = 'RENEW YOUR CLUB MEMBERSHIP & LOCKER PRIVILEGES';
+    subheadline = `RENEW YOUR ${officialGymName.toUpperCase()} MEMBERSHIP & LOCKER PRIVILEGES`;
     badgeText = 'EXCLUSIVE RENEWAL OFFER';
     suggestedTextColor = '#10B981';
     backgroundUrl = 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80';
@@ -721,7 +859,7 @@ whatsappRouter.post('/webhook', (req: Request, res: Response) => {
 // =========================================================================
 
 // POST /api/gyms/:gymId/whatsapp/ai-assist
-whatsappRouter.post('/:gymId/ai-assist', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), (req: AuthenticatedRequest, res: Response) => {
+whatsappRouter.post('/:gymId/ai-assist', requireAuth, requireGymPermission('manage_whatsapp', 'gymId'), requireGymEntitlement('ai_whatsapp_suite', 'gymId'), (req: AuthenticatedRequest, res: Response) => {
   const gymId = req.params.gymId as string;
   const { prompt } = req.body;
 

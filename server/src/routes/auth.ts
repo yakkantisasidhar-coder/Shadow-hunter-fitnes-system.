@@ -253,3 +253,128 @@ authRouter.post('/switch-account', (req, res) => {
     user: profile
   });
 });
+
+// ==========================================
+// PRIVACY & DATA RIGHTS (GDPR / DPDP ACT COMPLIANT)
+// ==========================================
+
+// Export All Personal Data Package
+authRouter.get('/export-my-data', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const userId = req.user.id;
+  const store = dbStore.getData();
+
+  const profile = store.userProfiles[userId] || null;
+  const userWorkouts = (store.workoutHistory || []).filter(w => w.userId === userId);
+  const userNutrition = (store.nutritionLogs || []).filter(n => n.userId === userId);
+  const userMeasurements = (store.bodyMeasurements || []).filter(m => m.userId === userId);
+  const userPhotos = (store.progressPhotos || []).filter(p => p.userId === userId);
+  const userNotifications = (store.notifications || []).filter(n => n.userId === userId);
+  const userPayments = (store.payments || []).filter(p => p.userId === userId);
+  const userMissionProgress = (store.userMissionProgress || []).filter(p => p.userId === userId);
+  const userPointTransactions = (store.pointTransactions || []).filter(p => p.userId === userId);
+  const gymMembership = (store.gymMembers || []).find(m => m.userId === userId || m.userEmail === req.user?.email);
+
+  const exportArchive = {
+    exportMetadata: {
+      generatedAt: new Date().toISOString(),
+      platform: 'SHADOW HUNTER FITNESS SYSTEM',
+      systemVersion: '1.0.0-Enterprise',
+      userId,
+      complianceStandard: 'Digital Personal Data Protection Act (DPDP) & GDPR'
+    },
+    userProfile: profile,
+    workoutSessions: userWorkouts,
+    nutritionLogs: userNutrition,
+    bodyMeasurements: userMeasurements,
+    progressPhotos: userPhotos,
+    notifications: userNotifications,
+    billingAndPayments: userPayments,
+    missionProgress: userMissionProgress,
+    pointsLedger: userPointTransactions,
+    gymMembership: gymMembership || null
+  };
+
+  dbStore.addAuditLog({
+    actorId: userId,
+    actorEmail: req.user.email,
+    actorRole: req.user.role,
+    action: 'DATA_EXPORT_REQUESTED',
+    targetType: 'user',
+    targetId: userId,
+    details: 'User requested and downloaded complete personal data export package.',
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Disposition', `attachment; filename=shadow-hunter-export-${userId}.json`);
+  return res.json(exportArchive);
+});
+
+// Revoke All Active Sessions
+authRouter.post('/revoke-all-sessions', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const userId = req.user.id;
+  const profile = dbStore.getUserProfile(userId);
+  if (profile) {
+    (profile as any).sessionsRevokedAt = new Date().toISOString();
+    dbStore.setUserProfile(userId, profile);
+  }
+
+  dbStore.addAuditLog({
+    actorId: userId,
+    actorEmail: req.user.email,
+    actorRole: req.user.role,
+    action: 'REVOKE_ALL_SESSIONS',
+    targetType: 'user',
+    targetId: userId,
+    details: 'User revoked all other active login device sessions.',
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  return res.json({
+    success: true,
+    message: 'All other active device sessions have been successfully terminated.'
+  });
+});
+
+// Delete / Deactivate Account
+authRouter.post('/delete-account', requireAuth, (req: AuthenticatedRequest, res: Response) => {
+  if (!req.user) return res.status(401).json({ error: 'Unauthorized' });
+
+  const userId = req.user.id;
+  const { confirmation } = req.body;
+
+  if (confirmation !== 'DELETE_MY_ACCOUNT') {
+    return res.status(400).json({ 
+      error: 'Confirmation phrase required. Please provide confirmation: "DELETE_MY_ACCOUNT".' 
+    });
+  }
+
+  const profile = dbStore.getUserProfile(userId);
+  if (profile) {
+    profile.isSuspended = true;
+    (profile as any).deactivatedAt = new Date().toISOString();
+    profile.fullName = 'Deactivated Athlete';
+    profile.publicProfileEnabled = false;
+    dbStore.setUserProfile(userId, profile);
+  }
+
+  dbStore.addAuditLog({
+    actorId: userId,
+    actorEmail: req.user.email,
+    actorRole: req.user.role,
+    action: 'ACCOUNT_DEACTIVATED',
+    targetType: 'user',
+    targetId: userId,
+    details: 'User requested self-service account deactivation and data concealment.',
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  return res.json({
+    success: true,
+    message: 'Your account has been deactivated. Personal tracking data is concealed.'
+  });
+});

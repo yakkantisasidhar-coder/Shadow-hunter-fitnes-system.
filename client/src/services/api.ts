@@ -99,6 +99,23 @@ class ApiService {
     });
   }
 
+  public exportMyData() {
+    return this.request('/auth/export-my-data');
+  }
+
+  public revokeAllSessions() {
+    return this.request('/auth/revoke-all-sessions', {
+      method: 'POST'
+    });
+  }
+
+  public deleteAccount(confirmation: string) {
+    return this.request('/auth/delete-account', {
+      method: 'POST',
+      body: JSON.stringify({ confirmation })
+    });
+  }
+
   public switchAccount(targetRole: string) {
     return this.request('/auth/switch-account', {
       method: 'POST',

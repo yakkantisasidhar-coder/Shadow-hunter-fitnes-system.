@@ -1216,6 +1216,69 @@ adminRouter.post('/platform-staff/groups', (req: AuthenticatedRequest, res: Resp
   res.status(201).json({ group: newGroup });
 });
 
+// ==========================================
+// DISASTER RECOVERY & ATOMIC BACKUP MANAGEMENT
+// ==========================================
+
+// List Available Database Backups
+adminRouter.get('/backups', requireSuperAdmin, (_req: AuthenticatedRequest, res: Response) => {
+  const backups = dbStore.listBackups();
+  res.json({ backups, total: backups.length });
+});
+
+// Trigger Snapshot Backup
+adminRouter.post('/backups/create', requireSuperAdmin, (req: AuthenticatedRequest, res: Response) => {
+  const { label } = req.body;
+  const backup = dbStore.createBackup(label || 'admin_snapshot');
+
+  dbStore.addAuditLog({
+    actorId: req.user!.id,
+    actorEmail: req.user!.email,
+    actorRole: 'super_admin',
+    action: 'CREATE_DATABASE_BACKUP',
+    targetType: 'system',
+    targetId: backup.filename,
+    details: `Created atomic database backup snapshot: ${backup.filename} (${Math.round(backup.sizeBytes / 1024)} KB)`,
+    ipAddress: req.ip || '127.0.0.1'
+  });
+
+  res.status(201).json({
+    success: true,
+    message: 'Atomic database snapshot created successfully.',
+    backup
+  });
+});
+
+// Restore Snapshot Backup
+adminRouter.post('/backups/restore', requireSuperAdmin, (req: AuthenticatedRequest, res: Response) => {
+  const { filename } = req.body;
+  if (!filename) {
+    return res.status(400).json({ error: 'Snapshot filename is required for restoration.' });
+  }
+
+  try {
+    dbStore.restoreBackup(filename);
+
+    dbStore.addAuditLog({
+      actorId: req.user!.id,
+      actorEmail: req.user!.email,
+      actorRole: 'super_admin',
+      action: 'RESTORE_DATABASE_BACKUP',
+      targetType: 'system',
+      targetId: filename,
+      details: `Restored database state from backup snapshot: ${filename}`,
+      ipAddress: req.ip || '127.0.0.1'
+    });
+
+    res.json({
+      success: true,
+      message: `Database successfully restored from snapshot '${filename}'.`
+    });
+  } catch (err: any) {
+    res.status(400).json({ error: err.message || 'Restoration failed' });
+  }
+});
+
 
 
 

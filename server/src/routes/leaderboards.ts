@@ -112,11 +112,21 @@ leaderboardsRouter.get('/members', (req: Request, res: Response) => {
       const trainingMinutes = userWorkouts.reduce((sum, w) => sum + (w.durationMinutes || 0), 0) + (profile.id === 'user-athlete-1' ? 980 : 840);
       const verifiedAchievementsCount = achievements.filter(a => a.isUnlocked).length + (profile.id === 'user-athlete-1' ? 4 : 3);
 
+      // Dynamically reflect verified dynamic mission points and ranking score
+      const store = dbStore.getData();
+      const userPointTxs = (store.pointTransactions || []).filter(
+        p => p.userId === profile.id && p.verificationStatus === 'verified'
+      );
+      const dynamicMissionPoints = userPointTxs.reduce((sum, p) => sum + (p.pointsEarned || 0), 0);
+      const baseRankingScore = (profile as any).rankingScore || 1000;
+
       const progressScore = Math.round(
         (workoutsCount * 30) + 
         (trainingMinutes * 0.5) + 
         (volumeKg * 0.01) + 
-        (verifiedAchievementsCount * 50)
+        (verifiedAchievementsCount * 50) +
+        dynamicMissionPoints +
+        (baseRankingScore - 1000)
       );
 
       const userGym = gyms.find(g => g.id === profile.gymId);
@@ -197,19 +207,32 @@ leaderboardsRouter.get('/trainers', (req: Request, res: Response) => {
   const gyms = dbStore.getData().gyms;
 
   let trainerRankings: TrainerRankingItem[] = trainers.map((t, idx) => {
+    const store = dbStore.getData();
     const trainerGym = gyms.find(g => g.id === t.gymId);
     const avgRating = t.averageRating || 4.9;
     const revCount = t.reviewCount || 40;
     const clients = t.assignedClientsCount || 8;
     const certCount = t.certifications?.filter(c => c.verified).length || 3;
 
-    // Score based on verified rating, student testimonials, and athlete load
+    // Student achievement contribution to trainer rankings
+    const trainerStudents = (store.gymMembers || []).filter(
+      m => m.assignedTrainerName === t.name || m.serviceDetails?.personalTraining?.trainerId === t.id || (m as any).trainerId === t.id
+    );
+    const studentUserIds = new Set(trainerStudents.map(s => s.userId).filter(Boolean));
+    const studentPointTxs = (store.pointTransactions || []).filter(
+      p => studentUserIds.has(p.userId) && p.verificationStatus === 'verified'
+    );
+    const studentPointsTotal = studentPointTxs.reduce((sum, p) => sum + (p.pointsEarned || 0), 0);
+    const studentBonusScore = Math.round(studentPointsTotal * 0.15) + (trainerStudents.length * 20);
+
+    // Score based on verified rating, student testimonials, athlete load, and student achievements
     const score = Math.round(
       (avgRating * 200) + 
       (revCount * 15) + 
       (clients * 25) + 
       (certCount * 50) + 
-      (t.experienceYears * 10)
+      (t.experienceYears * 10) +
+      studentBonusScore
     );
 
     return {

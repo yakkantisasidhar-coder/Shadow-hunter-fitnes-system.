@@ -176,7 +176,8 @@
       },
       "districtRank": 4,
       "stateRank": 6,
-      "nationalRank": 11
+      "nationalRank": 11,
+      "sessionsRevokedAt": "2026-11-15T12:42:11.805Z"
     }
   },
   "exercises": [
@@ -817,6 +818,39 @@
   ],
   "workoutHistory": [
     {
+      "id": "hist-1794746531732",
+      "userId": "user-athlete-1",
+      "programTitle": "Automated QA Hypertrophy Validation",
+      "completedAt": "2026-11-15T12:42:11.732Z",
+      "durationMinutes": 45,
+      "caloriesBurned": 350,
+      "exercisesCount": 4,
+      "totalSets": 12,
+      "totalVolumeKg": 1200
+    },
+    {
+      "id": "hist-1794746508487",
+      "userId": "user-athlete-1",
+      "programTitle": "Automated QA Hypertrophy Validation",
+      "completedAt": "2026-11-15T12:41:48.487Z",
+      "durationMinutes": 45,
+      "caloriesBurned": 350,
+      "exercisesCount": 4,
+      "totalSets": 12,
+      "totalVolumeKg": 1200
+    },
+    {
+      "id": "hist-1794745926349",
+      "userId": "user-athlete-1",
+      "programTitle": "Automated QA Hypertrophy Validation",
+      "completedAt": "2026-11-15T12:32:06.349Z",
+      "durationMinutes": 45,
+      "caloriesBurned": 350,
+      "exercisesCount": 4,
+      "totalSets": 12,
+      "totalVolumeKg": 1200
+    },
+    {
       "id": "hist-1794677665108",
       "userId": "user-athlete-1",
       "programTitle": "Automated QA Hypertrophy Validation",
@@ -1019,6 +1053,48 @@
         "dinner": [],
         "snacks": []
       }
+    },
+    {
+      "id": "nutr-1794745926359",
+      "userId": "user-athlete-1",
+      "date": "2026-11-15",
+      "calorieTarget": 2800,
+      "waterTargetMl": 3000,
+      "waterCurrentMl": 0,
+      "meals": {
+        "breakfast": [],
+        "lunch": [
+          {
+            "id": "meal-1794745926364-bbo9",
+            "name": "Grilled Salmon with Quinoa & Asparagus",
+            "calories": 550,
+            "proteinGrams": 45,
+            "carbsGrams": 40,
+            "fatGrams": 18,
+            "servingSize": "1 serving"
+          },
+          {
+            "id": "meal-1794746508500-1bqs",
+            "name": "Grilled Salmon with Quinoa & Asparagus",
+            "calories": 550,
+            "proteinGrams": 45,
+            "carbsGrams": 40,
+            "fatGrams": 18,
+            "servingSize": "1 serving"
+          },
+          {
+            "id": "meal-1794746531743-lf5n",
+            "name": "Grilled Salmon with Quinoa & Asparagus",
+            "calories": 550,
+            "proteinGrams": 45,
+            "carbsGrams": 40,
+            "fatGrams": 18,
+            "servingSize": "1 serving"
+          }
+        ],
+        "dinner": [],
+        "snacks": []
+      }
     }
   ],
   "bodyMeasurements": [
@@ -1130,6 +1206,45 @@
       "id": "meas-1794677665154",
       "userId": "user-athlete-1",
       "date": "2026-11-14",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794745926374",
+      "userId": "user-athlete-1",
+      "date": "2026-11-15",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794746508518",
+      "userId": "user-athlete-1",
+      "date": "2026-11-15",
+      "weightKg": 78.5,
+      "chestCm": 104,
+      "waistCm": 81,
+      "armsCm": 39,
+      "thighsCm": 0,
+      "hipsCm": 0,
+      "calvesCm": 0,
+      "notes": ""
+    },
+    {
+      "id": "meas-1794746531754",
+      "userId": "user-athlete-1",
+      "date": "2026-11-15",
       "weightKg": 78.5,
       "chestCm": 104,
       "waistCm": 81,
@@ -1746,6 +1861,51 @@
   ],
   "notifications": [
     {
+      "id": "notif-1794746531786",
+      "userId": "user-owner-1",
+      "title": "PAYMENT RECEIVED 💰",
+      "message": "Member: John Doe | Amount: ₹1,500 | Method: UPI | Status: PAID | Remaining Dues: ₹0",
+      "type": "payment",
+      "read": false,
+      "createdAt": "2026-11-15T12:42:11.786Z"
+    },
+    {
+      "id": "notif-1794746531735",
+      "userId": "user-athlete-1",
+      "title": "Workout Logged!",
+      "message": "Great work! You crushed \"Automated QA Hypertrophy Validation\" and burned ~350 kcal.",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-15T12:42:11.735Z"
+    },
+    {
+      "id": "notif-1794746508570",
+      "userId": "user-owner-1",
+      "title": "PAYMENT RECEIVED 💰",
+      "message": "Member: John Doe | Amount: ₹1,500 | Method: UPI | Status: PAID | Remaining Dues: ₹0",
+      "type": "payment",
+      "read": false,
+      "createdAt": "2026-11-15T12:41:48.586Z"
+    },
+    {
+      "id": "notif-1794746508489",
+      "userId": "user-athlete-1",
+      "title": "Workout Logged!",
+      "message": "Great work! You crushed \"Automated QA Hypertrophy Validation\" and burned ~350 kcal.",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-15T12:41:48.490Z"
+    },
+    {
+      "id": "notif-1794745926351",
+      "userId": "user-athlete-1",
+      "title": "Workout Logged!",
+      "message": "Great work! You crushed \"Automated QA Hypertrophy Validation\" and burned ~350 kcal.",
+      "type": "workout",
+      "read": false,
+      "createdAt": "2026-11-15T12:32:06.351Z"
+    },
+    {
       "id": "notif-1794727600134",
       "userId": "user-owner-1",
       "title": "PAYMENT RECEIVED 💰",
@@ -1828,6 +1988,258 @@
     }
   ],
   "auditLogs": [
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "CREATE_DATABASE_BACKUP",
+      "targetType": "system",
+      "targetId": "db-backup-2026-11-15T12-42-11-811Z-qa_automated_snapshot.json",
+      "details": "Created atomic database backup snapshot: db-backup-2026-11-15T12-42-11-811Z-qa_automated_snapshot.json (154 KB)",
+      "ipAddress": "::1",
+      "id": "audit-1794746531815-kozhj",
+      "timestamp": "2026-11-15T12:42:11.815Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "REVOKE_ALL_SESSIONS",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User revoked all other active login device sessions.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531807-5kxx1",
+      "timestamp": "2026-11-15T12:42:11.807Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "DATA_EXPORT_REQUESTED",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User requested and downloaded complete personal data export package.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531801-fjwgq",
+      "timestamp": "2026-11-15T12:42:11.801Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "DISPATCH_AUTOMATED_EXPIRY_FOLLOWUPS",
+      "targetType": "gym",
+      "targetId": "gym-apex-1",
+      "details": "Automated expiry check dispatched 0 messages for facility Apex Performance Athletic Club.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531793-vgbbu",
+      "timestamp": "2026-11-15T12:42:11.793Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "RECORD_VERIFIED_PAYMENT",
+      "targetType": "payment",
+      "targetId": "gpay-1794746531786",
+      "details": "Verified payment of ₹1500 for member John Doe (TX-REC-MWHTQUVE). Balance updated to ₹0.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531786-xkuo2",
+      "timestamp": "2026-11-15T12:42:11.786Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531719-f2yr9",
+      "timestamp": "2026-11-15T12:42:11.719Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531714-el3vh",
+      "timestamp": "2026-11-15T12:42:11.714Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531709-aerze",
+      "timestamp": "2026-11-15T12:42:11.709Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746531704-a7zhe",
+      "timestamp": "2026-11-15T12:42:11.704Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "CREATE_DATABASE_BACKUP",
+      "targetType": "system",
+      "targetId": "db-backup-2026-11-15T12-41-48-621Z-qa_automated_snapshot.json",
+      "details": "Created atomic database backup snapshot: db-backup-2026-11-15T12-41-48-621Z-qa_automated_snapshot.json (148 KB)",
+      "ipAddress": "::1",
+      "id": "audit-1794746508626-nu86z",
+      "timestamp": "2026-11-15T12:41:48.626Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "REVOKE_ALL_SESSIONS",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User revoked all other active login device sessions.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508615-ubnwc",
+      "timestamp": "2026-11-15T12:41:48.615Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "DATA_EXPORT_REQUESTED",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User requested and downloaded complete personal data export package.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508604-p1vma",
+      "timestamp": "2026-11-15T12:41:48.604Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "RECORD_VERIFIED_PAYMENT",
+      "targetType": "payment",
+      "targetId": "gpay-1794746508570",
+      "details": "Verified payment of ₹1500 for member John Doe (TX-REC-MWHTQCYI). Balance updated to ₹0.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508586-q5efk",
+      "timestamp": "2026-11-15T12:41:48.586Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508465-m5x59",
+      "timestamp": "2026-11-15T12:41:48.465Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508460-6m7ii",
+      "timestamp": "2026-11-15T12:41:48.460Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508453-fatnq",
+      "timestamp": "2026-11-15T12:41:48.453Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794746508447-k8rlb",
+      "timestamp": "2026-11-15T12:41:48.447Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794745926332-9zeve",
+      "timestamp": "2026-11-15T12:32:06.332Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794745926327-8yqp3",
+      "timestamp": "2026-11-15T12:32:06.327Z"
+    },
+    {
+      "actorId": "user-member-1",
+      "actorEmail": "member@apexfitness.com",
+      "actorRole": "gym_member",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-member-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794745926317-8f8k0",
+      "timestamp": "2026-11-15T12:32:06.317Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794745926308-qv7nd",
+      "timestamp": "2026-11-15T12:32:06.308Z"
+    },
     {
       "actorId": "user-owner-1",
       "actorEmail": "owner@apexfitness.com",
@@ -2640,6 +3052,42 @@
         "role": "assistant",
         "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
         "timestamp": "2026-11-14T17:34:25.146Z"
+      },
+      {
+        "id": "msg-1794745926369-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-15T12:32:06.369Z"
+      },
+      {
+        "id": "msg-1794745926370-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-15T12:32:06.370Z"
+      },
+      {
+        "id": "msg-1794746508512-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-15T12:41:48.512Z"
+      },
+      {
+        "id": "msg-1794746508512-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-15T12:41:48.512Z"
+      },
+      {
+        "id": "msg-1794746531749-u",
+        "role": "user",
+        "content": "Recommend an optimal pre-workout carbohydrate meal timing.",
+        "timestamp": "2026-11-15T12:42:11.749Z"
+      },
+      {
+        "id": "msg-1794746531749-a",
+        "role": "assistant",
+        "content": "### Strategic Fitness Insight\nFor your current focus on **muscle building**:\n\n- **Progression Pillar**: Ensure every training session has a tracked variable—either adding one rep, increasing the load by 1 kg, or improving time-under-tension.\n- **Sleep & Recovery**: The neuromuscular system recovers predominantly during Stage 3/4 slow-wave sleep. Target 7.5 to 8.5 hours in a cool, dark environment.\n- **Session Duration**: With your available time of **60 minutes**, prioritize 3-4 multi-joint compound movements over excessive single-joint isolation.\n\nHow else can I assist with your split or nutrition today?",
+        "timestamp": "2026-11-15T12:42:11.749Z"
       }
     ]
   },
@@ -2808,6 +3256,32 @@
     }
   ],
   "gymPayments": [
+    {
+      "id": "gpay-1794746531786",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "John Doe",
+      "amount": 1500,
+      "paymentMethod": "upi",
+      "receiptNumber": "TX-REC-MWHTQUVE",
+      "invoiceId": "inv-1794746531786",
+      "recordedBy": "owner@apexfitness.com",
+      "recordedAt": "2026-11-15T12:42:11.786Z",
+      "notes": "Automated QA Test Payment"
+    },
+    {
+      "id": "gpay-1794746508570",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "John Doe",
+      "amount": 1500,
+      "paymentMethod": "upi",
+      "receiptNumber": "TX-REC-MWHTQCYI",
+      "invoiceId": "inv-1794746508570",
+      "recordedBy": "owner@apexfitness.com",
+      "recordedAt": "2026-11-15T12:41:48.570Z",
+      "notes": "Automated QA Test Payment"
+    },
     {
       "id": "gpay-1794727600134",
       "gymId": "gym-apex-1",
