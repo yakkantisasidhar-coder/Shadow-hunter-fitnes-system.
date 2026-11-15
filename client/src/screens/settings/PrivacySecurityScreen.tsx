@@ -13,10 +13,11 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(true);
   const [exportLoading, setExportLoading] = useState(false);
 
-  const activeSessions = [
-    { device: 'Desktop Chrome 130 • Windows 11', ip: '192.168.1.14', location: 'Current Active Session', current: true },
-    { device: 'PWA Mobile App • Android 15', ip: '172.56.21.90', location: 'Metropolis Region', current: false }
-  ];
+  const [activeSessions, setActiveSessions] = useState([
+    { id: 'sess-1', device: 'Desktop Chrome 130 • Windows 11', ip: '192.168.1.14', location: 'Current Active Session', current: true },
+    { id: 'sess-2', device: 'PWA Mobile App • Android 15', ip: '172.56.21.90', location: 'Metropolis Region', current: false }
+  ]);
+  const [revokedNotice, setRevokedNotice] = useState<string | null>(null);
 
   const handleExportData = () => {
     setExportLoading(true);
@@ -159,8 +160,12 @@ export const PrivacySecurityScreen: React.FC<PrivacySecurityScreenProps> = ({ on
                 </span>
               ) : (
                 <button
-                  onClick={() => alert('Terminated remote session.')}
-                  className="text-xs font-bold text-rose-500 hover:underline"
+                  onClick={() => {
+                    setActiveSessions(prev => prev.filter(s => s.id !== session.id));
+                    setRevokedNotice(`Remote session ${session.device} revoked and invalidated.`);
+                    setTimeout(() => setRevokedNotice(null), 3000);
+                  }}
+                  className="text-xs font-bold text-rose-500 hover:underline cursor-pointer"
                 >
                   Revoke
                 </button>

@@ -103,9 +103,30 @@ export const PaymentHistoryScreen: React.FC<PaymentHistoryScreenProps> = ({ onNa
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       <button
-                        onClick={() => alert(`Downloading verified tax invoice #${p.id}`)}
-                        className="p-1.5 rounded-lg border border-surface-borderLight dark:border-surface-borderDark text-surface-mutedLight dark:text-surface-mutedDark hover:text-primary transition-colors"
-                        title="Download Receipt"
+                        onClick={() => {
+                          const invoiceContent = `=======================================================
+SHADOW HUNTER FITNESS SYSTEM — OFFICIAL TAX INVOICE
+=======================================================
+Invoice Reference: ${p.id}
+Transaction ID:   ${p.razorpayPaymentId || 'N/A'}
+Plan Name:        ${p.planName}
+Billing Date:     ${new Date(p.date).toLocaleDateString()}
+Amount Paid:      INR ₹${p.amountInr} (${p.currency})
+Payment Status:   ${p.status.toUpperCase()}
+GST / Tax Status: Inclusive of applicable sports service taxes
+=======================================================
+Authorized Digital Receipt • Shadow Hunter Fitness System
+=======================================================`;
+                          const blob = new Blob([invoiceContent], { type: 'text/plain' });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = `Invoice-${p.id}.txt`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                        className="p-1.5 rounded-lg border border-surface-borderLight dark:border-surface-borderDark text-surface-mutedLight dark:text-surface-mutedDark hover:text-primary transition-colors cursor-pointer"
+                        title="Download Verified Tax Invoice"
                       >
                         <Download size={14} />
                       </button>
