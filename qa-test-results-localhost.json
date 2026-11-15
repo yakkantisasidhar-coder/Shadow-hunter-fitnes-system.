@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-11-14T17:34:25.193Z",
+  "target": "http://localhost:5000",
+  "passedTests": 32,
+  "failedTests": 0,
+  "results": [
+    {
+      "name": "Health Check Endpoint (/api/health)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Individual Athlete Login (alex@shadowhunter.com)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Member Login (member@apexfitness.com)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Owner Login (owner@apexfitness.com)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Super Admin Login (admin@shadowhunter.com)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Invalid Password Rejection (401 Unauthorized)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Nonexistent User Login Rejection (401 Unauthorized)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Get Authenticated Profile (/api/auth/me)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Exercise Library Discovery (Found 17 exercises)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Workout Programs Discovery (Found 5 programs)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Log Workout Session (/api/workouts/log)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch Workout History (/api/workouts/history)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch Daily Nutrition Log (/api/nutrition/today)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Log Food / Meal (/api/nutrition/log-meal)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch AI Chat History (/api/ai/history)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "AI Coach Intelligent Response Generation",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Log Body Measurements (/api/progress/measurements)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch Progress Dashboard Stats (/api/progress/stats)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch Fitness Challenges (/api/challenges)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Fetch Achievements & Badges (/api/challenges/achievements)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Directory Discovery (Found 2 gyms)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Owner Member Roster Clearance (/api/gyms/:id/members)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Owner Financials Access (/api/gyms/:id/financials)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym Personal Training Packages Access",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Gym WhatsApp Communication Hub Templates",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Privilege Escalation Protection: Athlete calling /api/admin/metrics blocked (403)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Privilege Escalation Protection: Gym Owner calling /api/admin/metrics blocked (403)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Unauthenticated Admin Call Blocked (401)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Super Admin Clearance Granted for /api/admin/metrics",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Super Admin Audit Logs Retrieval",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Cross-Gym Isolation: Athlete blocked from private member roster (403)",
+      "status": "PASSED",
+      "details": ""
+    },
+    {
+      "name": "Header Forgery Vulnerability Check",
+      "status": "PASSED",
+      "details": "Server rejected header bypass with status 401"
+    }
+  ]
+}

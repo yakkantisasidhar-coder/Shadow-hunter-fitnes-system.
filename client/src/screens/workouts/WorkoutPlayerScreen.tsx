@@ -18,7 +18,7 @@ import { api } from '../../services/api';
 import { Exercise } from '../../types';
 
 interface WorkoutPlayerScreenProps {
-  onNavigate: (screen: string) => void;
+  onNavigate: (screen: string, param?: string) => void;
   programId?: string;
 }
 
@@ -305,17 +305,43 @@ export const WorkoutPlayerScreen: React.FC<WorkoutPlayerScreenProps> = ({ onNavi
           </p>
         </div>
 
-        {/* Visual Animation Simulator */}
-        <div className="h-44 rounded-2xl bg-gradient-to-b from-surface-light dark:from-[#1b1926] to-transparent border border-surface-borderLight dark:border-surface-borderDark flex flex-col items-center justify-center p-4 relative overflow-hidden">
-          <Dumbbell
-            size={52}
-            className={`text-primary transition-all duration-700 ${
-              !isPaused ? 'animate-pulse scale-110' : 'opacity-50'
-            }`}
-          />
-          <span className="text-[11px] font-bold uppercase tracking-widest text-surface-mutedLight dark:text-surface-mutedDark mt-3">
-            Reps In Motion • Tempo: 2-0-1-0
-          </span>
+        {/* Visual Demonstration Studio */}
+        <div className="rounded-3xl bg-gradient-to-b from-surface-light dark:from-[#1b1926] to-transparent border border-surface-borderLight dark:border-surface-borderDark p-6 flex flex-col items-center justify-center relative overflow-hidden">
+          {/* Anatomical Schematic SVG & Motion Visualization */}
+          <div className="relative w-full max-w-sm h-48 flex items-center justify-center bg-black/5 dark:bg-black/20 rounded-2xl border border-surface-borderLight dark:border-surface-borderDark overflow-hidden">
+            <svg viewBox="0 0 200 120" className="w-full h-full text-primary drop-shadow-md">
+              {/* Bench or Platform */}
+              <rect x="30" y="80" width="140" height="8" rx="3" fill="currentColor" opacity="0.3" />
+              <rect x="50" y="88" width="8" height="25" rx="2" fill="currentColor" opacity="0.4" />
+              <rect x="142" y="88" width="8" height="25" rx="2" fill="currentColor" opacity="0.4" />
+              
+              {/* Athlete Silhouette in Motion */}
+              <circle cx="65" cy="70" r="10" fill="currentColor" opacity="0.6" />
+              <rect x="75" y="65" width="55" height="15" rx="5" fill="currentColor" opacity="0.7" />
+              
+              {/* Barbell / Load Moving along Biomechanical Path */}
+              <g className={`transition-all duration-700 ${!isPaused ? 'translate-y-[-12px]' : ''}`}>
+                <line x1="60" y1="52" x2="140" y2="52" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                <rect x="62" y="42" width="6" height="20" rx="2" fill="#7651D5" />
+                <rect x="132" y="42" width="6" height="20" rx="2" fill="#7651D5" />
+              </g>
+
+              {/* Muscle Zone Highlight */}
+              <ellipse cx="95" cy="68" rx="14" ry="7" fill="#7651D5" opacity="0.5" className="animate-pulse" />
+            </svg>
+
+            <span className="absolute bottom-2 right-3 text-[10px] font-mono uppercase text-surface-mutedLight px-2 py-0.5 rounded bg-white/40 dark:bg-black/40 backdrop-blur-sm">
+              Biomechanical Demo
+            </span>
+          </div>
+
+          <div className="mt-3 flex items-center justify-between w-full max-w-sm text-xs font-bold">
+            <span className="text-surface-mutedLight dark:text-surface-mutedDark">Target: <strong className="text-primary">{currentExercise.muscle}</strong></span>
+            <span className="text-emerald-500 flex items-center space-x-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
+              <span>Real-Time Tempo 2-0-1-0</span>
+            </span>
+          </div>
         </div>
 
         {/* Set Matrix */}

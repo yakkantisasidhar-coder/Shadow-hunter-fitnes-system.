@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { RankingScope } from '../../types';
+import { ALL_INDIAN_STATES, getDistrictsByState } from '../../data/indiaGeoData';
 
 interface LeaderboardsScreenProps {
   onNavigate: (screen: string, param?: string) => void;
@@ -42,8 +43,8 @@ export const LeaderboardsScreen: React.FC<LeaderboardsScreenProps> = ({ onNaviga
   const [loading, setLoading] = useState(false);
 
   // Available states & districts in system
-  const availableStates = ['Telangana', 'Karnataka', 'Maharashtra', 'Delhi NCR', 'California'];
-  const availableDistricts = ['Hyderabad', 'Rangareddy', 'Medchal', 'Bangalore Urban', 'Mumbai Suburban', 'San Francisco'];
+  const availableStates = ALL_INDIAN_STATES;
+  const availableDistricts = getDistrictsByState(selectedState);
 
   useEffect(() => {
     fetchLeaderboardData();
