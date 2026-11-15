@@ -1359,7 +1359,8 @@
           "totalSessions": 12,
           "remainingSessions": 9
         }
-      }
+      },
+      "paymentStatus": "paid"
     },
     {
       "id": "gm-1794379928518",
@@ -1745,6 +1746,15 @@
   ],
   "notifications": [
     {
+      "id": "notif-1794727600134",
+      "userId": "user-owner-1",
+      "title": "PAYMENT RECEIVED 💰",
+      "message": "Member: Sarah Jenkins | Amount: ₹2,500 | Method: UPI | Status: PAID | Remaining Dues: ₹0",
+      "type": "payment",
+      "read": false,
+      "createdAt": "2026-11-15T07:26:40.165Z"
+    },
+    {
       "id": "notif-1794677665117",
       "userId": "user-athlete-1",
       "title": "Workout Logged!",
@@ -1818,6 +1828,90 @@
     }
   ],
   "auditLogs": [
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727625913-nlq6r",
+      "timestamp": "2026-11-15T07:27:05.913Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "RECORD_VERIFIED_PAYMENT",
+      "targetType": "payment",
+      "targetId": "gpay-1794727600134",
+      "details": "Verified payment of ₹2500 for member Sarah Jenkins (TX-REC-MWHIH346). Balance updated to ₹0.",
+      "ipAddress": "::1",
+      "id": "audit-1794727600165-uagfh",
+      "timestamp": "2026-11-15T07:26:40.165Z"
+    },
+    {
+      "actorId": "user-owner-1",
+      "actorEmail": "owner@apexfitness.com",
+      "actorRole": "gym_owner",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-owner-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727600103-ohpsr",
+      "timestamp": "2026-11-15T07:26:40.103Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727572964-kg4h5",
+      "timestamp": "2026-11-15T07:26:12.964Z"
+    },
+    {
+      "actorId": "user-admin-1",
+      "actorEmail": "admin@shadowhunter.com",
+      "actorRole": "super_admin",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-admin-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727546716-9saov",
+      "timestamp": "2026-11-15T07:25:46.716Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727414563-i8b36",
+      "timestamp": "2026-11-15T07:23:34.563Z"
+    },
+    {
+      "actorId": "user-athlete-1",
+      "actorEmail": "alex@shadowhunter.com",
+      "actorRole": "individual",
+      "action": "USER_LOGIN",
+      "targetType": "user",
+      "targetId": "user-athlete-1",
+      "details": "User authenticated successfully.",
+      "ipAddress": "::1",
+      "id": "audit-1794727389600-lsdoi",
+      "timestamp": "2026-11-15T07:23:09.600Z"
+    },
     {
       "actorId": "user-admin-1",
       "actorEmail": "admin@shadowhunter.com",
@@ -2714,6 +2808,19 @@
     }
   ],
   "gymPayments": [
+    {
+      "id": "gpay-1794727600134",
+      "gymId": "gym-apex-1",
+      "memberId": "gm-1",
+      "memberName": "Sarah Jenkins",
+      "amount": 2500,
+      "paymentMethod": "upi",
+      "receiptNumber": "TX-REC-MWHIH346",
+      "invoiceId": "inv-1794727600134",
+      "recordedBy": "owner@apexfitness.com",
+      "recordedAt": "2026-11-15T07:26:40.134Z",
+      "notes": "Monthly renewal automated test"
+    },
     {
       "id": "pay-rec-1794406257497-een9",
       "gymId": "gym-apex-1",
@@ -4003,6 +4110,27 @@
       "entityType": "member",
       "targetUserId": "user-athlete-1",
       "allocatedAt": "2026-04-12T00:00:00.000Z"
+    },
+    {
+      "id": "GYM-000002",
+      "entityType": "gym_owner",
+      "targetUserId": "gym-apex-1",
+      "targetGymId": "gym-apex-1",
+      "allocatedAt": "2026-11-15T07:25:46.754Z"
+    },
+    {
+      "id": "GYM-000003",
+      "entityType": "gym_owner",
+      "targetUserId": "user-owner-2",
+      "targetGymId": "gym-titan-2",
+      "allocatedAt": "2026-11-15T07:25:46.754Z"
+    },
+    {
+      "id": "GYM-000004",
+      "entityType": "gym_owner",
+      "targetUserId": "gym-titan-2",
+      "targetGymId": "gym-titan-2",
+      "allocatedAt": "2026-11-15T07:25:46.754Z"
     }
   ],
   "gymEntitlements": {
